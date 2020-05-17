@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  cracker-client:
+    build:
+      context: ./../cracker-client
+    networks:
+      - cracknet
+    ports:
+      - "80:80"
+
+  cracker-server:
+    build:
+      context: ./../cracker-server
+    networks:
+      - cracknet
+
+networks:
+  cracknet:
+    driver: bridge

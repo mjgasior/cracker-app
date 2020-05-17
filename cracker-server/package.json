@@ -1,0 +1,24 @@
+{
+  "name": "cracker-server",
+  "version": "0.0.1",
+  "main": "src/index.js",
+  "repository": "https://github.com/mjgasior/cracker-server.git",
+  "author": "Michal J. Gasior <michaljgasior@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon src/index.js --exec babel-node --presets babel-preset-env"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  },
+  "dependencies": {
+    "apollo-server": "^2.12.0",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "dotenv": "^8.2.0",
+    "graphql": "^15.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "jwks-rsa": "^1.8.0"
+  }
+}
