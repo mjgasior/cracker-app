@@ -9,8 +9,6 @@ export function Home() {
       </p>
       <p>{process.env.REACT_APP_API_URL}</p>
       <p>{process.env.REACT_APP_AUTH0_ORIGIN}</p>
-      <p>{process.env.REACT_APP_AUTH0_DOMAIN}</p>
-      <p>{process.env.REACT_APP_AUTH0_CLIENT_ID}</p>
     </div>
   );
 }
