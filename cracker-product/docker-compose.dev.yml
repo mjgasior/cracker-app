@@ -1,5 +1,10 @@
 version: "3"
 services:
+  cracker-db:
+    image: mongo:4.2.6
+    ports:
+      - "27017:27017"
+
   cracker-client:
     build:
       context: ./../cracker-client
@@ -20,6 +25,7 @@ services:
       context: ./../cracker-server
       dockerfile: Dockerfile.dev
     environment:
+      - MONGODB_ADDRESS=cracker-db:27017
       - CHOKIDAR_USEPOLLING=true
     volumes:
       - ./../cracker-server:/usr/src/api

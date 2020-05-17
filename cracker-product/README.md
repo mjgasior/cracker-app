@@ -18,29 +18,22 @@
      - `http://localhost:3000/` - running app fully locally
      - `http://the.ip.of.docker.machine/` - running app as Docker production build
 
-### Setup for completely separate run:
+### Development build:
 
-1. Run MongoDB `docker run -p 27017:27017 -it mongo:4.2.6`
-2. Configure `cracker-server` to run locally with MongoDB in Docker (set .env in `cracker-server` to have `MONGODB_ADDRESS=192.168.99.100:27017`) and run `yarn start`.
-3. Configure `cracker-client` to run locally with `cracker-server` (set .env in `cracker-client` to have `REACT_APP_API_URL=http://localhost:4000/api` and `REACT_APP_AUTH0_ORIGIN=http://localhost:3000`) and run `yarn start`.
-4. App should be available at `http://localhost:3000` and [`Apollo Playground`](https://www.apollographql.com/docs/apollo-server/testing/graphql-playground/) at `http://localhost:4000/`.
-
-### Remember to keep this folder structure while cloning:
-
-    .
-    ├── cracker-client      # Cracker client cloned repository
-    ├── cracker-server      # Cracker server cloned repository
-    └── cracker-product     # This repository
+1. Run `docker-compose -f docker-compose.dev.yml build`
+2. Run `docker-compose -f docker-compose.dev.yml up`
 
 ### Production build:
 
 1. Run `docker-compose build`
 2. Run `docker-compose up`
 
-### Development build:
+### Setup for completely separate run:
 
-1. Run `docker-compose -f docker-compose.dev.yml build`
-2. Run `docker-compose -f docker-compose.dev.yml up`
+1. Run MongoDB `docker run -p 27017:27017 -it mongo:4.2.6`
+2. Configure `cracker-server` to run locally with MongoDB in Docker (set .env in `cracker-server` to have `MONGODB_ADDRESS=192.168.99.100:27017`) and run `yarn start`.
+3. Configure `cracker-client` to run locally with `cracker-server` (set .env in `cracker-client` to have `REACT_APP_API_URL=http://localhost:4000/api` and `REACT_APP_AUTH0_ORIGIN=http://localhost:3000`) and run `yarn start`.
+4. App should be available at `http://localhost:3000` and [Apollo Playground](https://www.apollographql.com/docs/apollo-server/testing/graphql-playground/) at `http://localhost:4000/`.
 
 ## Snippets:
 
