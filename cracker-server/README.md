@@ -1,13 +1,26 @@
 # Cracker server
 
-Before starting the app please pepare a .env file which will include there values:
+Before starting the app:
 
-    AUTH0_DOMAIN="YOUR_AUTH0_DOMAIN"
-    AUTH0_CLIENT_ID="YOUR_AUTH0_CLIENT_ID"
+- run `docker run -p 27017:27017 -it mongo:4.2.6`
+- please pepare a .env file which will include there values:
+
+  AUTH0_DOMAIN="YOUR_AUTH0_DOMAIN"
+  AUTH0_CLIENT_ID="YOUR_AUTH0_CLIENT_ID"
+  MONGODB_ADDRESS="YOUR_MONGODB_ADDRESS"
 
 ## Snippets:
 
 - `docker exec -it container_id_or_name ash` - starting shell in the Docker Alpine container (Alpine doesn't have bash by default)
+- sample mutation
+
+```
+  mutation {
+    addUser(firstName: "Slavoj", lastName: "Žižek") {
+      firstName
+    }
+  }
+```
 
 ## Run production build with Docker Compose:
 
@@ -30,6 +43,7 @@ For Docker Compose instructions refer to `cracker-product` repository.
 - `jsonwebtoken` - JsonWebToken implementation for Node.js
 - `jwks-rsa` - a library to retrieve RSA public keys from a JWKS (JSON Web Key Set) endpoint
 - `nodemon` - a utility that will monitor for any changes in your source and automatically restart your server
+- `mongoose` - mongodb object modeling for node.js
 
 ## Visual Studio Code extensions:
 
@@ -37,10 +51,8 @@ For Docker Compose instructions refer to `cracker-product` repository.
 
 ## Resources:
 
+- [Create a GraphQL API with graphql-compose-mongoose](https://getstream.io/blog/tutorial-create-a-graphql-api-with-node-mongoose-and-express/)
 - [Dockerizing Node.js applications (online exercise)](https://www.katacoda.com/courses/docker/3# "Katacoda course")
 - [Enable ES6 (and beyond) syntax with Node and Express](https://www.freecodecamp.org/news/how-to-enable-es6-and-beyond-syntax-with-node-and-express-68d3e11fe1ab/)
-
-- [Create a GraphQL API with Node, Mongoose, and Express](https://getstream.io/blog/tutorial-create-a-graphql-api-with-node-mongoose-and-express/)
-- [GraphQL API using Docker + PostgreSQL + PostGraphile](https://medium.com/coderbunker/a-better-way-to-develop-your-graphql-api-using-docker-postgresql-postgraphile-7a1ae034b826)
-- [Getting Started With MongoDB As A Docker Container Deployment](https://www.thepolyglotdeveloper.com/2019/01/getting-started-mongodb-docker-container-deployment/)
-- [GQL and MongoDB](https://www.apollographql.com/blog/tutorial-building-a-graphql-server-cddaa023c035)
+- [Modularizing GraphQL schema code](https://www.apollographql.com/blog/modularizing-your-graphql-schema-code-d7f71d5ed5f2)
+- [The Beginner’s Guide to using GraphQL with Node and Mongo](https://medium.com/@williamyang93/graphql-apollo-mongodb-mongoose-part-i-a727bb22f1f6)

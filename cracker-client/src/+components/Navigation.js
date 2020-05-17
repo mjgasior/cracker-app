@@ -18,6 +18,9 @@ const Navigation = () => {
         <li>
           <Link to="/books">Books</Link>
         </li>
+        <li>
+          <Link to="/users">Users</Link>
+        </li>
         {auth.isAuthenticated() && (
           <li>
             <Link to="/addbook">Add a book</Link>

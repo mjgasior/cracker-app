@@ -13,9 +13,13 @@ const books = [
     title: "Rzeczy, których nie wyrzuciłem",
     author: "Marcin Wicha",
   },
+  {
+    title: "Violence",
+    author: "Slavoj Žižek",
+  },
 ];
 
-export const resolvers = {
+export const BookResolver = {
   Query: {
     books: () => books,
   },
