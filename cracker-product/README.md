@@ -37,6 +37,14 @@
 3. Configure `cracker-client` to run locally with `cracker-server` (set .env in `cracker-client` to have `REACT_APP_API_URL=http://localhost:4000/api` and `REACT_APP_AUTH0_ORIGIN=http://localhost:3000`) and run `yarn start`.
 4. App should be available at `http://localhost:3000` and [Apollo Playground](https://www.apollographql.com/docs/apollo-server/testing/graphql-playground/) at `http://localhost:4000/`.
 
+### Docker Hub:
+
+0. Log yourself in to Docker Hub `docker login`.
+1. Build Docker images.
+2. Tag them `docker tag 6d15e9c73b54 mjgasior/cracker-client:0.0.1`.
+3. Push them `docker push mjgasior/cracker-client:0.0.1`.
+4. Use them. :)
+
 ## Snippets:
 
 - `cat filename` - [display the contents of a text file in the command line](https://unix.stackexchange.com/questions/86321/how-can-i-display-the-contents-of-a-text-file-on-the-command-line "StackExchange answer")
