@@ -9,6 +9,14 @@ Before starting the app:
   AUTH0_CLIENT_ID="YOUR_AUTH0_CLIENT_ID"
   MONGODB_ADDRESS="YOUR_MONGODB_ADDRESS"
 
+Example:
+
+```
+  AUTH0_DOMAIN=domain.region.auth0.com
+  AUTH0_CLIENT_ID=i6mdgjdsjs45asdmfdg3453TADasdkaa
+  MONGODB_ADDRESS=192.168.99.100:27017
+```
+
 ## Snippets:
 
 - `docker exec -it container_id_or_name ash` - starting shell in the Docker Alpine container (Alpine doesn't have bash by default)
