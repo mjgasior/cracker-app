@@ -2,10 +2,12 @@ version: "3"
 services:
   cracker-db:
     image: mongo:4.2.6
+    container_name: cracker-db
     ports:
       - "27017:27017"
 
   cracker-client:
+    container_name: cracker-client
     build:
       context: ./../cracker-client
       dockerfile: Dockerfile.dev
@@ -21,6 +23,7 @@ services:
       - "80:3000" # For docker to now where to redirect HMR queries
 
   cracker-server:
+    container_name: cracker-server
     build:
       context: ./../cracker-server
       dockerfile: Dockerfile.dev

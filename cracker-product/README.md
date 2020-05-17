@@ -63,3 +63,4 @@ As I found, this might be a [faulty DNS](https://github.com/gliderlabs/docker-al
 
 - [Dockerizing a React App](https://mherman.org/blog/dockerizing-a-react-app/)
 - [Docker Tips](https://nickjanetakis.com/blog/docker-tip-2-the-difference-between-copy-and-add-in-a-dockerile)
+- [Managing MongoDB on docker with docker-compose](https://medium.com/faun/managing-mongodb-on-docker-with-docker-compose-26bf8a0bbae3)

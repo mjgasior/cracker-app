@@ -58,6 +58,7 @@ For Docker Compose instructions refer to `cracker-product` repository.
 
 ## Resources:
 
+- [Authorization in Mongoose](https://mongoosejs.com/docs/connections.html)
 - [Create a GraphQL API with graphql-compose-mongoose](https://getstream.io/blog/tutorial-create-a-graphql-api-with-node-mongoose-and-express/)
 - [Dockerizing Node.js applications (online exercise)](https://www.katacoda.com/courses/docker/3# "Katacoda course")
 - [Enable ES6 (and beyond) syntax with Node and Express](https://www.freecodecamp.org/news/how-to-enable-es6-and-beyond-syntax-with-node-and-express-68d3e11fe1ab/)
