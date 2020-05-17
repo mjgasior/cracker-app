@@ -9,7 +9,7 @@ services:
       - "27017:27017"
 
   cracker-client:
-    image: mjgasior/cracker-client:0.0.2
+    image: mjgasior/cracker-client:0.0.3
     networks:
       - cracknet
     ports:
