@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  cracker-db:
+    image: mongo:4.2.6
+    networks:
+      - cracknet
+    ports:
+      - "27017:27017"
+
+  cracker-client:
+    image: mjgasior/cracker-client:0.0.1
+    networks:
+      - cracknet
+    ports:
+      - "80:80"
+
+  cracker-server:
+    image: mjgasior/cracker-server:0.0.1
+    environment:
+      - MONGODB_ADDRESS=cracker-db:27017
+    networks:
+      - cracknet
+
+networks:
+  cracknet:
+    driver: bridge
