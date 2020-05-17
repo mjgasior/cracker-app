@@ -9,14 +9,14 @@ services:
       - "27017:27017"
 
   cracker-client:
-    image: mjgasior/cracker-client:latest
+    image: mjgasior/cracker-client:0.0.2
     networks:
       - cracknet
     ports:
       - "80:80"
 
   cracker-server:
-    image: mjgasior/cracker-server:latest
+    image: mjgasior/cracker-server:0.0.1
     environment:
       - MONGODB_ADDRESS=cracker-db:27017
       - REACT_APP_AUTH0_ORIGIN=http://3.125.33.234

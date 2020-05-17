@@ -4,8 +4,8 @@ COPY package.json yarn.lock ./
 RUN yarn
 COPY . ./
 
-ENV REACT_APP_API_URL=http://192.168.99.100/api
-ENV REACT_APP_AUTH0_ORIGIN=http://192.168.99.100
+ENV REACT_APP_API_URL=http://3.125.33.234//api
+ENV REACT_APP_AUTH0_ORIGIN=http://3.125.33.234/
 RUN yarn build
 
 FROM nginx:1.12-alpine
