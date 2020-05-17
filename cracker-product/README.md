@@ -64,3 +64,4 @@ As I found, this might be a [faulty DNS](https://github.com/gliderlabs/docker-al
 - [Dockerizing a React App](https://mherman.org/blog/dockerizing-a-react-app/)
 - [Docker Tips](https://nickjanetakis.com/blog/docker-tip-2-the-difference-between-copy-and-add-in-a-dockerile)
 - [Managing MongoDB on docker with docker-compose](https://medium.com/faun/managing-mongodb-on-docker-with-docker-compose-26bf8a0bbae3)
+- [Unable to start Docker MongoDB image on Windows with a volume](https://stackoverflow.com/questions/54911021/unable-to-start-docker-mongo-image-on-windows "Stack Overflow question")

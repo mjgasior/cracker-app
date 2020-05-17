@@ -3,6 +3,8 @@ services:
   cracker-db:
     image: mongo:4.2.6
     container_name: cracker-db
+    volumes:
+      - mongodb_data:/data/db
     ports:
       - "27017:27017"
 
@@ -34,3 +36,7 @@ services:
       - ./../cracker-server:/usr/src/api
     ports:
       - "4000:4000"
+
+volumes:
+  mongodb_data:
+    driver: local
