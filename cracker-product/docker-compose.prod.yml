@@ -5,6 +5,8 @@ services:
     image: mongo:4.2.6
     networks:
       - cracknet
+    ports:
+      - "27017:27017"
 
   cracker-client:
     build:
@@ -18,7 +20,7 @@ services:
     build:
       context: ./../cracker-server
     environment:
-      - MONGODB_ADDRESS=cracker-db
+      - MONGODB_ADDRESS=cracker-db:27017
     networks:
       - cracknet
 

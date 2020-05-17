@@ -20,11 +20,13 @@
 
 ### Production build:
 
+0. Remember to set up proper Auth0 values.
 1. Run `docker-compose -f docker-compose.prod.yml build`
 2. Run `docker-compose -f docker-compose.prod.yml up`
 
 ### Development build:
 
+0. Remember to set up proper Auth0 values.
 1. Run `docker-compose build`
 2. Run `docker-compose up`
 
