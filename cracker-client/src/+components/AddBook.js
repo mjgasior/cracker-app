@@ -11,10 +11,19 @@ const ADD_BOOK = gql`
   }
 `;
 
+const ADD_USER = gql`
+  mutation addUser($firstName: String!, $lastName: String!) {
+    addUser(firstName: $firstName, lastName: $lastName) {
+      firstName
+    }
+  }
+`;
+
 export function AddBook() {
   const [author, setAuthor] = useState("");
   const [title, setTitle] = useState("");
   const [addBook, { data, error }] = useMutation(ADD_BOOK);
+  const [addUser] = useMutation(ADD_USER);
 
   if (error) {
     console.log(error);
@@ -45,7 +54,14 @@ export function AddBook() {
       </p>
       <p>
         <button onClick={() => addBook({ variables: { title, author } })}>
-          Upload!
+          Upload book!
+        </button>
+        <button
+          onClick={() =>
+            addUser({ variables: { firstName: title, lastName: author } })
+          }
+        >
+          Upload user!
         </button>
       </p>
       {data && (

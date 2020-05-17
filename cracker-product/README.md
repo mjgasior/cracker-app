@@ -18,25 +18,22 @@
      - `http://localhost:3000/` - running app fully locally
      - `http://the.ip.of.docker.machine/` - running app as Docker production build
 
-### Remember to keep this folder structure while cloning:
-
-    .
-    ├── cracker-client      # Cracker client cloned repository
-    ├── cracker-server      # Cracker server cloned repository
-    └── cracker-product     # This repository
-
 ### Production build:
 
-1. Run `git clone https://github.com/mjgasior/cracker-client.git` for [Cracker client](https://github.com/mjgasior/cracker-client)
-2. Run `git clone https://github.com/mjgasior/cracker-server.git` for [Cracker server](https://github.com/mjgasior/cracker-server)
-3. Run `docker-compose build`
-4. Run `docker-compose up`
+1. Run `docker-compose -f docker-compose.prod.yml build`
+2. Run `docker-compose -f docker-compose.prod.yml up`
 
 ### Development build:
 
-1. Clone repositories as mentioned in the paragraph above
-2. Run `docker-compose -f docker-compose.dev.yml build`
-3. Run `docker-compose -f docker-compose.dev.yml up`
+1. Run `docker-compose build`
+2. Run `docker-compose up`
+
+### Setup for completely separate run:
+
+1. Run MongoDB `docker run -p 27017:27017 -it mongo:4.2.6`
+2. Configure `cracker-server` to run locally with MongoDB in Docker (set .env in `cracker-server` to have `MONGODB_ADDRESS=192.168.99.100:27017`) and run `yarn start`.
+3. Configure `cracker-client` to run locally with `cracker-server` (set .env in `cracker-client` to have `REACT_APP_API_URL=http://localhost:4000/api` and `REACT_APP_AUTH0_ORIGIN=http://localhost:3000`) and run `yarn start`.
+4. App should be available at `http://localhost:3000` and [Apollo Playground](https://www.apollographql.com/docs/apollo-server/testing/graphql-playground/) at `http://localhost:4000/`.
 
 ## Snippets:
 
@@ -66,3 +63,5 @@ As I found, this might be a [faulty DNS](https://github.com/gliderlabs/docker-al
 
 - [Dockerizing a React App](https://mherman.org/blog/dockerizing-a-react-app/)
 - [Docker Tips](https://nickjanetakis.com/blog/docker-tip-2-the-difference-between-copy-and-add-in-a-dockerile)
+- [Managing MongoDB on docker with docker-compose](https://medium.com/faun/managing-mongodb-on-docker-with-docker-compose-26bf8a0bbae3)
+- [Unable to start Docker MongoDB image on Windows with a volume](https://stackoverflow.com/questions/54911021/unable-to-start-docker-mongo-image-on-windows "Stack Overflow question")

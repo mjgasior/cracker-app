@@ -9,6 +9,13 @@ Before starting the app please pepare a `.env` file which will include these val
     REACT_APP_AUTH0_DOMAIN="Auth0 user domain"
     REACT_APP_AUTH0_CLIENT_ID="Auth0 user client ID"
 
+Example:
+
+    REACT_APP_API_URL=http://192.168.99.100/api
+    REACT_APP_AUTH0_ORIGIN=http://192.168.99.100
+    REACT_APP_AUTH0_DOMAIN=domain.region.auth0.com
+    REACT_APP_AUTH0_CLIENT_ID=i6mdgjdsjs45asdmfdg3453TADasdkaa
+
 ## Snippets:
 
 - `git update-index --assume-unchanged FILE_NAME` - [keep a file in the repository but make Git ignore changes](https://stackoverflow.com/questions/9794931/keep-file-in-a-git-repo-but-dont-track-changes "Stack Overflow answer")
