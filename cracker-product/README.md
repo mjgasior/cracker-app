@@ -18,12 +18,12 @@
      - `http://localhost:3000/` - running app fully locally
      - `http://the.ip.of.docker.machine/` - running app as Docker production build
 
-### Development build:
-
-1. Run `docker-compose -f docker-compose.dev.yml build`
-2. Run `docker-compose -f docker-compose.dev.yml up`
-
 ### Production build:
+
+1. Run `docker-compose -f docker-compose.prod.yml build`
+2. Run `docker-compose -f docker-compose.prod.yml up`
+
+### Development build:
 
 1. Run `docker-compose build`
 2. Run `docker-compose up`
