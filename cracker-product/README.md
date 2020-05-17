@@ -27,16 +27,13 @@
 
 ### Production build:
 
-1. Run `git clone https://github.com/mjgasior/cracker-client.git` for [Cracker client](https://github.com/mjgasior/cracker-client)
-2. Run `git clone https://github.com/mjgasior/cracker-server.git` for [Cracker server](https://github.com/mjgasior/cracker-server)
-3. Run `docker-compose build`
-4. Run `docker-compose up`
+1. Run `docker-compose build`
+2. Run `docker-compose up`
 
 ### Development build:
 
-1. Clone repositories as mentioned in the paragraph above
-2. Run `docker-compose -f docker-compose.dev.yml build`
-3. Run `docker-compose -f docker-compose.dev.yml up`
+1. Run `docker-compose -f docker-compose.dev.yml build`
+2. Run `docker-compose -f docker-compose.dev.yml up`
 
 ## Snippets:
 

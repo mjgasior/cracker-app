@@ -5,19 +5,16 @@ Before starting the app:
 - run `docker run -p 27017:27017 -it mongo:4.2.6`
 - please pepare a .env file which will include there values:
 
-```
-  AUTH0_DOMAIN="YOUR_AUTH0_DOMAIN"
-  AUTH0_CLIENT_ID="YOUR_AUTH0_CLIENT_ID"
-  MONGODB_ADDRESS="YOUR_MONGODB_ADDRESS"
-```
+
+    AUTH0_DOMAIN="YOUR_AUTH0_DOMAIN"
+    AUTH0_CLIENT_ID="YOUR_AUTH0_CLIENT_ID"
+    MONGODB_ADDRESS="YOUR_MONGODB_ADDRESS"
 
 Example:
 
-```
-  AUTH0_DOMAIN=domain.region.auth0.com
-  AUTH0_CLIENT_ID=i6mdgjdsjs45asdmfdg3453TADasdkaa
-  MONGODB_ADDRESS=192.168.99.100:27017
-```
+    AUTH0_DOMAIN=domain.region.auth0.com
+    AUTH0_CLIENT_ID=i6mdgjdsjs45asdmfdg3453TADasdkaa
+    MONGODB_ADDRESS=192.168.99.100:27017
 
 ## Snippets:
 
