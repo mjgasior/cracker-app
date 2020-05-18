@@ -6,6 +6,7 @@ const ADD_USER = gql`
   mutation addUser($firstName: String!, $lastName: String!) {
     addUser(firstName: $firstName, lastName: $lastName) {
       firstName
+      lastName
     }
   }
 `;
@@ -50,8 +51,10 @@ export const AddUser = () => {
       {data && (
         <div>
           <p>Done!</p>
-          <p>For title of {data.addUser.title}</p>
-          <p>and author {data.addUser.author}</p>
+          <p>
+            My first name is {data.addUser.firstName} and last name is{" "}
+            {data.addUser.lastName}!
+          </p>
         </div>
       )}
     </div>

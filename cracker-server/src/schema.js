@@ -1,10 +1,7 @@
 import { gql } from "apollo-server";
 import { makeExecutableSchema } from "graphql-tools";
 
-import { Book } from "./+types/bookType";
 import { User } from "./+types/userType";
-
-import { BookResolver } from "./+resolvers/bookResolver";
 import { UserResolver } from "./+resolvers/userResolver";
 
 const Base = gql`
@@ -18,6 +15,6 @@ const Base = gql`
 `;
 
 export const schema = makeExecutableSchema({
-  typeDefs: [Base, Book, User],
-  resolvers: [BookResolver, UserResolver],
+  typeDefs: [Base, User],
+  resolvers: [UserResolver],
 });
