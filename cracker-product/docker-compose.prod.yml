@@ -2,6 +2,7 @@ version: "3"
 
 services:
   cracker-db:
+    container_name: cracker-db
     image: mongo:4.2.6
     networks:
       - cracknet
@@ -9,6 +10,7 @@ services:
       - "27017:27017"
 
   cracker-client:
+    container_name: cracker-client
     build:
       context: ./../cracker-client
     networks:
@@ -17,6 +19,7 @@ services:
       - "80:80"
 
   cracker-server:
+    container_name: cracker-server
     build:
       context: ./../cracker-server
     environment:
