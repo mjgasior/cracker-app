@@ -41,8 +41,8 @@
 
 0. Log yourself in to Docker Hub `docker login`.
 1. Build Docker images.
-2. Tag them `docker tag 6d15e9c73b54 mjgasior/cracker-client:0.0.1`.
-3. Push them `docker push mjgasior/cracker-client:0.0.1`.
+2. Tag them `docker tag 6d15e9c73b54 mjgasior/cracker-client:0.0.3`.
+3. Push them `docker push mjgasior/cracker-client:0.0.3`.
 4. Use them. :)
 
 ## Snippets:

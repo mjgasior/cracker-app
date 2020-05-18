@@ -7,6 +7,8 @@ services:
       - cracknet
     ports:
       - "27017:27017"
+    volumes:
+      - ./../database:/data/db
 
   cracker-client:
     image: mjgasior/cracker-client:0.0.3
