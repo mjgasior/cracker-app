@@ -16,14 +16,11 @@ const Navigation = () => {
           <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to="/books">Books</Link>
-        </li>
-        <li>
           <Link to="/users">Users</Link>
         </li>
         {auth.isAuthenticated() && (
           <li>
-            <Link to="/addbook">Add a book</Link>
+            <Link to="/adduser">Add a user</Link>
           </li>
         )}
         <li>
