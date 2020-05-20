@@ -19,6 +19,7 @@ Example:
 ## Snippets:
 
 - `docker exec -it container_id_or_name ash` - starting shell in the Docker Alpine container (Alpine doesn't have bash by default)
+- `db.getCollection("users").find()` - show all users in [MongoDB Shell](https://docs.mongodb.com/manual/mongo/#working-with-the-mongo-shell)
 - sample mutation
 
 ```

@@ -8,6 +8,14 @@ Monorepo for Cracker app. Go to `cracker-product` for deployment and development
     chmod +x ./lightsail-compose.sh
     ./lightsail-compose.sh
 
+## AWS CLI for Lightsail:
+
+- [documentation](https://docs.aws.amazon.com/cli/latest/reference/lightsail/index.html)
+
+  curl -o lightsail-compose.sh https://raw.githubusercontent.com/mjgasior/cracker-app/master/lightsail-compose.sh
+  chmod +x ./lightsail-compose.sh
+  ./lightsail-compose.sh
+
 ## Resources:
 
 - [Deploying Docker Containers on Amazon Lightsail](https://www.youtube.com/watch?v=z525kfneC6E "YouTube video tutorial")
