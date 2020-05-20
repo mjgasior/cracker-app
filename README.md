@@ -10,6 +10,8 @@ Monorepo for Cracker app. Go to `cracker-product` for deployment and development
 
 ## AWS CLI for Lightsail:
 
+If on Windows, install the [AWS CLI in Git Bash](https://stackoverflow.com/questions/53015630/bash-aws-command-not-found-on-windows-7-in-git-bash).
+
 - [configure AWS CLI](https://lightsail.aws.amazon.com/ls/docs/en_us/articles/lightsail-how-to-set-up-access-keys-to-use-sdk-api-cli)
 - [documentation](https://docs.aws.amazon.com/cli/latest/reference/lightsail/index.html)
 - `aws lightsail get-blueprints` - returns blueprints for Lightsail instance
