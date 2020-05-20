@@ -19,6 +19,7 @@ If on Windows, install the [AWS CLI in Git Bash](https://stackoverflow.com/quest
 
 ## Resources:
 
+- [Connect with Lightsail instance via SSH](https://www.youtube.com/watch?time_continue=34&v=5xVquS3lEGM&feature=emb_logo)
 - [Deploying Docker Containers on Amazon Lightsail](https://www.youtube.com/watch?v=z525kfneC6E "YouTube video tutorial")
 - [Mike G. Coleman Lightsail tutorial demo repository](https://github.com/mikegcoleman/todo)
 - [The misunderstood Docker tag: latest](https://medium.com/@mccode/the-misunderstood-docker-tag-latest-af3babfd6375)
