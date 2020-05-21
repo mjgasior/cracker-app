@@ -8,6 +8,8 @@ Monorepo for Cracker app. Go to `cracker-product` for deployment and development
     chmod +x ./lightsail-compose.sh
     ./lightsail-compose.sh
 
+The `inst.sh` script in `scripts` directory creates a new \$3.50 plan (nano plan) Ubuntu 16 instance on Lightsail.
+
 ## AWS CLI for Lightsail:
 
 If on Windows, install the [AWS CLI in Git Bash](https://stackoverflow.com/questions/53015630/bash-aws-command-not-found-on-windows-7-in-git-bash).
