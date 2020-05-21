@@ -2,6 +2,7 @@ version: "3"
 
 services:
   cracker-db:
+    container_name: cracker-db
     image: mongo:4.2.6
     networks:
       - cracknet
@@ -11,6 +12,7 @@ services:
       - ./../database:/data/db
 
   cracker-client:
+    container_name: cracker-client
     image: mjgasior/cracker-client:0.0.3
     networks:
       - cracknet
@@ -18,6 +20,7 @@ services:
       - "80:80"
 
   cracker-server:
+    container_name: cracker-server
     image: mjgasior/cracker-server:0.0.1
     environment:
       - MONGODB_ADDRESS=cracker-db:27017
