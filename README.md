@@ -2,6 +2,8 @@
 
 _"Crack the history of Krakow with the Cracker app!"_
 
+Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barlima](https://github.com/barlima) for time and advice. :clap:
+
 Go to `cracker-product` for deployment and development manual.
 
 ## Snippets:
