@@ -4,40 +4,78 @@ _"Crack the history of Krakow with the Cracker app!"_
 
 Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barlima](https://github.com/barlima) for time and advice. :clap:
 
-Go to `cracker-product` for deployment and development manual.
+## Setup:
+
+### Authorization setup:
+
+1. [Log in](https://auth0.auth0.com/login "Auth0 login page") or [create new account](https://auth0.com/signup "Auth0 signup page") on Auth0 website.
+2. Go to `Applications` and click `Create application`.
+3. Name it `Cracker`, select `Single Page Web Applications` and click `Create`.
+4. Go to `Settings` tab where you can find:
+   - Domain (required in `cracker-client` as `REACT_APP_AUTH0_CLIENT_ID` and `cracker-server` as `AUTH0_CLIENT_ID`)
+   - Client ID (required in `cracker-client` as `REACT_APP_AUTH0_DOMAIN` and `cracker-server` as `AUTH0_DOMAIN`)
+5. Please remember to set the callback URLs in Auth0 (URLs should be separated with a comma):
+   - Allowed Callback URLs:
+     - `http://localhost:3000/callback` - running app fully locally
+     - `http://the.ip.of.docker.machine/callback` - running app as Docker production build
+   - Allowed Logout URLs, Allowed Web Origins and Allowed Origins (CORS):
+     - `http://localhost:3000/` - running app fully locally
+     - `http://the.ip.of.docker.machine/` - running app as Docker production build
+
+### Production build:
+
+0. Remember to set up proper Auth0 values.
+1. Run `docker-compose -f docker-compose.prod.yml build`
+2. Run `docker-compose -f docker-compose.prod.yml up`
+
+### Development build:
+
+0. Remember to set up proper Auth0 values.
+1. Run `docker-compose build`
+2. Run `docker-compose up`
+
+### Setup for completely separate run:
+
+1. Run MongoDB `docker run -p 27017:27017 -it mongo:4.2.6`
+2. Configure `cracker-server` to run locally with MongoDB in Docker (set .env in `cracker-server` to have `MONGODB_ADDRESS=192.168.99.100:27017`) and run `yarn start`.
+3. Configure `cracker-client` to run locally with `cracker-server` (set .env in `cracker-client` to have `REACT_APP_API_URL=http://localhost:4000/api` and `REACT_APP_AUTH0_ORIGIN=http://localhost:3000`) and run `yarn start`.
+4. App should be available at `http://localhost:3000` and [Apollo Playground](https://www.apollographql.com/docs/apollo-server/testing/graphql-playground/) at `http://localhost:4000/`.
+
+### Docker Hub:
+
+0. Log yourself in to Docker Hub `docker login`.
+1. Build Docker images.
+2. Tag them `docker tag 6d15e9c73b54 mjgasior/cracker-client:0.0.3`.
+3. Push them `docker push mjgasior/cracker-client:0.0.3`.
+4. Use them. :)
 
 ## Snippets:
 
-    curl -o lightsail-compose.sh https://raw.githubusercontent.com/mjgasior/cracker-app/master/lightsail-compose.sh
-    chmod +x ./lightsail-compose.sh
-    ./lightsail-compose.sh
+- `cat filename` - [display the contents of a text file in the command line](https://unix.stackexchange.com/questions/86321/how-can-i-display-the-contents-of-a-text-file-on-the-command-line "StackExchange answer")
+- `curl -X POST https://example.com/resource.cgi` - [cURL a POST request](https://superuser.com/questions/149329/what-is-the-curl-command-line-syntax-to-do-a-post-request "StackExchange answer")
+- `docker exec -it container_id_or_name ash` - starting shell in the Docker Alpine container (Alpine doesn't have bash by default)
+- `docker system prune -a` - remove all stopped containers, all dangling images, and all unused networks
+- `docker rmi $(docker images -a -q)` - remove all images, [the -q flag is used to pass the Image ID](https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes)
+- `docker run -it -p 3000:3000 -e CHOKIDAR_USEPOLLING=true -v $(pwd):/var/www -w "/var/www" node:12.0-alpine yarn start`
+- `exit` - to exit out of the docker container bash shell just run this
 
-The `inst.sh` script in `scripts` directory creates a new \$3.50 plan (nano plan) Ubuntu 16 instance on Lightsail.
+## Visual Studio Code extensions:
 
-## AWS CLI for Lightsail:
+- **Docker** - extension makes it easy to build, manage and deploy containerized applications from Visual Studio Code
+- **GitLens - Git supercharged** - adds the Git capabilities into Visual Studio Code, helps to visualize code authorship, navigate and explore Git repositories
 
-If on Windows, install the [AWS CLI in Git Bash](https://stackoverflow.com/questions/53015630/bash-aws-command-not-found-on-windows-7-in-git-bash).
+## Errors:
 
-- [configure AWS CLI](https://lightsail.aws.amazon.com/ls/docs/en_us/articles/lightsail-how-to-set-up-access-keys-to-use-sdk-api-cli)
-- [documentation](https://docs.aws.amazon.com/cli/latest/reference/lightsail/index.html)
-- `aws lightsail get-blueprints` - returns blueprints for Lightsail instance
-- `aws lightsail create-instances --instance-names Cracker-app --availability-zone eu-central-1a --blueprint-id ubuntu_16_04_2 --bundle-id nano_2_0` - create the \$3.50 (nano plan) Ubuntu 16 instance
+You might get an error regarding the bash and curl packages for Alpine, something like this:
 
-## Upload local MongoDB to Lightsail instance:
+    fetch http://dl-cdn.alpinelinux.org/alpine/v3.4/main/x86_64/APKINDEX.tar.gz
+    ERROR: http://dl-cdn.alpinelinux.org/alpine/v3.4/main: temporary error (try again later)
 
-1. Run local `docker-compose.yml` in `cracker-product` directory to turn on the local development mode.
-2. `docker exec -it cracker-db sh` - turn on shell in MongoDB container (instructions created with help of an article by [Joebbrien Bundabunda](https://medium.com/faun/how-to-backup-docker-containered-mongo-db-with-mongodump-and-mongorestore-b4eb1c0e7308))
-3. `mongodump –-out /name_of_directory/` - create a binary export of the contents of a database ([docs](https://docs.mongodb.com/manual/reference/program/mongodump/))
-4. `docker cp cracker-db:/name_of_directory ./` - copy the contents of the backup directory to the host (everything will be copied to the current `pwd` working directory)
-5. `scp -r ./ ubuntu@ip.of.lightsail.instance:./` - copy files from local host to Lightsail instance (for example `scp -r ./backup21052020 ubuntu@18.196.197.102:./`)
-6. `ssh ubuntu@ip.of.lightsail.instance` - get to the Lightsail instance (the files should be uploaded to the `root` directory, so `ls` should list the folder with backup there)
-7. `docker cp ./ cracker-db:./` - copy MongoDB backup from instance host to Docker container (the directory with backup should be present at the very top of the tree)
-8. `docker exec -it cracker-db sh` - turn on shell on Lightsail instance in MongoDB container
-9. `mongorestore name_of_directory/graphqldb/*.bson` - restore the `graphqldb` database in the instance
+As I found, this might be a [faulty DNS](https://github.com/gliderlabs/docker-alpine/issues/386 "GitHub issues") and a Docker machine restart might work (it fixed the problem for me).
 
 ## Resources:
 
-- [Connect with Lightsail instance via SSH](https://www.youtube.com/watch?time_continue=34&v=5xVquS3lEGM&feature=emb_logo)
-- [Deploying Docker Containers on Amazon Lightsail](https://www.youtube.com/watch?v=z525kfneC6E "YouTube video tutorial")
-- [Mike G. Coleman Lightsail tutorial demo repository](https://github.com/mikegcoleman/todo)
-- [The misunderstood Docker tag: latest](https://medium.com/@mccode/the-misunderstood-docker-tag-latest-af3babfd6375)
+- [Dockerizing a React App](https://mherman.org/blog/dockerizing-a-react-app/)
+- [Docker Tips](https://nickjanetakis.com/blog/docker-tip-2-the-difference-between-copy-and-add-in-a-dockerile)
+- [Managing MongoDB on docker with docker-compose](https://medium.com/faun/managing-mongodb-on-docker-with-docker-compose-26bf8a0bbae3)
+- [Unable to start Docker MongoDB image on Windows with a volume](https://stackoverflow.com/questions/54911021/unable-to-start-docker-mongo-image-on-windows "Stack Overflow question")
