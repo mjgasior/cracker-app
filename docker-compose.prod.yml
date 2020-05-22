@@ -12,7 +12,7 @@ services:
   cracker-client:
     container_name: cracker-client
     build:
-      context: ./../cracker-client
+      context: ./cracker-client
     networks:
       - cracknet
     ports:
@@ -21,7 +21,7 @@ services:
   cracker-server:
     container_name: cracker-server
     build:
-      context: ./../cracker-server
+      context: ./cracker-server
     environment:
       - MONGODB_ADDRESS=cracker-db:27017
     networks:

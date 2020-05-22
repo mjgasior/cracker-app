@@ -11,7 +11,7 @@ services:
   cracker-client:
     container_name: cracker-client
     build:
-      context: ./../cracker-client
+      context: ./cracker-client
       dockerfile: Dockerfile.dev
     stdin_open: true # Without this React webserver exits immediately after setup
     environment:
@@ -20,20 +20,20 @@ services:
       - REACT_APP_AUTH0_ORIGIN=http://192.168.99.100
       - REACT_APP_API_URL=http://192.168.99.100:4000
     volumes: # For webpack dev server to use our local files
-      - ./../cracker-client:/usr/src/app
+      - ./cracker-client:/usr/src/app
     ports:
       - "80:3000" # For docker to now where to redirect HMR queries
 
   cracker-server:
     container_name: cracker-server
     build:
-      context: ./../cracker-server
+      context: ./cracker-server
       dockerfile: Dockerfile.dev
     environment:
       - MONGODB_ADDRESS=cracker-db:27017
       - CHOKIDAR_USEPOLLING=true
     volumes:
-      - ./../cracker-server:/usr/src/api
+      - ./cracker-server:/usr/src/api
     ports:
       - "4000:4000"
 

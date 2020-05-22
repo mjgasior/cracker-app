@@ -2,11 +2,13 @@
 
 ## Snippets:
 
+Initial script for a new AWS Lightsail instance:
+
     curl -o lightsail-compose.sh https://raw.githubusercontent.com/mjgasior/cracker-app/master/deploy/lightsail-compose.sh
     chmod +x ./lightsail-compose.sh
     ./lightsail-compose.sh
 
-The `inst.sh` script creates a new \$3.50 plan (nano plan) Ubuntu 16 instance on Lightsail.
+The `new-instance.sh` script creates a new \$3.50 plan (nano plan) Ubuntu 16 instance on Lightsail.
 
 ## AWS CLI for Lightsail:
 
