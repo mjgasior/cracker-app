@@ -24,9 +24,10 @@ Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barli
 
 ### Production build:
 
-0. Remember to set up proper Auth0 values.
-1. Run `docker-compose -f docker-compose.prod.yml build`
-2. Run `docker-compose -f docker-compose.prod.yml up`
+0. Remember to set up proper Auth0 (client ID and the domain) values in `cracker-client` and `cracker-server`.
+1. Set proper IP address of the API in `.env` file in `cracker-client` for new Lightsail instance (for example `REACT_APP_API_URL=http://18.196.197.102/api` and `REACT_APP_AUTH0_ORIGIN=http://18.196.197.102`).
+2. Run `docker-compose -f docker-compose.prod.yml build`
+3. Run `docker-compose -f docker-compose.prod.yml up`
 
 ### Development build:
 
