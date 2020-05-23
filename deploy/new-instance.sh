@@ -14,6 +14,10 @@ echo "$awsinstancestate1"
 echo "Wait for instance to run..."
 sleep 1m # Usually it is around 30 seconds for the mashine to start running
 
+# try to loop this https://cameronnokes.com/blog/working-with-json-in-bash-using-jq/
+# https://stackoverflow.com/questions/27127091/parse-json-in-shell
+# without jq -> https://stackoverflow.com/questions/229551/how-to-check-if-a-string-contains-a-substring-in-bash
+
 awsinstancestate2=`aws lightsail get-instance-state --instance-name Cracker-app`
 echo "$awsinstancestate2"
 
