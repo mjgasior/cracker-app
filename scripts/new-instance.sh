@@ -24,7 +24,7 @@ do
     elif [[ $awsinstancestate1 == *"stopping"* ]]; then
         echo "It is stopping."
     elif [[ $awsinstancestate1 == *"running"* ]]; then
-        echo "It is running!"
+        echo "It is running! Proceeding with static IP..."
         break
     fi
 
