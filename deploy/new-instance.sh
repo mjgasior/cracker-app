@@ -8,6 +8,15 @@ awsresult=`aws lightsail create-instances --instance-names Cracker-app --user-da
 
 echo "$awsresult"
 
+awsinstancestate1=`aws lightsail get-instance-state --instance-name Cracker-app`
+echo "$awsinstancestate1"
+
+echo "Wait for instance to run..."
+sleep 1m # Usually it is around 30 seconds for the mashine to start running
+
+awsinstancestate2=`aws lightsail get-instance-state --instance-name Cracker-app`
+echo "$awsinstancestate2"
+
 echo "Allocating new static IP"
 awsallocate=`aws lightsail allocate-static-ip --static-ip-name Cracker-app-ip`
 echo "$awsallocate"
@@ -15,5 +24,7 @@ echo "$awsallocate"
 echo "Attaching new static IP to the instance"
 awsattach=`aws lightsail attach-static-ip --static-ip-name Cracker-app-ip --instance-name Cracker-app`
 echo "$awsattach"
+
+echo "Press any key to exit..."
 
 read  
