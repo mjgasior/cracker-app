@@ -8,18 +8,36 @@ awsresult=`aws lightsail create-instances --instance-names Cracker-app --user-da
 
 echo "$awsresult"
 
-awsinstancestate1=`aws lightsail get-instance-state --instance-name Cracker-app`
-echo "$awsinstancestate1"
+echo "Waiting for instance to run..."
 
-echo "Wait for instance to run..."
-sleep 1m # Usually it is around 30 seconds for the mashine to start running
+n=1
 
-# try to loop this https://cameronnokes.com/blog/working-with-json-in-bash-using-jq/
-# https://stackoverflow.com/questions/27127091/parse-json-in-shell
-# without jq -> https://stackoverflow.com/questions/229551/how-to-check-if-a-string-contains-a-substring-in-bash
+while [ $n -le 6 ]
+do
+    awsinstancestate1=`aws lightsail get-instance-state --instance-name Cracker-app`
+    echo "$awsinstancestate1"
 
-awsinstancestate2=`aws lightsail get-instance-state --instance-name Cracker-app`
-echo "$awsinstancestate2"
+    if [[ $awsinstancestate1 == *"stopped"* ]]; then
+        echo "It is stopped."
+    elif [[ $awsinstancestate1 == *"pending"* ]]; then
+        echo "It is pending."
+    elif [[ $awsinstancestate1 == *"stopping"* ]]; then
+        echo "It is stopping."
+    elif [[ $awsinstancestate1 == *"running"* ]]; then
+        echo "It is running!"
+        break
+    fi
+
+	echo "Retry $n out of 6."
+	((n++))
+    sleep 10
+done
+
+if [ $n -gt 6 ]; then
+    echo "Timeout. Press any key to exit..."
+    read
+    exit
+fi
 
 echo "Allocating new static IP"
 awsallocate=`aws lightsail allocate-static-ip --static-ip-name Cracker-app-ip`
