@@ -6,8 +6,10 @@ Initial script for a new AWS Lightsail instance:
     chmod +x ./lightsail-compose.sh
     ./lightsail-compose.sh
 
-- `new-instance.sh` - this script creates a new \$3.50 plan (nano plan) Ubuntu 16 instance on Lightsail
 - `db-dump.sh` - creates a database dump from a local Docker container MongoDB in current folder
+- `db-upload.sh` - not yet ready - will upload the database dump to Lightsail instance
+- `new-instance.sh` - this script creates a new \$3.50 plan (nano plan) Ubuntu 16 instance on Lightsail
+- `wipe.sh` - deletes the Lightsail instance, detaches the static IP, but doesn't delete the static IP (you need to delete it manually because AWS will charge you after an hour of having a detached static IP)
 
 ## AWS CLI for Lightsail:
 
