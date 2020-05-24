@@ -31,7 +31,7 @@ do
 done
 
 if [ $n -gt 6 ]; then
-    echo -e "\e[91mTimeout. Press any key to exit..."
+    echo -e "\e[91m Timeout. Press any key to exit... \e[0m"
     read
     exit
 fi

@@ -20,6 +20,6 @@ ssh ubuntu@$1 ""
 
 echo -e "\e[92mDelete dump from "
 ssh ubuntu@$1 
-echo -e "\e[96mPress any key to exit..."
+echo -e "\e[96m Press any key to exit... \e[0m"
 
 read
