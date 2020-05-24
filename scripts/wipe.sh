@@ -4,24 +4,22 @@ echo -e "\n\e[92mDetaching static IP\e[0m"
 aws lightsail detach-static-ip --static-ip-name Cracker-app-ip
 aws lightsail stop-instance --instance-name Cracker-app --force
 
-echo -e "\e[92mWaiting for instance to stop...\e[0m"
+echo -e "\n\e[92mWaiting for instance to stop...\e[0m"
 
 n=1
 
 while [ $n -le 6 ]
 do
     awsinstancestate1=`aws lightsail get-instance-state --instance-name Cracker-app`
-    echo "$awsinstancestate1"
-
     if [[ $awsinstancestate1 == *"stopped"* ]]; then
-        echo -e "\e[39mIt is stopped! Proceeding with deletion...\e[0m"
+        echo -e "\n\e[39mIt is stopped! Proceeding with deletion...\e[0m"
         break
     elif [[ $awsinstancestate1 == *"pending"* ]]; then
-        echo -e "\e[2mIt is pending.\e[0m"
+        echo -e "\n\e[2mIt is pending.\e[0m"
     elif [[ $awsinstancestate1 == *"stopping"* ]]; then
-        echo -e "\e[2mIt is stopping.\e[0m"
+        echo -e "\n\e[2mIt is stopping.\e[0m"
     elif [[ $awsinstancestate1 == *"running"* ]]; then
-        echo -e "\e[2mIt is running.\e[0m"
+        echo -e "\n\e[2mIt is running.\e[0m"
     fi
 
 	echo -e "\e[2mRetry $n out of 6.\e[0m"
@@ -35,9 +33,11 @@ if [ $n -gt 6 ]; then
     exit
 fi
 
-echo -e "\e[92mDeleting instance\e[0m"
+echo -e "\n\e[92mDeleting instance\e[0m"
 aws lightsail delete-instance --instance-name Cracker-app
 
-echo -e "\e[92mRemember to delete detached static IP\e[0m"
+echo -e "\n\e[92mReleasing static IP\e[0m"
+aws lightsail release-static-ip --static-ip-name Cracker-app-ip
+
 echo -e "\e[96mPress any key to exit...\e[0m"
 read

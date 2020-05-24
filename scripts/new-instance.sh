@@ -14,16 +14,14 @@ n=1
 while [ $n -le 6 ]
 do
     awsinstancestate1=`aws lightsail get-instance-state --instance-name Cracker-app`
-    echo "$awsinstancestate1"
-
     if [[ $awsinstancestate1 == *"stopped"* ]]; then
-        echo -e "\e[2mIt is stopped.\e[0m"
+        echo -e "\n\e[2mIt is stopped.\e[0m"
     elif [[ $awsinstancestate1 == *"pending"* ]]; then
-        echo -e "\e[2mIt is pending.\e[0m"
+        echo -e "\n\e[2mIt is pending.\e[0m"
     elif [[ $awsinstancestate1 == *"stopping"* ]]; then
-        echo -e "\e[2mIt is stopping.\e[0m"
+        echo -e "\n\e[2mIt is stopping.\e[0m"
     elif [[ $awsinstancestate1 == *"running"* ]]; then
-        echo -e "\e[39mIt is running! Proceeding with static IP...\e[0m"
+        echo -e "\n\e[39mIt is running! Proceeding with static IP...\e[0m"
         break
     fi
 
