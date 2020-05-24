@@ -1,6 +1,6 @@
-echo -e "\e[93;104mCracker app scripts\e[0m\n\n"
+echo -e "\e[93;104mCracker app scripts\e[0m\n"
 
-echo -e "\e[92mUpload will be perfomred on $1 Lightsail instance"
+echo -e "\n\e[92mUpload will be perfomred on $1 Lightsail instance"
 echo -e "\e[92mCurrent working directory:\e[0m"
 pwd
 

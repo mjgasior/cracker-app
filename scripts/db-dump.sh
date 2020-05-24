@@ -1,4 +1,4 @@
-echo -e "\e[93;104mCracker app scripts\e[0m\n\n"
+echo -e "\e[93;104mCracker app scripts\e[0m\n"
 
 echo -e "\n\e[92mPreparing a MongoDB dump\e[0m"
 winpty docker exec -it cracker-db-dev sh -c 'mongodump && exit'
