@@ -34,4 +34,5 @@ If on Windows, install the [AWS CLI in Git Bash](https://stackoverflow.com/quest
 
 ## Resources:
 
+- [Bash formatting](https://misc.flogisoft.com/bash/tip_colors_and_formatting)
 - [Connect with Lightsail instance via SSH](https://www.youtube.com/watch?time_continue=34&v=5xVquS3lEGM&feature=emb_logo)
