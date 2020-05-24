@@ -1,4 +1,4 @@
-echo -e "\e[93;104m Cracker app scripts \e[0m \n\n"
+echo -e "\e[93;104mCracker app scripts\e[0m\n\n"
 
 echo -e "\e[92m Creating new instance \e[0m"
 userdata="curl -o lightsail-compose.sh https://raw.githubusercontent.com/mjgasior/cracker-app/master/deploy/lightsail-compose.sh && chmod +x ./lightsail-compose.sh && ./lightsail-compose.sh"
@@ -31,7 +31,7 @@ do
 done
 
 if [ $n -gt 6 ]; then
-    echo -e "\e[91m Timeout. Press any key to exit... \e[0m"
+    echo -e "\e[91mTimeout! Press any key to exit...\e[0m"
     read
     exit
 fi
@@ -42,6 +42,5 @@ aws lightsail allocate-static-ip --static-ip-name Cracker-app-ip
 echo -e "\e[92m Attaching new static IP to the instance \e[0m"
 aws lightsail attach-static-ip --static-ip-name Cracker-app-ip --instance-name Cracker-app
 
-echo -e "\e[96m Press any key to exit... \e[0m"
-
-read  
+echo -e "\e[96mPress any key to exit...\e[0m"
+read

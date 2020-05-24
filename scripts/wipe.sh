@@ -31,7 +31,7 @@ do
 done
 
 if [ $n -gt 6 ]; then
-    echo -e "\e[91m Timeout. Press any key to exit... \e[0m"
+    echo -e "\e[91mTimeout! Press any key to exit...\e[0m"
     read
     exit
 fi
@@ -40,5 +40,5 @@ echo -e "\e[92mDeleting instance\e[37m"
 aws lightsail delete-instance --instance-name Cracker-app
 
 echo -e "\e[92mRemember to delete detached static IP"
-echo -e "\e[96mPress any key to exit..."
+echo -e "\e[96mPress any key to exit...\e[0m"
 read

@@ -18,6 +18,5 @@ echo -e "\n\e[92mRemoving dump files from Docker and instance\e[0m"
 ssh ubuntu@$1 "docker exec cracker-db rm -rf ./dump \
     && rm -rf ./dump"
 
-echo -e "\e[96m Press any key to exit... \e[0m"
-
+echo -e "\e[96mPress any key to exit...\e[0m"
 read
