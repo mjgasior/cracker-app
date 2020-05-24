@@ -1,9 +1,11 @@
-echo -e "\e[92mDetaching static IP"
+echo -e "\e[93m\e[104mCracker app scripts\n\n"
+
+echo -e "\e[92m\e[49mDetaching static IP\e[37m"
 aws lightsail detach-static-ip --static-ip-name Cracker-app-ip
 
 aws lightsail stop-instance --instance-name Cracker-app --force
 
-echo -e "\e[92mWaiting for instance to stop..."
+echo -e "\e[92mWaiting for instance to stop...\e[37m"
 
 n=1
 
@@ -34,7 +36,7 @@ if [ $n -gt 6 ]; then
     exit
 fi
 
-echo -e "\e[92mDeleting instance"
+echo -e "\e[92mDeleting instance\e[37m"
 aws lightsail delete-instance --instance-name Cracker-app
 
 echo -e "\e[92mRemember to delete detached static IP"
