@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import "antd/dist/antd.css";
+import { Button, DatePicker } from "antd";
 import { Switch, Route } from "react-router-dom";
 import { Home } from "./+components/Home";
 import { Users } from "./+components/Users";
@@ -32,6 +34,8 @@ class App extends Component {
       <div>
         <Header>Cracker App</Header>
         <Navigation />
+        <Button type="primary">PRESS ME</Button>
+        <DatePicker placeholder="select date" />
         <Container>
           <Switch>
             <Route exact path="/callback" component={Callback} />
