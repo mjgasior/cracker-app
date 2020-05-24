@@ -1,8 +1,5 @@
 echo -e "\e[93;104m Cracker app scripts \e[0m \n\n"
 
-now=$(date)
-echo "$now"
-
 echo -e "\e[92m Creating new instance \e[0m"
 userdata="curl -o lightsail-compose.sh https://raw.githubusercontent.com/mjgasior/cracker-app/master/deploy/lightsail-compose.sh && chmod +x ./lightsail-compose.sh && ./lightsail-compose.sh"
 
