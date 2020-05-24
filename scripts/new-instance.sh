@@ -41,7 +41,7 @@ fi
 echo -e "\n\e[92mAllocating new static IP\e[0m"
 aws lightsail allocate-static-ip --static-ip-name Cracker-app-ip
 
-echo -e "\n\e[92m Attaching new static IP to the instance\e[0m"
+echo -e "\n\e[92mAttaching new static IP to the instance\e[0m"
 aws lightsail attach-static-ip --static-ip-name Cracker-app-ip --instance-name Cracker-app
 
 echo -e "\e[96mPress any key to exit...\e[0m"

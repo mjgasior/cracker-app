@@ -21,7 +21,5 @@ curl -o /srv/docker/docker-compose.yml https://raw.githubusercontent.com/mjgasio
 curl -o /etc/systemd/system/docker-compose-app.service https://raw.githubusercontent.com/mjgasior/cracker-app/master/deploy/docker-compose-app.service
 systemctl enable docker-compose-app
 
-sleep 1m
-
 # start up the application via docker-compose
 docker-compose -f /srv/docker/docker-compose.yml up -d
