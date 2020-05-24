@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "./Link";
 import { withRouter } from "react-router-dom";
 import auth from "../+utils/Auth";
+import { Menu } from "antd";
 
 const Navigation = () => {
   const logout = () => {
@@ -10,28 +11,29 @@ const Navigation = () => {
   };
 
   return (
-    <nav>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/users">Users</Link>
-        </li>
-        {auth.isAuthenticated() && (
-          <li>
-            <Link to="/adduser">Add a user</Link>
-          </li>
-        )}
-        <li>
-          {auth.isAuthenticated() ? (
-            <button onClick={() => logout()}>Log out</button>
-          ) : (
-            <button onClick={() => auth.login()}>Log In</button>
-          )}
-        </li>
-      </ul>
-    </nav>
+    <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]}>
+      <Menu.Item key="1">
+        <Link to="/">Home</Link>
+      </Menu.Item>
+      <Menu.Item key="2">
+        <Link to="/users">Users</Link>
+      </Menu.Item>
+      <Menu.Item key="3">
+        {auth.isAuthenticated() && <Link to="/adduser">Add a user</Link>}
+      </Menu.Item>
+      <Menu.Item
+        key="4"
+        onClick={() => {
+          if (auth.isAuthenticated()) {
+            logout();
+          } else {
+            auth.login();
+          }
+        }}
+      >
+        {auth.isAuthenticated() ? "Log out" : "Log In"}
+      </Menu.Item>
+    </Menu>
   );
 };
 
