@@ -1,21 +1,22 @@
-#7 . `docker cp ./ cracker-db:./` - copy MongoDB backup from instance host to Docker container (the directory with backup should be present at the very top of the tree)
-#8. `docker exec -it cracker-db sh` - turn on shell on Lightsail instance in MongoDB container
-#9. `mongorestore name_of_directory/graphqldb/*.bson` - restore the `graphqldb` database in the instance
+echo -e "\e[93;104mCracker app scripts\e[0m\n"
 
-echo "Connecting to Lightsail instance $1"
-
-echo "Current working directory:"
+echo -e "\n\e[92mUpload will be perfomred on $1 Lightsail instance"
+echo -e "\e[92mCurrent working directory:\e[0m"
 pwd
 
-echo "Files in current working directory:"
+echo -e "\n\e[92mFiles in current working directory:\e[0m"
 ls
 
-echo "Copying database dump to Lightsail instance"
-scp -r ./dump ubuntu@$1:./dump
+echo -e "\n\e[92mCopying database dump to Lightsail instance\e[0m"
+scp -r ./dump ubuntu@$1:./
 
-echo "Accessing Lightsail instance"
-ssh ubuntu@$1 "ls && docker ps"
+echo -e "\n\e[92mRestoring dump in MongoDB Docker container\e[0m"
+ssh ubuntu@$1 "docker cp ./dump cracker-db:./ \
+    && docker exec cracker-db mongorestore ./dump/graphqldb/*.bson"
 
-ssh ubuntu@$1 
+echo -e "\n\e[92mRemoving dump files from Docker and instance\e[0m"
+ssh ubuntu@$1 "docker exec cracker-db rm -rf ./dump \
+    && rm -rf ./dump"
 
+echo -e "\e[96mPress any key to exit...\e[0m"
 read

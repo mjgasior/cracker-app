@@ -1,14 +1,13 @@
-now=$(date)
-echo "$now"
+echo -e "\e[93;104mCracker app scripts\e[0m\n"
 
-echo "Creating new instance"
-userdata="curl -o lightsail-compose.sh https://raw.githubusercontent.com/mjgasior/cracker-app/master/deploy/lightsail-compose.sh && chmod +x ./lightsail-compose.sh && ./lightsail-compose.sh"
+echo -e "\n\e[92mCreating new instance\e[0m"
+userdata="curl -o lightsail-compose.sh https://raw.githubusercontent.com/mjgasior/cracker-app/master/deploy/lightsail-compose.sh \
+    && chmod +x ./lightsail-compose.sh \
+    && ./lightsail-compose.sh"
 
-awsresult=`aws lightsail create-instances --instance-names Cracker-app --user-data "$userdata" --availability-zone eu-central-1a --blueprint-id ubuntu_16_04_2 --bundle-id nano_2_0`
+aws lightsail create-instances --instance-names Cracker-app --user-data "$userdata" --availability-zone eu-central-1a --blueprint-id ubuntu_16_04_2 --bundle-id nano_2_0
 
-echo "$awsresult"
-
-echo "Waiting for instance to run..."
+echo -e "\n\e[92mWaiting for instance to run...\e[0m"
 
 n=1
 
@@ -18,35 +17,32 @@ do
     echo "$awsinstancestate1"
 
     if [[ $awsinstancestate1 == *"stopped"* ]]; then
-        echo "It is stopped."
+        echo -e "\e[2mIt is stopped.\e[0m"
     elif [[ $awsinstancestate1 == *"pending"* ]]; then
-        echo "It is pending."
+        echo -e "\e[2mIt is pending.\e[0m"
     elif [[ $awsinstancestate1 == *"stopping"* ]]; then
-        echo "It is stopping."
+        echo -e "\e[2mIt is stopping.\e[0m"
     elif [[ $awsinstancestate1 == *"running"* ]]; then
-        echo "It is running! Proceeding with static IP..."
+        echo -e "\e[39mIt is running! Proceeding with static IP...\e[0m"
         break
     fi
 
-	echo "Retry $n out of 6."
+	echo -e "\e[2mRetry $n out of 6.\e[0m"
 	((n++))
     sleep 10
 done
 
 if [ $n -gt 6 ]; then
-    echo "Timeout. Press any key to exit..."
+    echo -e "\e[91mTimeout! Press any key to exit...\e[0m"
     read
     exit
 fi
 
-echo "Allocating new static IP"
-awsallocate=`aws lightsail allocate-static-ip --static-ip-name Cracker-app-ip`
-echo "$awsallocate"
+echo -e "\n\e[92mAllocating new static IP\e[0m"
+aws lightsail allocate-static-ip --static-ip-name Cracker-app-ip
 
-echo "Attaching new static IP to the instance"
-awsattach=`aws lightsail attach-static-ip --static-ip-name Cracker-app-ip --instance-name Cracker-app`
-echo "$awsattach"
+echo -e "\n\e[92m Attaching new static IP to the instance\e[0m"
+aws lightsail attach-static-ip --static-ip-name Cracker-app-ip --instance-name Cracker-app
 
-echo "Press any key to exit..."
-
-read  
+echo -e "\e[96mPress any key to exit...\e[0m"
+read

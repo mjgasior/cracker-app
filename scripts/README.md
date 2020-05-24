@@ -7,7 +7,7 @@ Initial script for a new AWS Lightsail instance:
     ./lightsail-compose.sh
 
 - `db-dump.sh` - creates a database dump from a local Docker container MongoDB in current folder
-- `db-upload.sh` - not yet ready - will upload the database dump to Lightsail instance
+- `db-upload.sh` - not yet ready - will upload the database dump to Lightsail instance (this script needs ip address as an argument, for example `.\scripts\db-upload.sh 18.184.225.8`)
 - `new-instance.sh` - this script creates a new \$3.50 plan (nano plan) Ubuntu 16 instance on Lightsail
 - `wipe.sh` - deletes the Lightsail instance, detaches the static IP, but doesn't delete the static IP (you need to delete it manually because AWS will charge you after an hour of having a detached static IP)
 
@@ -34,4 +34,5 @@ If on Windows, install the [AWS CLI in Git Bash](https://stackoverflow.com/quest
 
 ## Resources:
 
+- [Bash formatting](https://misc.flogisoft.com/bash/tip_colors_and_formatting)
 - [Connect with Lightsail instance via SSH](https://www.youtube.com/watch?time_continue=34&v=5xVquS3lEGM&feature=emb_logo)
