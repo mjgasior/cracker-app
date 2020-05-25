@@ -1,18 +1,8 @@
 import React from "react";
-import { gql } from "apollo-boost";
-import { useQuery } from "@apollo/react-hooks";
-
-const USERS = gql`
-  {
-    users {
-      firstName
-      lastName
-    }
-  }
-`;
+import { useUser } from "./+hooks/useUser";
 
 export const Users = () => {
-  const { loading, error, data } = useQuery(USERS);
+  const { loading, error, data } = useUser();
 
   if (loading) {
     return <p>Loading...</p>;

@@ -1,14 +1,24 @@
 import React, { Component } from "react";
-import { Switch, Route } from "react-router-dom";
-import { Home } from "./+components/Home";
-import { Users } from "./+components/Users";
-import { Header } from "./+components/Header";
-import Navigation from "./+components/Navigation";
-import { Container } from "./+components/Container";
-import Callback from "./+components/Callback";
 import auth from "./+utils/Auth";
 import { withRouter } from "react-router-dom";
-import { AddUser } from "./+components/AddUser";
+
+import "antd/dist/antd.css";
+import { Layout } from "antd";
+import { AppName } from "./+components/AppName";
+
+import { Switch, Route } from "react-router-dom";
+import Callback from "./+components/Callback";
+import { Home } from "./home/Home";
+import { Users } from "./users/Users";
+import { AddUser } from "./users/AddUser";
+import Navigation from "./+components/Navigation";
+import styled from "styled-components";
+
+const { Header, Content, Footer } = Layout;
+
+const Container = styled(Content)`
+  padding: 50px;
+`;
 
 class App extends Component {
   async componentDidMount() {
@@ -29,9 +39,11 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <Header>Cracker App</Header>
-        <Navigation />
+      <Layout>
+        <Header>
+          <AppName>Cracker</AppName>
+          <Navigation />
+        </Header>
         <Container>
           <Switch>
             <Route exact path="/callback" component={Callback} />
@@ -40,7 +52,10 @@ class App extends Component {
             <Route path="/" component={Home} />
           </Switch>
         </Container>
-      </div>
+        <Footer style={{ textAlign: "center" }}>
+          Cracker app ©2020 Created by Michał J. Gąsior
+        </Footer>
+      </Layout>
     );
   }
 }
