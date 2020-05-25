@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import { Button, Input, Typography } from "antd";
+import styled from "styled-components";
+
+const Container = styled.div`
+  max-width: 500px;
+`;
 
 const { Title } = Typography;
 
@@ -24,7 +29,7 @@ export const AddUser = () => {
   }
 
   return (
-    <div>
+    <Container>
       <Title level={3}>Add a user</Title>
       <p>
         <label>
@@ -61,6 +66,6 @@ export const AddUser = () => {
           </p>
         </div>
       )}
-    </div>
+    </Container>
   );
 };
