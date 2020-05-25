@@ -20,7 +20,7 @@ export const AddUser = () => {
 
   return (
     <Container>
-      <Title level={3}>Add a user</Title>
+      <Title level={4}>Add a user</Title>
       <p>
         <label>
           First name:

@@ -12,8 +12,13 @@ import { Home } from "./home/Home";
 import { Users } from "./users/Users";
 import { AddUser } from "./users/AddUser";
 import Navigation from "./+components/Navigation";
+import styled from "styled-components";
 
 const { Header, Content, Footer } = Layout;
+
+const Container = styled(Content)`
+  padding: 50px;
+`;
 
 class App extends Component {
   async componentDidMount() {
@@ -39,14 +44,14 @@ class App extends Component {
           <AppName>Cracker</AppName>
           <Navigation />
         </Header>
-        <Content style={{ padding: "0 50px" }}>
+        <Container>
           <Switch>
             <Route exact path="/callback" component={Callback} />
             <Route path="/adduser" component={AddUser} />
             <Route path="/users" component={Users} />
             <Route path="/" component={Home} />
           </Switch>
-        </Content>
+        </Container>
         <Footer style={{ textAlign: "center" }}>
           Cracker app ©2020 Created by Michał J. Gąsior
         </Footer>
