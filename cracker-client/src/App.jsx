@@ -39,7 +39,7 @@ class App extends Component {
 
   render() {
     return (
-      <Layout className="layout">
+      <Layout>
         <Header>
           <AppName>Cracker</AppName>
           <Navigation />
