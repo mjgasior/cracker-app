@@ -3,7 +3,7 @@ import auth from "./+utils/Auth";
 import { withRouter } from "react-router-dom";
 
 import "antd/dist/antd.css";
-import { Layout, Breadcrumb } from "antd";
+import { Layout } from "antd";
 import { AppName } from "./+components/AppName";
 
 import { Switch, Route } from "react-router-dom";
@@ -40,19 +40,12 @@ class App extends Component {
           <Navigation />
         </Header>
         <Content style={{ padding: "0 50px" }}>
-          <Breadcrumb style={{ margin: "16px 0" }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
-          </Breadcrumb>
-          <div className="site-layout-content">
-            <Switch>
-              <Route exact path="/callback" component={Callback} />
-              <Route path="/adduser" component={AddUser} />
-              <Route path="/users" component={Users} />
-              <Route path="/" component={Home} />
-            </Switch>
-          </div>
+          <Switch>
+            <Route exact path="/callback" component={Callback} />
+            <Route path="/adduser" component={AddUser} />
+            <Route path="/users" component={Users} />
+            <Route path="/" component={Home} />
+          </Switch>
         </Content>
         <Footer style={{ textAlign: "center" }}>
           Cracker app ©2020 Created by Michał J. Gąsior

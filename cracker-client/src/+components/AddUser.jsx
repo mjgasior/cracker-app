@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
+import { Button, Input, Typography } from "antd";
+
+const { Title } = Typography;
 
 const ADD_USER = gql`
   mutation addUser($firstName: String!, $lastName: String!) {
@@ -22,12 +25,11 @@ export const AddUser = () => {
 
   return (
     <div>
-      <h2>Add a user</h2>
+      <Title level={3}>Add a user</Title>
       <p>
         <label>
           First name:
-          <input
-            type="text"
+          <Input
             value={firstName}
             onChange={(event) => setFirstName(event.target.value)}
           />
@@ -36,17 +38,19 @@ export const AddUser = () => {
       <p>
         <label>
           Last name:
-          <input
-            type="text"
+          <Input
             value={lastName}
             onChange={(event) => setLastName(event.target.value)}
           />
         </label>
       </p>
       <p>
-        <button onClick={() => addUser({ variables: { firstName, lastName } })}>
+        <Button
+          type="primary"
+          onClick={() => addUser({ variables: { firstName, lastName } })}
+        >
           Upload user!
-        </button>
+        </Button>
       </p>
       {data && (
         <div>
