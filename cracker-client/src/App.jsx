@@ -8,9 +8,9 @@ import { AppName } from "./+components/AppName";
 
 import { Switch, Route } from "react-router-dom";
 import Callback from "./+components/Callback";
-import { Home } from "./+components/Home";
-import { Users } from "./+components/Users";
-import { AddUser } from "./+components/AddUser";
+import { Home } from "./home/Home";
+import { Users } from "./users/Users";
+import { AddUser } from "./users/AddUser";
 import Navigation from "./+components/Navigation";
 
 const { Header, Content, Footer } = Layout;

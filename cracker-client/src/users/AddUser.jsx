@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { useMutation } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
 import { Button, Input, Typography } from "antd";
 import styled from "styled-components";
+import { useAddUser } from "./+hooks/useAddUser";
 
 const Container = styled.div`
   max-width: 500px;
@@ -10,19 +9,10 @@ const Container = styled.div`
 
 const { Title } = Typography;
 
-const ADD_USER = gql`
-  mutation addUser($firstName: String!, $lastName: String!) {
-    addUser(firstName: $firstName, lastName: $lastName) {
-      firstName
-      lastName
-    }
-  }
-`;
-
 export const AddUser = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [addUser, { data, error }] = useMutation(ADD_USER);
+  const [addUser, { data, error }] = useAddUser();
 
   if (error) {
     console.log(error);
