@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Link } from "react-router-dom";
-import { withRouter } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import auth from "../+utils/Auth";
 import { Menu } from "antd";
 
-const Navigation = () => {
-  const logout = () => {
+export const Navigation = () => {
+  const history = useHistory();
+
+  const logout = useCallback(() => {
     auth.logout();
-    this.props.history.replace("/");
-  };
+    history.replace("/");
+  }, [history]);
 
   const isAuthenticated = auth.isAuthenticated();
 
@@ -43,5 +45,3 @@ const Navigation = () => {
     </Menu>
   );
 };
-
-export default withRouter(Navigation);

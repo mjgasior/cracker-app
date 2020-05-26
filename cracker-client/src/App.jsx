@@ -7,12 +7,12 @@ import { Layout } from "antd";
 import { AppName } from "./+components/AppName";
 
 import { Switch, Route } from "react-router-dom";
-import Callback from "./+components/Callback";
+import { Callback } from "./+components/Callback";
 import { Home } from "./home/Home";
 import { Users } from "./users/Users";
 import { AddUser } from "./users/AddUser";
 import { MapView } from "./map/MapView";
-import Navigation from "./+components/Navigation";
+import { Navigation } from "./+components/Navigation";
 import styled from "styled-components";
 
 const { Header, Content, Footer } = Layout;
