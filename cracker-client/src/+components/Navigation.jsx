@@ -1,10 +1,10 @@
 import React, { useCallback } from "react";
-import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import auth from "../+utils/Auth";
 import { Menu } from "antd";
 
 export const Navigation = () => {
+  const location = useLocation();
   const history = useHistory();
 
   const logout = useCallback(() => {
@@ -15,23 +15,27 @@ export const Navigation = () => {
   const isAuthenticated = auth.isAuthenticated();
 
   return (
-    <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]}>
-      <Menu.Item key="1">
+    <Menu
+      theme="dark"
+      mode="horizontal"
+      defaultSelectedKeys={[location.pathname]}
+    >
+      <Menu.Item key="/">
         <Link to="/">Home</Link>
       </Menu.Item>
-      <Menu.Item key="2">
+      <Menu.Item key="/map">
         <Link to="/map">Map</Link>
       </Menu.Item>
-      <Menu.Item key="3">
+      <Menu.Item key="/users">
         <Link to="/users">Users</Link>
       </Menu.Item>
       {isAuthenticated && (
-        <Menu.Item key="4">
+        <Menu.Item key="/adduser">
           <Link to="/adduser">Add a user</Link>
         </Menu.Item>
       )}
       <Menu.Item
-        key="5"
+        key="/logout"
         onClick={() => {
           if (isAuthenticated) {
             logout();
