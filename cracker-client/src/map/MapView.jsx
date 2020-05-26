@@ -23,7 +23,7 @@ export const MapView = () => {
 
   return (
     <Container>
-      <Map center={[45.4, -75.7]} zoom={12}>
+      <Map center={[50.061252, 19.915738]} zoom={15}>
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -32,10 +32,7 @@ export const MapView = () => {
         {parkData.features.map((park) => (
           <Marker
             key={park.properties.PARK_ID}
-            position={[
-              park.geometry.coordinates[1],
-              park.geometry.coordinates[0],
-            ]}
+            position={park.geometry.coordinates}
             onClick={() => setActivePark(park)}
             icon={icon}
           />
@@ -43,13 +40,8 @@ export const MapView = () => {
 
         {activePark && (
           <Popup
-            position={[
-              activePark.geometry.coordinates[1],
-              activePark.geometry.coordinates[0],
-            ]}
-            onClose={() => {
-              setActivePark(null);
-            }}
+            position={activePark.geometry.coordinates}
+            onClose={() => setActivePark(null)}
           >
             <div>
               <h2>{activePark.properties.NAME}</h2>
