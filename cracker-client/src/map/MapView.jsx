@@ -14,7 +14,7 @@ const Container = styled.div`
 `;
 
 const icon = new Icon({
-  iconUrl: "/skateboarding.svg",
+  iconUrl: "/marker.svg",
   iconSize: [25, 25],
 });
 
