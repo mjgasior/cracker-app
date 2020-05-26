@@ -1,3 +1,5 @@
+<img width="600" src="https://rawgit.com/mjgasior/cracker-app/tree/master/images/logo.svg" alt="Cracker app" />
+
 # cracker-app
 
 _"Crack the history of Krakow with the Cracker app!"_
