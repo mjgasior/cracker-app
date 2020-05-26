@@ -3,6 +3,7 @@ import { Map, Marker, Popup, TileLayer } from "react-leaflet";
 import { Icon } from "leaflet";
 import * as parkData from "./skateparks.json";
 import styled from "styled-components";
+import { ContextMenu } from "./ContextMenu";
 
 const Container = styled.div`
   width: 600px;
@@ -28,6 +29,8 @@ export const MapView = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
+
+        <ContextMenu />
 
         {parkData.features.map((park) => (
           <Marker
