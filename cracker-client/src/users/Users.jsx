@@ -14,8 +14,8 @@ export const Users = () => {
 
   return (
     <div>
-      {data.users.map((x) => (
-        <div key={x.firstName}>
+      {data.users.map((x, i) => (
+        <div key={x.firstName + i}>
           {x.firstName} {x.lastName}
         </div>
       ))}

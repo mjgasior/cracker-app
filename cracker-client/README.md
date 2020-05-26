@@ -42,6 +42,8 @@ For Docker Compose instructions refer to `cracker-product` repository.
 - `apollo-boost` - package containing everything you need to set up Apollo Client (bare `@apollo/client` was lacking a comfortable way of [adding authorization header](https://www.apollographql.com/docs/react/networking/authentication/#header "Apollo GQL docs") to all GQL requests)
 - `auth0-js` - client side JavaScript toolkit for Auth0 authorization API
 - `graphql` - the JavaScript reference implementation for GraphQL, a query language for APIs created by Facebook
+- `leaflet` - open-source JavaScript library for mobile-friendly interactive maps based on OpenStreetMap
+- `react-leaflet` - this package provides an abstraction of 🍃 [Leaflet](https://leafletjs.com/) as ⚛️ React components.
 - `react-router-dom` - the standard routing library for React, keeps your UI in sync with the URL - it has a simple API with powerful features like lazy code loading, dynamic route matching, and location transition handling built right in (these are Document Object Model bindings for React Router)
 - `styled-components` - allows to write plain CSS in components without worrying about class name collisions, it helps to write CSS that's scoped to a single component and does not leak to any other element in the page
 
@@ -56,5 +58,6 @@ For Docker Compose instructions refer to `cracker-product` repository.
 - [Auth0 with React and Apollo](https://auth0.com/blog/develop-modern-apps-with-react-graphql-apollo-and-add-authentication/)
 - [Dockerize React with Nginx](https://medium.com/@shakyShane/lets-talk-about-docker-artifacts-27454560384f)
 - [How to run React app inside Docker with env vars](https://github.com/facebook/create-react-app/issues/982 "Create React App GitHub issues")
+- [Leaflet with React](https://blog.logrocket.com/how-to-use-react-leaflet/)
 - [Serve static files through Nginx in Docker (online exercise)](https://www.katacoda.com/courses/docker/create-nginx-static-web-server "Katacoda online courses")
 - [Readme.md markdown cheatsheet](https://github.com/tchapi/markdown-cheatsheet/blob/master/README.md)

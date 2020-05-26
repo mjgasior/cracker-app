@@ -1,0 +1,21 @@
+{
+  "type": "FeatureCollection",
+  "crs": {
+    "type": "name",
+    "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "PARK_ID": 960,
+        "NAME": "Skatepark w Parku Jordana",
+        "DESCRIPTIO": "Można jeździć i świrować"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [50.061252, 19.915738]
+      }
+    }
+  ]
+}

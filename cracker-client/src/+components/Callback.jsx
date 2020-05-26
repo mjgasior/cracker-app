@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
 import auth from "../+utils/Auth";
 
-class Callback extends Component {
+export class Callback extends Component {
   async componentDidMount() {
+    console.log(this.props.history);
     await auth.handleAuthentication();
     this.props.history.replace("/");
   }
@@ -12,5 +12,3 @@ class Callback extends Component {
     return <div>Loading...</div>;
   }
 }
-
-export default withRouter(Callback);

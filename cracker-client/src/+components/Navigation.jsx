@@ -1,32 +1,41 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { withRouter } from "react-router-dom";
+import React, { useCallback } from "react";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import auth from "../+utils/Auth";
 import { Menu } from "antd";
 
-const Navigation = () => {
-  const logout = () => {
+export const Navigation = () => {
+  const location = useLocation();
+  const history = useHistory();
+
+  const logout = useCallback(() => {
     auth.logout();
-    this.props.history.replace("/");
-  };
+    history.replace("/");
+  }, [history]);
 
   const isAuthenticated = auth.isAuthenticated();
 
   return (
-    <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]}>
-      <Menu.Item key="1">
+    <Menu
+      theme="dark"
+      mode="horizontal"
+      defaultSelectedKeys={[location.pathname]}
+    >
+      <Menu.Item key="/">
         <Link to="/">Home</Link>
       </Menu.Item>
-      <Menu.Item key="2">
+      <Menu.Item key="/map">
+        <Link to="/map">Map</Link>
+      </Menu.Item>
+      <Menu.Item key="/users">
         <Link to="/users">Users</Link>
       </Menu.Item>
       {isAuthenticated && (
-        <Menu.Item key="3">
+        <Menu.Item key="/adduser">
           <Link to="/adduser">Add a user</Link>
         </Menu.Item>
       )}
       <Menu.Item
-        key="4"
+        key="/logout"
         onClick={() => {
           if (isAuthenticated) {
             logout();
@@ -40,5 +49,3 @@ const Navigation = () => {
     </Menu>
   );
 };
-
-export default withRouter(Navigation);
