@@ -1,4 +1,4 @@
-<img width="600" src="https://rawgit.com/mjgasior/cracker-app/feature/14-logo/images/images/logo.svg" alt="Cracker app" />
+![Cracker app logo](/images/logo.svg)
 
 # cracker-app
 
