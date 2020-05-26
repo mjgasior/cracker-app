@@ -18,15 +18,18 @@ const Navigation = () => {
         <Link to="/">Home</Link>
       </Menu.Item>
       <Menu.Item key="2">
+        <Link to="/map">Map</Link>
+      </Menu.Item>
+      <Menu.Item key="3">
         <Link to="/users">Users</Link>
       </Menu.Item>
       {isAuthenticated && (
-        <Menu.Item key="3">
+        <Menu.Item key="4">
           <Link to="/adduser">Add a user</Link>
         </Menu.Item>
       )}
       <Menu.Item
-        key="4"
+        key="5"
         onClick={() => {
           if (isAuthenticated) {
             logout();
