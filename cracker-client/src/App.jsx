@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 
 import "antd/dist/antd.css";
 import { Layout } from "antd";
-import { AppName } from "./+components/AppName";
+import { Logo } from "./+components/Logo";
 
 import { Switch, Route } from "react-router-dom";
 import { Callback } from "./+components/Callback";
@@ -42,7 +42,7 @@ class App extends Component {
     return (
       <Layout>
         <Header>
-          <AppName>Cracker</AppName>
+          <Logo />
           <Navigation />
         </Header>
         <Container>
