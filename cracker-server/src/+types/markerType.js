@@ -12,5 +12,6 @@ export const Marker = gql`
 
   extend type Mutation {
     addMarker(position: [Float]): Marker!
+    removeMarker(id: ID): ID!
   }
 `;

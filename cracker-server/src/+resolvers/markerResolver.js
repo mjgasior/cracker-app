@@ -6,5 +6,7 @@ export const MarkerResolver = {
   },
   Mutation: {
     addMarker: async (_, newMarker) => await markerConnector.add(newMarker),
+    removeMarker: async (_, markerId) =>
+      await markerConnector.remove(markerId.id),
   },
 };

@@ -9,9 +9,17 @@ export const markerConnector = {
       return e.message;
     }
   },
+  remove: async (markerId) => {
+    try {
+      const response = await Marker.findByIdAndDelete(markerId);
+      console.log(response);
+      return markerId;
+    } catch (e) {
+      return e.message;
+    }
+  },
   getAll: async () => {
     const markers = await Marker.find({}).exec();
-    console.log(markers);
     return markers;
   },
 };
