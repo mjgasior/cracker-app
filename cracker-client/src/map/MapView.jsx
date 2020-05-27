@@ -10,12 +10,6 @@ const icon = new Icon({
   iconSize: [25, 25],
 });
 
-const isSamePosition = (a, b) => {
-  console.log(a);
-  console.log(b);
-  return a[0] === b[0] && a[1] === b[1];
-};
-
 export const MapView = () => {
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [markers, setMarkers] = useState([]);
