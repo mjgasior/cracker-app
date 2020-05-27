@@ -10,7 +10,14 @@ const icon = new Icon({
   iconSize: [25, 25],
 });
 
+const isSamePosition = (a, b) => {
+  console.log(a);
+  console.log(b);
+  return a[0] === b[0] && a[1] === b[1];
+};
+
 export const MapView = () => {
+  const [selectedMarker, setSelectedMarker] = useState(null);
   const [markers, setMarkers] = useState([]);
   const [position, setPosition] = useState(null);
 
@@ -29,6 +36,17 @@ export const MapView = () => {
     [setMarkers, setPosition]
   );
 
+  const handleDeleteMarker = useCallback(
+    (position) => {
+      setMarkers((prev) => prev.filter((x) => x != position));
+      setSelectedMarker(null);
+    },
+    [setMarkers, setSelectedMarker]
+  );
+
+  const showAddMarker = position !== null && selectedMarker === null;
+  const showDeleteMarker = position === null && selectedMarker !== null;
+
   return (
     <MapContainer>
       <Map
@@ -41,7 +59,7 @@ export const MapView = () => {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
 
-        {position && (
+        {showAddMarker && (
           <ContextMenu position={position} onClose={() => setPosition(null)}>
             <div>
               <Button type="primary" onClick={() => handleAddMarker(position)}>
@@ -51,10 +69,31 @@ export const MapView = () => {
           </ContextMenu>
         )}
 
+        {showDeleteMarker && (
+          <ContextMenu
+            position={selectedMarker}
+            onClose={() => setSelectedMarker(null)}
+          >
+            <div>
+              <Button
+                type="primary"
+                onClick={() => handleDeleteMarker(selectedMarker)}
+              >
+                Delete marker
+              </Button>
+            </div>
+          </ContextMenu>
+        )}
+
         {position && <Marker position={position} icon={icon} />}
 
         {markers.map((marker) => (
-          <Marker position={marker} icon={icon} />
+          <Marker
+            key={`${marker[0]}${marker[1]}`}
+            position={marker}
+            icon={icon}
+            onClick={() => setSelectedMarker(marker)}
+          />
         ))}
       </Map>
     </MapContainer>
