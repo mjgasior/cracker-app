@@ -14,6 +14,9 @@ const icon = new Icon({
 });
 
 export const MapView = () => {
+  // READ ABOUT DEALING WITH CACHE REFRESH
+  // https://www.apollographql.com/docs/react/caching/cache-configuration/#custom-identifiers
+
   const { data } = useMarkers();
   const [addMarker] = useAddMarker();
   const [removeMarker] = useRemoveMarker();
