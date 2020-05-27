@@ -9,5 +9,9 @@ export const markerConnector = {
       return e.message;
     }
   },
-  getAll: async () => await Marker.find({}).exec(),
+  getAll: async () => {
+    const markers = await Marker.find({}).exec();
+    console.log(markers);
+    return markers;
+  },
 };

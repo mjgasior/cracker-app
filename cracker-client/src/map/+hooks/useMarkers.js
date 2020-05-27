@@ -5,6 +5,7 @@ const MARKERS = gql`
   {
     markers {
       position
+      _id
     }
   }
 `;

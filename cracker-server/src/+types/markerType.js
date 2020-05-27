@@ -2,7 +2,7 @@ import { gql } from "apollo-server";
 
 export const Marker = gql`
   type Marker {
-    id: ID!
+    _id: ID!
     position: [Float]
   }
 
