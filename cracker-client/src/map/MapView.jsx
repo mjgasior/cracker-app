@@ -4,6 +4,7 @@ import { Icon } from "leaflet";
 import { Button } from "antd";
 import { ContextMenu } from "./+components/ContextMenu";
 import { MapContainer } from "./+components/MapContainer";
+import { useMarkers } from "./+hooks/useMarkers";
 
 const icon = new Icon({
   iconUrl: "/marker.svg",
@@ -11,9 +12,13 @@ const icon = new Icon({
 });
 
 export const MapView = () => {
+  const { data } = useMarkers();
+
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [markers, setMarkers] = useState([]);
   const [position, setPosition] = useState(null);
+
+  console.log(data);
 
   const handleOnContextMenu = useCallback(
     (event) => {
@@ -81,14 +86,15 @@ export const MapView = () => {
 
         {position && <Marker position={position} icon={icon} />}
 
-        {markers.map((marker) => (
-          <Marker
-            key={`${marker[0]}${marker[1]}`}
-            position={marker}
-            icon={icon}
-            onClick={() => setSelectedMarker(marker)}
-          />
-        ))}
+        {data &&
+          data.markers.map((marker) => (
+            <Marker
+              key={`${marker.position[0]}${marker.position[1]}`}
+              position={marker.position}
+              icon={icon}
+              onClick={() => setSelectedMarker(marker.position)}
+            />
+          ))}
       </Map>
     </MapContainer>
   );
