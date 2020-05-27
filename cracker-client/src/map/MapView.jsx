@@ -1,16 +1,9 @@
 import React, { useCallback, useState } from "react";
-import styled from "styled-components";
-import { Map, Marker, Popup, TileLayer } from "react-leaflet";
+import { Map, Marker, TileLayer } from "react-leaflet";
 import { Icon } from "leaflet";
-
-const Container = styled.div`
-  width: 600px;
-  height: 300px;
-  & .leaflet-container {
-    width: 100%;
-    height: 100%;
-  }
-`;
+import { Button } from "antd";
+import { ContextMenu } from "./+components/ContextMenu";
+import { MapContainer } from "./+components/MapContainer";
 
 const icon = new Icon({
   iconUrl: "/marker.svg",
@@ -18,6 +11,7 @@ const icon = new Icon({
 });
 
 export const MapView = () => {
+  const [markers, setMarkers] = useState([]);
   const [position, setPosition] = useState(null);
 
   const handleOnContextMenu = useCallback(
@@ -27,8 +21,16 @@ export const MapView = () => {
     [setPosition]
   );
 
+  const handleAddMarker = useCallback(
+    (position) => {
+      setMarkers((prev) => [...prev, position]);
+      setPosition(null);
+    },
+    [setMarkers, setPosition]
+  );
+
   return (
-    <Container>
+    <MapContainer>
       <Map
         center={[50.061252, 19.915738]}
         zoom={15}
@@ -40,15 +42,21 @@ export const MapView = () => {
         />
 
         {position && (
-          <Popup position={position} onClose={() => setPosition(null)}>
+          <ContextMenu position={position} onClose={() => setPosition(null)}>
             <div>
-              <h2>menu</h2>
+              <Button type="primary" onClick={() => handleAddMarker(position)}>
+                Add marker
+              </Button>
             </div>
-          </Popup>
+          </ContextMenu>
         )}
 
         {position && <Marker position={position} icon={icon} />}
+
+        {markers.map((marker) => (
+          <Marker position={marker} icon={icon} />
+        ))}
       </Map>
-    </Container>
+    </MapContainer>
   );
 };
