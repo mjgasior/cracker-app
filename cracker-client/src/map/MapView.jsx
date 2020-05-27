@@ -1,9 +1,7 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
+import styled from "styled-components";
 import { Map, Marker, Popup, TileLayer } from "react-leaflet";
 import { Icon } from "leaflet";
-import * as parkData from "./skateparks.json";
-import styled from "styled-components";
-import { ContextMenu } from "./ContextMenu";
 
 const Container = styled.div`
   width: 600px;
@@ -20,38 +18,36 @@ const icon = new Icon({
 });
 
 export const MapView = () => {
-  const [activePark, setActivePark] = React.useState(null);
+  const [position, setPosition] = useState(null);
+
+  const handleOnContextMenu = useCallback(
+    (event) => {
+      setPosition([event.latlng.lat, event.latlng.lng]);
+    },
+    [setPosition]
+  );
 
   return (
     <Container>
-      <Map center={[50.061252, 19.915738]} zoom={15}>
+      <Map
+        center={[50.061252, 19.915738]}
+        zoom={15}
+        oncontextmenu={handleOnContextMenu}
+      >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
 
-        <ContextMenu />
-
-        {parkData.features.map((park) => (
-          <Marker
-            key={park.properties.PARK_ID}
-            position={park.geometry.coordinates}
-            onClick={() => setActivePark(park)}
-            icon={icon}
-          />
-        ))}
-
-        {activePark && (
-          <Popup
-            position={activePark.geometry.coordinates}
-            onClose={() => setActivePark(null)}
-          >
+        {position && (
+          <Popup position={position} onClose={() => setPosition(null)}>
             <div>
-              <h2>{activePark.properties.NAME}</h2>
-              <p>{activePark.properties.DESCRIPTIO}</p>
+              <h2>menu</h2>
             </div>
           </Popup>
         )}
+
+        {position && <Marker position={position} icon={icon} />}
       </Map>
     </Container>
   );
