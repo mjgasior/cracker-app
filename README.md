@@ -6,6 +6,8 @@ _"Crack the history of Krakow with the Cracker app!"_
 
 Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barlima](https://github.com/barlima) for time and advice. :clap:
 
+![Cracker demo gif made with LICEcap](/crackerdemo.gif)
+
 ## Setup:
 
 ### Authorization setup:
@@ -80,5 +82,6 @@ As I found, this might be a [faulty DNS](https://github.com/gliderlabs/docker-al
 
 - [Dockerizing a React App](https://mherman.org/blog/dockerizing-a-react-app/)
 - [Docker Tips](https://nickjanetakis.com/blog/docker-tip-2-the-difference-between-copy-and-add-in-a-dockerile)
+- [LICEcap for simple animated screen captures](https://www.cockos.com/licecap/)
 - [Managing MongoDB on docker with docker-compose](https://medium.com/faun/managing-mongodb-on-docker-with-docker-compose-26bf8a0bbae3)
 - [Unable to start Docker MongoDB image on Windows with a volume](https://stackoverflow.com/questions/54911021/unable-to-start-docker-mongo-image-on-windows "Stack Overflow question")
