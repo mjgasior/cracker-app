@@ -30,7 +30,7 @@ If on Windows, install the [AWS CLI in Git Bash](https://stackoverflow.com/quest
 6. `ssh ubuntu@ip.of.lightsail.instance` - get to the Lightsail instance (the files should be uploaded to the `root` directory, so `ls` should list the folder with backup there)
 7. `docker cp ./ cracker-db:./` - copy MongoDB backup from instance host to Docker container (the directory with backup should be present at the very top of the tree)
 8. `docker exec -it cracker-db sh` - turn on shell on Lightsail instance in MongoDB container
-9. `mongorestore name_of_directory/graphqldb/*.bson` - restore the `graphqldb` database in the instance
+9. `mongorestore name_of_directory/cracker-app-db/*.bson` - restore the `cracker-app-db` database in the instance
 
 ## Resources:
 

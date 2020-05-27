@@ -12,7 +12,7 @@ scp -r ./dump ubuntu@$1:./
 
 echo -e "\n\e[92mRestoring dump in MongoDB Docker container\e[0m"
 ssh ubuntu@$1 "docker cp ./dump cracker-db:./ \
-    && docker exec cracker-db mongorestore ./dump/graphqldb/*.bson"
+    && docker exec cracker-db mongorestore ./dump/cracker-app-db/*.bson"
 
 echo -e "\n\e[92mRemoving dump files from Docker and instance\e[0m"
 ssh ubuntu@$1 "docker exec cracker-db rm -rf ./dump \
