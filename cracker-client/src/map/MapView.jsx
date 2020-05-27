@@ -32,7 +32,7 @@ export const MapView = () => {
 
   const handleDeleteMarker = useCallback(
     (position) => {
-      setMarkers((prev) => prev.filter((x) => x != position));
+      setMarkers((prev) => prev.filter((x) => x !== position));
       setSelectedMarker(null);
     },
     [setMarkers, setSelectedMarker]
