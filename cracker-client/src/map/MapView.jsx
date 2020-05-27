@@ -5,6 +5,7 @@ import { Button } from "antd";
 import { ContextMenu } from "./+components/ContextMenu";
 import { MapContainer } from "./+components/MapContainer";
 import { useMarkers } from "./+hooks/useMarkers";
+import { useAddMarker } from "./+hooks/useAddMarker";
 
 const icon = new Icon({
   iconUrl: "/marker.svg",
@@ -13,12 +14,10 @@ const icon = new Icon({
 
 export const MapView = () => {
   const { data } = useMarkers();
+  const [addMarker] = useAddMarker();
 
   const [selectedMarker, setSelectedMarker] = useState(null);
-  const [markers, setMarkers] = useState([]);
   const [position, setPosition] = useState(null);
-
-  console.log(data);
 
   const handleOnContextMenu = useCallback(
     (event) => {
@@ -29,18 +28,18 @@ export const MapView = () => {
 
   const handleAddMarker = useCallback(
     (position) => {
-      setMarkers((prev) => [...prev, position]);
+      addMarker({ variables: { position } });
       setPosition(null);
     },
-    [setMarkers, setPosition]
+    [addMarker, setPosition]
   );
 
   const handleDeleteMarker = useCallback(
     (position) => {
-      setMarkers((prev) => prev.filter((x) => x !== position));
+      alert("needs implementation from backend");
       setSelectedMarker(null);
     },
-    [setMarkers, setSelectedMarker]
+    [setSelectedMarker]
   );
 
   const showAddMarker = position !== null && selectedMarker === null;
