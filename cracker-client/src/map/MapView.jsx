@@ -37,9 +37,8 @@ export const MapView = () => {
   );
 
   const handleDeleteMarker = useCallback(
-    (position) => {
-      alert("need id here");
-      // removeMarker();
+    (markerId) => {
+      removeMarker({ variables: { id: markerId } });
       setSelectedMarker(null);
     },
     [setSelectedMarker]
@@ -72,13 +71,13 @@ export const MapView = () => {
 
         {showDeleteMarker && (
           <ContextMenu
-            position={selectedMarker}
+            position={selectedMarker.position}
             onClose={() => setSelectedMarker(null)}
           >
             <div>
               <Button
                 type="primary"
-                onClick={() => handleDeleteMarker(selectedMarker)}
+                onClick={() => handleDeleteMarker(selectedMarker._id)}
               >
                 Delete marker
               </Button>
@@ -94,7 +93,7 @@ export const MapView = () => {
               key={`${marker.position[0]}${marker.position[1]}`}
               position={marker.position}
               icon={icon}
-              onClick={() => setSelectedMarker(marker.position)}
+              onClick={() => setSelectedMarker(marker)}
             />
           ))}
       </Map>
