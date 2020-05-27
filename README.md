@@ -6,6 +6,8 @@ _"Crack the history of Krakow with the Cracker app!"_
 
 Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barlima](https://github.com/barlima) for time and advice. :clap:
 
+![Cracker demo gif made with LICEcap](/crackerdemo.gif)
+
 ## Setup:
 
 ### Authorization setup:
