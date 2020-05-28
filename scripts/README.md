@@ -8,6 +8,7 @@ Initial script for a new AWS Lightsail instance:
 
 - `db-dump.sh` - creates a database dump from a local Docker container MongoDB in current folder
 - `db-upload.sh` - not yet ready - will upload the database dump to Lightsail instance (this script needs ip address as an argument, for example `.\scripts\db-upload.sh 18.184.225.8`)
+- `image-tag-and-push.sh` - tag and push image of `cracker-server` and `cracker-client` (remember to add image IDs as arguments, for example `image-tag-and-push.sh 5b02208a27f2 fd9a0a3198a0`)
 - `new-instance.sh` - this script creates a new \$3.50 plan (nano plan) Ubuntu 16 instance on Lightsail and allocates a new static IP and attaches it to the instance
 - `new-instance-attach.sh` - this script does the same thing as `new-instance.sh` but the static IP has to be already allocated to allow attaching (use `aws lightsail allocate-static-ip --static-ip-name Cracker-app-ip` command before invoking this script)
 - `wipe.sh` - deletes the Lightsail instance, detaches the static IP, but doesn't delete the static IP (you need to delete it manually because AWS will charge you after an hour of having a detached static IP)
@@ -31,7 +32,7 @@ If on Windows, install the [AWS CLI in Git Bash](https://stackoverflow.com/quest
 6. `ssh ubuntu@ip.of.lightsail.instance` - get to the Lightsail instance (the files should be uploaded to the `root` directory, so `ls` should list the folder with backup there)
 7. `docker cp ./ cracker-db:./` - copy MongoDB backup from instance host to Docker container (the directory with backup should be present at the very top of the tree)
 8. `docker exec -it cracker-db sh` - turn on shell on Lightsail instance in MongoDB container
-9. `mongorestore name_of_directory/cracker-app-db/*.bson` - restore the `cracker-app-db` database in the instance
+9. `mongorestore name_of_directory/crackerappdb/*.bson` - restore the `crackerappdb` database in the instance
 
 ## Resources:
 
