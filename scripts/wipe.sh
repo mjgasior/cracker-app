@@ -1,5 +1,13 @@
 echo -e "\e[93;104mCracker app scripts\e[0m\n"
 
+if [ -z ${1+x} ]; then 
+    echo -e "\e[91mIP address is unset!\e[0m";
+    read
+    exit
+else 
+    echo "IP address is set to '$1'.";
+fi
+
 echo -e "\n\e[92mDetaching static IP\e[0m"
 aws lightsail detach-static-ip --static-ip-name Cracker-app-ip
 aws lightsail stop-instance --instance-name Cracker-app --force

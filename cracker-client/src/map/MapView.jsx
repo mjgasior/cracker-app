@@ -7,6 +7,7 @@ import { MapContainer } from "./+components/MapContainer";
 import { useMarkers } from "./+hooks/useMarkers";
 import { useAddMarker } from "./+hooks/useAddMarker";
 import { useRemoveMarker } from "./+hooks/useRemoveMarker";
+import auth from "../+utils/Auth";
 
 const icon = new Icon({
   iconUrl: "/marker.svg",
@@ -14,15 +15,14 @@ const icon = new Icon({
 });
 
 export const MapView = () => {
-  // READ ABOUT DEALING WITH CACHE REFRESH
-  // https://www.apollographql.com/docs/react/caching/cache-configuration/#custom-identifiers
-
   const { data } = useMarkers();
   const [addMarker] = useAddMarker();
   const [removeMarker] = useRemoveMarker();
 
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [position, setPosition] = useState(null);
+
+  const isAuthenticated = auth.isAuthenticated();
 
   const handleOnContextMenu = useCallback(
     (event) => {
@@ -47,8 +47,11 @@ export const MapView = () => {
     [setSelectedMarker, removeMarker]
   );
 
-  const showAddMarker = position !== null && selectedMarker === null;
-  const showDeleteMarker = position === null && selectedMarker !== null;
+  const showAddMarker =
+    isAuthenticated && position !== null && selectedMarker === null;
+
+  const showDeleteMarker =
+    isAuthenticated && position === null && selectedMarker !== null;
 
   return (
     <MapContainer>
