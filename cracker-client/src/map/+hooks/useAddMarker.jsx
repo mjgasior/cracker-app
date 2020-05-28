@@ -1,23 +1,5 @@
 import { useMutation } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
-
-const ADD_MARKER = gql`
-  mutation addMarker($position: [Float]) {
-    addMarker(position: $position) {
-      position
-      _id
-    }
-  }
-`;
-
-const MARKERS = gql`
-  {
-    markers {
-      position
-      _id
-    }
-  }
-`;
+import { ADD_MARKER, MARKERS } from "./queries";
 
 export const useAddMarker = () => {
   return useMutation(ADD_MARKER, {

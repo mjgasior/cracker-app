@@ -11,9 +11,7 @@ export const markerConnector = {
   },
   remove: async (markerId) => {
     try {
-      const response = await Marker.findByIdAndDelete(markerId);
-      console.log(response);
-      return markerId;
+      return await Marker.findByIdAndDelete(markerId);
     } catch (e) {
       return e.message;
     }
