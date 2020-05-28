@@ -1,9 +1,6 @@
 import { gql } from "apollo-server";
 import { makeExecutableSchema } from "graphql-tools";
 
-import { User } from "./+types/userType";
-import { UserResolver } from "./+resolvers/userResolver";
-
 import { Marker } from "./+types/markerType";
 import { MarkerResolver } from "./+resolvers/markerResolver";
 
@@ -18,6 +15,6 @@ const Base = gql`
 `;
 
 export const schema = makeExecutableSchema({
-  typeDefs: [Base, User, Marker],
-  resolvers: [UserResolver, MarkerResolver],
+  typeDefs: [Base, Marker],
+  resolvers: [MarkerResolver],
 });
