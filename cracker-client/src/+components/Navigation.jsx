@@ -26,14 +26,6 @@ export const Navigation = () => {
       <Menu.Item key="/map">
         <Link to="/map">Map</Link>
       </Menu.Item>
-      <Menu.Item key="/users">
-        <Link to="/users">Users</Link>
-      </Menu.Item>
-      {isAuthenticated && (
-        <Menu.Item key="/adduser">
-          <Link to="/adduser">Add a user</Link>
-        </Menu.Item>
-      )}
       <Menu.Item
         key="/logout"
         onClick={() => {
