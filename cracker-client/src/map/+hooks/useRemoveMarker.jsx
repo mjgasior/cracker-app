@@ -7,6 +7,23 @@ const REMOVE_MARKER = gql`
   }
 `;
 
+const MARKERS = gql`
+  {
+    markers {
+      position
+      _id
+    }
+  }
+`;
+
 export const useRemoveMarker = () => {
-  return useMutation(REMOVE_MARKER);
+  return useMutation(REMOVE_MARKER, {
+    update(cache, { data: { removeMarker } }) {
+      const { markers } = cache.readQuery({ query: MARKERS });
+      cache.writeQuery({
+        query: MARKERS,
+        data: { markers: markers.filter((x) => x._id !== removeMarker) },
+      });
+    },
+  });
 };

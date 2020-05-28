@@ -44,7 +44,7 @@ export const MapView = () => {
       removeMarker({ variables: { id: markerId } });
       setSelectedMarker(null);
     },
-    [setSelectedMarker]
+    [setSelectedMarker, removeMarker]
   );
 
   const showAddMarker = position !== null && selectedMarker === null;

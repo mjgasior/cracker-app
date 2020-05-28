@@ -5,6 +5,7 @@ const ADD_MARKER = gql`
   mutation addMarker($position: [Float]) {
     addMarker(position: $position) {
       position
+      _id
     }
   }
 `;
@@ -13,6 +14,7 @@ const MARKERS = gql`
   {
     markers {
       position
+      _id
     }
   }
 `;
