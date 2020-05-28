@@ -4,6 +4,9 @@ import { Icon } from "leaflet";
 import { Button } from "antd";
 import { ContextMenu } from "./+components/ContextMenu";
 import { MapContainer } from "./+components/MapContainer";
+import { useMarkers } from "./+hooks/useMarkers";
+import { useAddMarker } from "./+hooks/useAddMarker";
+import { useRemoveMarker } from "./+hooks/useRemoveMarker";
 
 const icon = new Icon({
   iconUrl: "/marker.svg",
@@ -11,8 +14,14 @@ const icon = new Icon({
 });
 
 export const MapView = () => {
+  // READ ABOUT DEALING WITH CACHE REFRESH
+  // https://www.apollographql.com/docs/react/caching/cache-configuration/#custom-identifiers
+
+  const { data } = useMarkers();
+  const [addMarker] = useAddMarker();
+  const [removeMarker] = useRemoveMarker();
+
   const [selectedMarker, setSelectedMarker] = useState(null);
-  const [markers, setMarkers] = useState([]);
   const [position, setPosition] = useState(null);
 
   const handleOnContextMenu = useCallback(
@@ -24,18 +33,18 @@ export const MapView = () => {
 
   const handleAddMarker = useCallback(
     (position) => {
-      setMarkers((prev) => [...prev, position]);
+      addMarker({ variables: { position } });
       setPosition(null);
     },
-    [setMarkers, setPosition]
+    [addMarker, setPosition]
   );
 
   const handleDeleteMarker = useCallback(
-    (position) => {
-      setMarkers((prev) => prev.filter((x) => x !== position));
+    (markerId) => {
+      removeMarker({ variables: { id: markerId } });
       setSelectedMarker(null);
     },
-    [setMarkers, setSelectedMarker]
+    [setSelectedMarker, removeMarker]
   );
 
   const showAddMarker = position !== null && selectedMarker === null;
@@ -65,13 +74,13 @@ export const MapView = () => {
 
         {showDeleteMarker && (
           <ContextMenu
-            position={selectedMarker}
+            position={selectedMarker.position}
             onClose={() => setSelectedMarker(null)}
           >
             <div>
               <Button
                 type="primary"
-                onClick={() => handleDeleteMarker(selectedMarker)}
+                onClick={() => handleDeleteMarker(selectedMarker._id)}
               >
                 Delete marker
               </Button>
@@ -81,14 +90,15 @@ export const MapView = () => {
 
         {position && <Marker position={position} icon={icon} />}
 
-        {markers.map((marker) => (
-          <Marker
-            key={`${marker[0]}${marker[1]}`}
-            position={marker}
-            icon={icon}
-            onClick={() => setSelectedMarker(marker)}
-          />
-        ))}
+        {data &&
+          data.markers.map((marker) => (
+            <Marker
+              key={`${marker.position[0]}${marker.position[1]}`}
+              position={marker.position}
+              icon={icon}
+              onClick={() => setSelectedMarker(marker)}
+            />
+          ))}
       </Map>
     </MapContainer>
   );

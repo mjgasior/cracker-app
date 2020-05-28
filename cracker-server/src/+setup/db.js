@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const url = `mongodb://${process.env.MONGODB_ADDRESS}/graphqldb`;
+const url = `mongodb://${process.env.MONGODB_ADDRESS}/cracker-app-db`;
 mongoose.connect(url, {
   useNewUrlParser: true,
 });
