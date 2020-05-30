@@ -1,5 +1,8 @@
 echo -e "\e[93;104mCracker app scripts\e[0m\n"
 
+echo -e "\n\e[92mAllocating new static IP\e[0m"
+aws lightsail allocate-static-ip --static-ip-name Cracker-app-ip
+
 echo -e "\n\e[92mCreating new instance\e[0m"
 userdata="curl -o lightsail-compose.sh https://raw.githubusercontent.com/mjgasior/cracker-app/master/deploy/lightsail-compose.sh \
     && chmod +x ./lightsail-compose.sh \
@@ -35,9 +38,6 @@ if [ $n -gt 6 ]; then
     read
     exit
 fi
-
-echo -e "\n\e[92mAllocating new static IP\e[0m"
-aws lightsail allocate-static-ip --static-ip-name Cracker-app-ip
 
 echo -e "\n\e[92mAttaching new static IP to the instance\e[0m"
 aws lightsail attach-static-ip --static-ip-name Cracker-app-ip --instance-name Cracker-app
