@@ -10,6 +10,7 @@ Initial script for a new AWS Lightsail instance:
 - `db-upload.sh` - not yet ready - will upload the database dump to Lightsail instance (this script needs ip address as an argument, for example `.\scripts\db-upload.sh 18.184.225.8`)
 - `image-tag-and-push.sh` - tag and push image of `cracker-server` and `cracker-client` (remember to add image IDs as arguments, for example `image-tag-and-push.sh 5b02208a27f2 fd9a0a3198a0`)
 - `new-instance.sh` - this script creates a new \$3.50 plan (nano plan) Ubuntu 16 instance on Lightsail and allocates a new static IP and attaches it to the instance
+- `setup.sh` - allocates static IP, releases a new version of images with the IP, pushes them to Docker Hub and creates a new instance on Lightsail
 - `wipe.sh` - deletes the Lightsail instance, detaches the static IP, but doesn't delete the static IP (you need to delete it manually because AWS will charge you after an hour of having a detached static IP)
 
 ## AWS CLI for Lightsail:
