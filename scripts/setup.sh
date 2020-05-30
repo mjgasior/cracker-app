@@ -16,7 +16,7 @@ cp ".env.production" "./cracker-client/"
 
 # Build, tag and push new images
 echo -e "\n\e[92mBuild new images\e[0m"
-docker-compose -f docker-compose.prod.yml up -d
+docker-compose -f docker-compose.prod.yml build
 
 echo -e "\n\e[92mTag cracker-server\e[0m"
 docker tag cracker-app_cracker-server mjgasior/cracker-server:0.0.1
@@ -69,6 +69,10 @@ fi
 
 echo -e "\n\e[92mAttaching new static IP to the instance\e[0m"
 aws lightsail attach-static-ip --static-ip-name Cracker-app-ip --instance-name Cracker-app
+
+# Remove configuration files
+rm ".env.production"
+rm "./cracker-client/.env.production"
 
 echo -e "\e[96mPress any key to exit...\e[0m"
 read
