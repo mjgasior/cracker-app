@@ -13,9 +13,11 @@ MONGODB_ADDRESS="YOUR_MONGODB_ADDRESS"
 
 Example:
 
-    AUTH0_DOMAIN=domain.region.auth0.com
-    AUTH0_CLIENT_ID=i6mdgjdsjs45asdmfdg3453TADasdkaa
-    MONGODB_ADDRESS=192.168.99.100:27017
+```
+AUTH0_DOMAIN=domain.region.auth0.com
+AUTH0_CLIENT_ID=i6mdgjdsjs45asdmfdg3453TADasdkaa
+MONGODB_ADDRESS=192.168.99.100:27017
+```
 
 ## Snippets:
 

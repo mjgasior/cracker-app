@@ -26,18 +26,48 @@ Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barli
      - `http://localhost:3000/` - running app fully locally
      - `http://the.ip.of.docker.machine/` - running app as Docker production build
 
+### Local development configuration setup:
+
+1. Create a `.env` file in `cracker-server` directory:
+
+```
+AUTH0_DOMAIN="Auth0 user domain"
+AUTH0_CLIENT_ID="Auth0 user client ID"
+```
+
+2. Create a `.env` file in `cracker-client` directory:
+
+```
+REACT_APP_API_URL="address of Apollo GQL backend"
+REACT_APP_AUTH0_ORIGIN="address of the app seen from Auth0 perspective"
+REACT_APP_AUTH0_DOMAIN="Auth0 user domain"
+REACT_APP_AUTH0_CLIENT_ID="Auth0 user client ID"
+```
+
+Remember that while setting `REACT_APP_API_URL` in local development, the client container does not contain `nginx` - that means that `cracker-server` is available as `:4000` and not `/api`. Apollo GQL Playground should be available after start at `:4000` (if you use `VirtualBox`, the address can be `http://192.168.99.100:4000/` and for regular `Docker` development either `http://127.0.0.1:4000/` or `http://localhost:4000/`).
+
+On the other hand, the `:3000` port for Webpack React development is mapped in `docker-compose.yml` to standard HTTP `:80` port, so the app is visible for Auth0 as (for example) `http://127.0.0.1/` - keep that in mind while setting the `REACT_APP_AUTH0_ORIGIN` value.
+
+Example of local development `.env` for `cracker-client`:
+
+```
+REACT_APP_API_URL=http://127.0.0.1:4000
+REACT_APP_AUTH0_ORIGIN=http://127.0.0.1
+REACT_APP_AUTH0_DOMAIN=domain.region.auth0.com
+REACT_APP_AUTH0_CLIENT_ID=i6mdgjdsjs45asdmfdg3453TADasdkaa
+```
+
+3. Run `docker-compose build`.
+4. Run `docker-compose up`.
+
 ### Production build:
+
+You can use the `setup.sh` script to setup a new instance on Lightsail autmatically. Please keep this directory as current work directory (invoke the script as `./scripts/setup.sh`). Remember to have the `aws cli` installed and logged to your account. Also, you will need to be logged to Docker Hub (images in the script are tagged for my repository - you need to change this manually, for example `mjgasior/cracker-server:0.0.1` to `youraccount/cracker-server:0.0.1`)
 
 0. Remember to set up proper Auth0 (client ID and the domain) values in `cracker-client` and `cracker-server`.
 1. Set proper IP address of the API in `.env` file in `cracker-client` for new Lightsail instance (for example `REACT_APP_API_URL=http://18.196.197.102/api` and `REACT_APP_AUTH0_ORIGIN=http://18.196.197.102`).
 2. Run `docker-compose -f docker-compose.prod.yml build`
 3. Run `docker-compose -f docker-compose.prod.yml up`
-
-### Development build:
-
-0. Remember to set up proper Auth0 values.
-1. Run `docker-compose build`
-2. Run `docker-compose up`
 
 ### Setup for completely separate run:
 
@@ -46,7 +76,7 @@ Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barli
 3. Configure `cracker-client` to run locally with `cracker-server` (set .env in `cracker-client` to have `REACT_APP_API_URL=http://localhost:4000/api` and `REACT_APP_AUTH0_ORIGIN=http://localhost:3000`) and run `yarn start`.
 4. App should be available at `http://localhost:3000` and [Apollo Playground](https://www.apollographql.com/docs/apollo-server/testing/graphql-playground/) at `http://localhost:4000/`.
 
-### Docker Hub:
+### Push image to Docker Hub:
 
 0. Log yourself in to Docker Hub `docker login`.
 1. Build Docker images.
