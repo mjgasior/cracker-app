@@ -26,18 +26,35 @@ Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barli
      - `http://localhost:3000/` - running app fully locally
      - `http://the.ip.of.docker.machine/` - running app as Docker production build
 
+### Local development configuration setup:
+
+1. Create a `.env` file in `cracker-server` directory:
+
+```
+AUTH0_DOMAIN="Auth0 user domain"
+AUTH0_CLIENT_ID="Auth0 user client ID"
+```
+
+2. Create a `.env` file in `cracker-client` directory:
+
+```
+REACT_APP_API_URL="address of Apollo GQL backend"
+REACT_APP_AUTH0_ORIGIN="address of the app seen from Auth0 perspective"
+REACT_APP_AUTH0_DOMAIN="Auth0 user domain"
+REACT_APP_AUTH0_CLIENT_ID="Auth0 user client ID"
+```
+
+Remember that while setting `REACT_APP_API_URL` in local development, the client container does not contain `nginx` - that means that `cracker-server` is available as `:4000` and not `/api`. Apollo GQL Playground should be available after start at `:4000` (if you use `VirtualBox`, the address can be `http://192.168.99.100:4000/` and for regular `Docker` development either `http://127.0.0.1:4000/` or `http://localhost:4000/`).
+
+3. Run `docker-compose build`.
+4. Run `docker-compose up`.
+
 ### Production build:
 
 0. Remember to set up proper Auth0 (client ID and the domain) values in `cracker-client` and `cracker-server`.
 1. Set proper IP address of the API in `.env` file in `cracker-client` for new Lightsail instance (for example `REACT_APP_API_URL=http://18.196.197.102/api` and `REACT_APP_AUTH0_ORIGIN=http://18.196.197.102`).
 2. Run `docker-compose -f docker-compose.prod.yml build`
 3. Run `docker-compose -f docker-compose.prod.yml up`
-
-### Development build:
-
-0. Remember to set up proper Auth0 values.
-1. Run `docker-compose build`
-2. Run `docker-compose up`
 
 ### Setup for completely separate run:
 
