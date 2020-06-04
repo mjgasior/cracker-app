@@ -62,7 +62,7 @@ REACT_APP_AUTH0_CLIENT_ID=i6mdgjdsjs45asdmfdg3453TADasdkaa
 
 ### Production build:
 
-You can use the `setup.sh` script to setup a new instance on Lightsail autmatically. Please keep this directory as current work directory (invoke the script as `./scripts/setup.sh`). Remember to have the `aws cli` installed and logged to your account.
+You can use the `setup.sh` script to setup a new instance on Lightsail autmatically. Please keep this directory as current work directory (invoke the script as `./scripts/setup.sh`). Remember to have the `aws cli` installed and logged to your account. Also, you will need to be logged to Docker Hub (images in the script are tagged for my repository - you need to change this manually, for example `mjgasior/cracker-server:0.0.1` to `youraccount/cracker-server:0.0.1`)
 
 0. Remember to set up proper Auth0 (client ID and the domain) values in `cracker-client` and `cracker-server`.
 1. Set proper IP address of the API in `.env` file in `cracker-client` for new Lightsail instance (for example `REACT_APP_API_URL=http://18.196.197.102/api` and `REACT_APP_AUTH0_ORIGIN=http://18.196.197.102`).
