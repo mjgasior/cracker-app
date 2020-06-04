@@ -57,11 +57,12 @@ REACT_APP_AUTH0_DOMAIN=domain.region.auth0.com
 REACT_APP_AUTH0_CLIENT_ID=i6mdgjdsjs45asdmfdg3453TADasdkaa
 ```
 
-3. Please validate the environment variable set in `docker-compose.yml` in `cracker-client` section named `REACT_APP_API_URL`. Overrides can be used for local development and the
-4. Run `docker-compose build`.
-5. Run `docker-compose up`.
+3. Run `docker-compose build`.
+4. Run `docker-compose up`.
 
 ### Production build:
+
+You can use the `setup.sh` script to setup a new instance on Lightsail autmatically. Please keep this directory as current work directory (invoke the script as `./scripts/setup.sh`). Remember to have the `aws cli` installed and logged to your account.
 
 0. Remember to set up proper Auth0 (client ID and the domain) values in `cracker-client` and `cracker-server`.
 1. Set proper IP address of the API in `.env` file in `cracker-client` for new Lightsail instance (for example `REACT_APP_API_URL=http://18.196.197.102/api` and `REACT_APP_AUTH0_ORIGIN=http://18.196.197.102`).
@@ -75,7 +76,7 @@ REACT_APP_AUTH0_CLIENT_ID=i6mdgjdsjs45asdmfdg3453TADasdkaa
 3. Configure `cracker-client` to run locally with `cracker-server` (set .env in `cracker-client` to have `REACT_APP_API_URL=http://localhost:4000/api` and `REACT_APP_AUTH0_ORIGIN=http://localhost:3000`) and run `yarn start`.
 4. App should be available at `http://localhost:3000` and [Apollo Playground](https://www.apollographql.com/docs/apollo-server/testing/graphql-playground/) at `http://localhost:4000/`.
 
-### Docker Hub:
+### Push image to Docker Hub:
 
 0. Log yourself in to Docker Hub `docker login`.
 1. Build Docker images.

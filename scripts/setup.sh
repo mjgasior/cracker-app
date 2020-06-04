@@ -4,6 +4,7 @@ docker rm $(docker ps -a -q)
 
 echo -e "\n\e[92mAllocating new static IP\e[0m"
 aws lightsail allocate-static-ip --static-ip-name Cracker-app-ip
+aws lightsail get-static-ip --static-ip-name Cracker-app-ip
 
 read -p "Enter allocated static IP: " static_ip
 
