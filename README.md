@@ -46,8 +46,20 @@ REACT_APP_AUTH0_CLIENT_ID="Auth0 user client ID"
 
 Remember that while setting `REACT_APP_API_URL` in local development, the client container does not contain `nginx` - that means that `cracker-server` is available as `:4000` and not `/api`. Apollo GQL Playground should be available after start at `:4000` (if you use `VirtualBox`, the address can be `http://192.168.99.100:4000/` and for regular `Docker` development either `http://127.0.0.1:4000/` or `http://localhost:4000/`).
 
-3. Run `docker-compose build`.
-4. Run `docker-compose up`.
+On the other hand, the `:3000` port for Webpack React development is mapped in `docker-compose.yml` to standard HTTP `:80` port, so the app is visible for Auth0 as (for example) `http://127.0.0.1/` - keep that in mind while setting the `REACT_APP_AUTH0_ORIGIN` value.
+
+Example of local development `.env` for `cracker-client`:
+
+```
+REACT_APP_API_URL=http://127.0.0.1:4000
+REACT_APP_AUTH0_ORIGIN=http://127.0.0.1
+REACT_APP_AUTH0_DOMAIN=domain.region.auth0.com
+REACT_APP_AUTH0_CLIENT_ID=i6mdgjdsjs45asdmfdg3453TADasdkaa
+```
+
+3. Please validate the environment variable set in `docker-compose.yml` in `cracker-client` section named `REACT_APP_API_URL`. Overrides can be used for local development and the
+4. Run `docker-compose build`.
+5. Run `docker-compose up`.
 
 ### Production build:
 
