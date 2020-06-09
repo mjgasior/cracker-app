@@ -57,8 +57,10 @@ REACT_APP_AUTH0_DOMAIN=domain.region.auth0.com
 REACT_APP_AUTH0_CLIENT_ID=i6mdgjdsjs45asdmfdg3453TADasdkaa
 ```
 
-3. Run `docker-compose build`.
-4. Run `docker-compose up`.
+3. Run `yarn` in `cracker-client`.
+4. Run `yarn` in `cracker-server`.
+5. Run `docker-compose build`.
+6. Run `docker-compose up`.
 
 ### Production build:
 
