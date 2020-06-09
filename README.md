@@ -130,6 +130,7 @@ As I found, this might be a [faulty DNS](https://github.com/gliderlabs/docker-al
 
 ## Resources:
 
+- [Adding custom claims in Auth0](https://auth0.com/docs/api-auth/tutorials/adoption/scope-custom-claims)
 - [Dockerizing a React App](https://mherman.org/blog/dockerizing-a-react-app/)
 - [Docker Tips](https://nickjanetakis.com/blog/docker-tip-2-the-difference-between-copy-and-add-in-a-dockerile)
 - [LICEcap for simple animated screen captures](https://www.cockos.com/licecap/)
