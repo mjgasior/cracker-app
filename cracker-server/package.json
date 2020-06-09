@@ -12,7 +12,7 @@
     "nodemon": "^2.0.3"
   },
   "dependencies": {
-    "apollo-server": "^2.14.3",
+    "apollo-server": "^2.14.2",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
