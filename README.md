@@ -26,6 +26,24 @@ Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barli
      - `http://localhost:3000/` - running app fully locally
      - `http://the.ip.of.docker.machine/` - running app as Docker production build
 
+### Roles setup:
+
+1. Go to `auth0.com` and select `Users & Roles` and then `Roles`.
+2. Click `+ Create role` and add `admin` with any description you wish.
+3. After that, select `Rules` from the menu and click `+ Create rule`.
+4. Pick an `</> Empty rule` template.
+5. Change the name to `Add Cracker roles to access token` and fill the `Script` part with:
+
+```
+function (user, context, callback) {
+  var namespace = 'http://cracker.com/';
+  context.accessToken[namespace + 'roles'] = user.app_metadata.roles;
+  return callback(null, user, context);
+}
+```
+
+6. Save changes.
+
 ### Local development configuration setup:
 
 1. Create a `.env` file in `cracker-server` directory:

@@ -17,6 +17,7 @@ const server = new ApolloServer({
         if (err) {
           return reject(err);
         }
+        console.log(decoded);
         resolve({ email: decoded.email, isLogged: true });
       });
     }).catch(() => {
