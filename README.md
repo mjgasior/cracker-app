@@ -30,7 +30,7 @@ Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barli
 
 1. Go to `Auth0` and select `Rules` from the menu and click `+ Create rule`.
 2. Pick an `</> Empty rule` template.
-3. Change the name to `Add Cracker roles to access token` and fill the `Script` part with:
+3. Change the name to `Add Cracker roles to token` and fill the `Script` part with:
 
 ```
 function (user, context, callback) {
