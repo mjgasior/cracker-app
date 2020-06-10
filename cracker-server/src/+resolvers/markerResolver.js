@@ -9,16 +9,7 @@ export const MarkerResolver = {
     addMarker: async (_, newMarker, { user }) => {
       try {
         const { isLogged, roles } = await user;
-        if (!isLogged) {
-          throw new AuthenticationError("User not logged in!");
-        }
-
-        console.log(roles);
-        if (!isAdmin(roles)) {
-          throw new AuthenticationError(
-            "User not allowed to perform this action!"
-          );
-        }
+        verifyAdminAccess(isLogged, roles);
 
         return await markerConnector.add(newMarker);
       } catch (e) {
@@ -31,16 +22,7 @@ export const MarkerResolver = {
       try {
         const { isLogged, roles } = await user;
 
-        if (!isLogged) {
-          throw new AuthenticationError("User not logged in!");
-        }
-
-        if (!isAdmin(roles)) {
-          throw new AuthenticationError(
-            "User not allowed to perform this action!"
-          );
-        }
-
+        verifyAdminAccess(isLogged, roles);
         return await markerConnector.remove(id);
       } catch (e) {
         console.error(e);
@@ -48,6 +30,16 @@ export const MarkerResolver = {
       }
     },
   },
+};
+
+const verifyAdminAccess = (isLogged, roles) => {
+  if (!isLogged) {
+    throw new AuthenticationError("User not logged in!");
+  }
+
+  if (!isAdmin(roles)) {
+    throw new AuthenticationError("User not allowed to perform this action!");
+  }
 };
 
 const isAdmin = (roles) => roles.includes("admin");
