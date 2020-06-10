@@ -1,6 +1,8 @@
 import jwt from "jsonwebtoken";
 import jwksClient from "jwks-rsa";
 
+const AUTH0_NAMESPACE = "http://www.crackerapp.com/";
+
 const client = jwksClient({
   jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`,
 });
@@ -18,6 +20,23 @@ const options = {
   algorithms: ["RS256"],
 };
 
-export const verifyToken = (token, callback) => {
+const verifyToken = (token, callback) => {
   jwt.verify(token, getKey, options, (err, decoded) => callback(err, decoded));
 };
+
+export const getUser = (token) =>
+  new Promise((resolve, reject) => {
+    if (token === "undefined") {
+      return resolve({ isLogged: false });
+    }
+
+    verifyToken(token, (err, decoded) => {
+      if (err) {
+        return reject(err);
+      }
+      const roles = decoded[AUTH0_NAMESPACE + "roles"];
+      resolve({ roles, email: decoded.email, isLogged: true });
+    });
+  }).catch(() => {
+    return { isLogged: false };
+  });
