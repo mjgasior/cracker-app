@@ -42,4 +42,4 @@ const verifyAdminAccess = (isLogged, roles) => {
   }
 };
 
-const isAdmin = (roles) => roles.includes("admin");
+const isAdmin = (roles) => roles && roles.includes("admin");

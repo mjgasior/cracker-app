@@ -1,5 +1,7 @@
 import auth0 from "auth0-js";
 
+const CRACKER_ROLES = "http://www.crackerapp.com/roles";
+
 class Auth {
   constructor() {
     this.auth0 = new auth0.WebAuth({
@@ -43,6 +45,7 @@ class Auth {
 
   setSession(authResult) {
     this.idToken = authResult.idToken;
+    this.roles = authResult.idTokenPayload[CRACKER_ROLES];
     localStorage.setItem(this.authFlag, JSON.stringify(true));
   }
 
@@ -72,6 +75,10 @@ class Auth {
 
   isAuthenticated() {
     return JSON.parse(localStorage.getItem(this.authFlag));
+  }
+
+  isUserAdmin() {
+    return this.roles && this.roles.includes("admin");
   }
 }
 
