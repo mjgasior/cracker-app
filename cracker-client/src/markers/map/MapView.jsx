@@ -61,20 +61,17 @@ export const MapView = ({ isAllowed }) => {
         )}
 
         {data &&
-          data.markers.map(({ latitude, longitude, _id }) => (
-            <Marker
-              key={_id}
-              position={[latitude, longitude]}
-              icon={icon}
-              onClick={() =>
-                setCurrentMarker({
-                  latitude,
-                  longitude,
-                  id: _id,
-                })
-              }
-            />
-          ))}
+          data.markers.map((marker) => {
+            const { latitude, longitude, _id } = marker;
+            return (
+              <Marker
+                key={_id}
+                position={[latitude, longitude]}
+                icon={icon}
+                onClick={() => setCurrentMarker(marker)}
+              />
+            );
+          })}
       </Map>
     </MapContainer>
   );

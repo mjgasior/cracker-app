@@ -4,8 +4,8 @@ import { useRemoveMarker } from "./../../+hooks/useRemoveMarker";
 import { Form, Input, Button } from "antd";
 
 export const MarkerForm = ({ marker, reset }) => {
-  const { latitude, longitude, id } = marker;
-  const isSavedMarker = id !== undefined;
+  const { latitude, longitude, _id } = marker;
+  const isSavedMarker = _id !== undefined;
 
   const [form] = Form.useForm();
   const [addMarker] = useAddMarker();
@@ -20,7 +20,7 @@ export const MarkerForm = ({ marker, reset }) => {
   );
 
   const handleDeleteMarker = useCallback(() => {
-    removeMarker({ variables: { id: marker._id } });
+    removeMarker({ variables: { id: _id } });
     reset();
   }, [removeMarker, reset, marker]);
 
