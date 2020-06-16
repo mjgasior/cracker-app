@@ -1,6 +1,7 @@
 export const ROUTES = {
+  CALLBACK: "/callback",
   HOME: "/",
-  POINTS: "/points",
-  MAP: "/map",
   LOGOUT: "/logout",
+  MAP: "/map",
+  MARKERS: "/markers",
 };

@@ -8,6 +8,7 @@ import { useMarkers } from "./+hooks/useMarkers";
 import { useAddMarker } from "./+hooks/useAddMarker";
 import { useRemoveMarker } from "./+hooks/useRemoveMarker";
 import auth from "../+utils/Auth";
+import { useMarkerContext } from "../markers/+hooks/useMarkerContext";
 
 const icon = new Icon({
   iconUrl: "/marker.svg",
@@ -19,7 +20,7 @@ export const MapView = () => {
   const [addMarker] = useAddMarker();
   const [removeMarker] = useRemoveMarker();
 
-  const [selectedMarker, setSelectedMarker] = useState(null);
+  const { currentMarker, setCurrentMarker } = useMarkerContext();
   const [position, setPosition] = useState(null);
 
   const isAllowed = auth.isAuthenticated() && auth.isUserAdmin();
@@ -42,16 +43,16 @@ export const MapView = () => {
   const handleDeleteMarker = useCallback(
     (markerId) => {
       removeMarker({ variables: { id: markerId } });
-      setSelectedMarker(null);
+      setCurrentMarker(null);
     },
-    [setSelectedMarker, removeMarker]
+    [setCurrentMarker, removeMarker]
   );
 
   const showAddMarker =
-    isAllowed && position !== null && selectedMarker === null;
+    isAllowed && position !== null && currentMarker === null;
 
   const showDeleteMarker =
-    isAllowed && position === null && selectedMarker !== null;
+    isAllowed && position === null && currentMarker !== null;
 
   const canMark = isAllowed && position;
 
@@ -79,13 +80,13 @@ export const MapView = () => {
 
         {showDeleteMarker && (
           <ContextMenu
-            position={selectedMarker.position}
-            onClose={() => setSelectedMarker(null)}
+            position={currentMarker.position}
+            onClose={() => setCurrentMarker(null)}
           >
             <div>
               <Button
                 type="primary"
-                onClick={() => handleDeleteMarker(selectedMarker._id)}
+                onClick={() => handleDeleteMarker(currentMarker._id)}
               >
                 Delete marker
               </Button>
@@ -101,7 +102,7 @@ export const MapView = () => {
               key={`${marker.position[0]}${marker.position[1]}`}
               position={marker.position}
               icon={icon}
-              onClick={() => setSelectedMarker(marker)}
+              onClick={() => setCurrentMarker(marker)}
             />
           ))}
       </Map>

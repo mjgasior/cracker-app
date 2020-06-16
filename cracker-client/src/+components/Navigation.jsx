@@ -24,8 +24,8 @@ export const Navigation = () => {
       <Menu.Item key={ROUTES.HOME}>
         <Link to={ROUTES.HOME}>Home</Link>
       </Menu.Item>
-      <Menu.Item key={ROUTES.POINTS}>
-        <Link to={ROUTES.POINTS}>Points</Link>
+      <Menu.Item key={ROUTES.MARKERS}>
+        <Link to={ROUTES.MARKERS}>Markers</Link>
       </Menu.Item>
       <Menu.Item key={ROUTES.MAP}>
         <Link to={ROUTES.MAP}>Map</Link>
