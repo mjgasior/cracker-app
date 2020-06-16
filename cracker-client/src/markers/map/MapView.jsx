@@ -66,7 +66,13 @@ export const MapView = ({ isAllowed }) => {
               key={`${marker.position[0]}${marker.position[1]}`}
               position={marker.position}
               icon={icon}
-              onClick={() => setCurrentMarker(marker)}
+              onClick={() =>
+                setCurrentMarker({
+                  latitude: marker.position[0],
+                  longitude: marker.position[1],
+                  id: marker._id,
+                })
+              }
             />
           ))}
       </Map>

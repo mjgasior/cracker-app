@@ -3,9 +3,10 @@ import { MarkerForm } from "./+components/MarkerForm";
 import { useMarkerContext } from "../+hooks/useMarkerContext";
 
 export const Description = () => {
-  const { currentMarker } = useMarkerContext();
+  const { currentMarker, setCurrentMarker } = useMarkerContext();
+  const reset = () => setCurrentMarker(null);
   if (currentMarker) {
-    return <MarkerForm marker={currentMarker} />;
+    return <MarkerForm marker={currentMarker} reset={reset} />;
   }
   return null;
 };
