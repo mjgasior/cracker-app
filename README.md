@@ -26,6 +26,36 @@ Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barli
      - `http://localhost:3000/` - running app fully locally
      - `http://the.ip.of.docker.machine/` - running app as Docker production build
 
+### Roles setup:
+
+1. Go to `Auth0` and select `Rules` from the menu and click `+ Create rule`.
+2. Pick an `</> Empty rule` template.
+3. Change the name to `Add Cracker roles to token` and fill the `Script` part with:
+
+```
+function (user, context, callback) {
+  user.app_metadata = user.app_metadata || {};
+  context.idToken['http://www.crackerapp.com/roles'] = user.app_metadata.roles;
+  return callback(null, user, context);
+}
+```
+
+The `http://` namespaced convention is necessary in Auth0 to [avoid overriding default fields](https://auth0.com/docs/tokens/guides/create-namespaced-custom-claims).
+
+4. Save changes and go to `Users & Roles`. After that select `Users` section.
+5. Pick the user that you want to assign the `admin` role and `View details` of the account.
+6. Go to `app_metadata` of `Metadata` section and paste this:
+
+```
+{
+  "roles": [
+    "admin"
+  ]
+}
+```
+
+7. After you save, the user access token should have the role property. To verify this try to invoke a request in the browser which will have the `authorization` header with jwt token. Copy the token and verify it on [jwt.io](https://jwt.io/).
+
 ### Local development configuration setup:
 
 1. Create a `.env` file in `cracker-server` directory:
@@ -112,6 +142,7 @@ As I found, this might be a [faulty DNS](https://github.com/gliderlabs/docker-al
 
 ## Resources:
 
+- [Adding custom claims in Auth0](https://auth0.com/docs/api-auth/tutorials/adoption/scope-custom-claims)
 - [Dockerizing a React App](https://mherman.org/blog/dockerizing-a-react-app/)
 - [Docker Tips](https://nickjanetakis.com/blog/docker-tip-2-the-difference-between-copy-and-add-in-a-dockerile)
 - [LICEcap for simple animated screen captures](https://www.cockos.com/licecap/)

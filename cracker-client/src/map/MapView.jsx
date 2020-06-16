@@ -22,7 +22,7 @@ export const MapView = () => {
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [position, setPosition] = useState(null);
 
-  const isAuthenticated = auth.isAuthenticated();
+  const isAllowed = auth.isAuthenticated() && auth.isUserAdmin();
 
   const handleOnContextMenu = useCallback(
     (event) => {
@@ -48,10 +48,12 @@ export const MapView = () => {
   );
 
   const showAddMarker =
-    isAuthenticated && position !== null && selectedMarker === null;
+    isAllowed && position !== null && selectedMarker === null;
 
   const showDeleteMarker =
-    isAuthenticated && position === null && selectedMarker !== null;
+    isAllowed && position === null && selectedMarker !== null;
+
+  const canMark = isAllowed && position;
 
   return (
     <MapContainer>
@@ -91,7 +93,7 @@ export const MapView = () => {
           </ContextMenu>
         )}
 
-        {position && <Marker position={position} icon={icon} />}
+        {canMark && <Marker position={position} icon={icon} />}
 
         {data &&
           data.markers.map((marker) => (
