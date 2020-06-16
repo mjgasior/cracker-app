@@ -12,6 +12,7 @@ import { Home } from "./home/Home";
 import { MapView } from "./map/MapView";
 import { Navigation } from "./+components/Navigation";
 import styled from "styled-components";
+import { PointsView } from "./points/PointsView";
 
 const { Header, Content, Footer } = Layout;
 
@@ -46,6 +47,7 @@ class App extends Component {
         <Container>
           <Switch>
             <Route exact path="/callback" component={Callback} />
+            <Route path="/points" component={PointsView} />
             <Route path="/map" component={MapView} />
             <Route path="/" component={Home} />
           </Switch>

@@ -2,6 +2,7 @@ import React, { useCallback } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import auth from "../+utils/Auth";
 import { Menu } from "antd";
+import { ROUTES } from "../+utils/routes";
 
 export const Navigation = () => {
   const location = useLocation();
@@ -9,7 +10,7 @@ export const Navigation = () => {
 
   const logout = useCallback(() => {
     auth.logout();
-    history.replace("/");
+    history.replace(ROUTES.HOME);
   }, [history]);
 
   const isAuthenticated = auth.isAuthenticated();
@@ -20,14 +21,17 @@ export const Navigation = () => {
       mode="horizontal"
       defaultSelectedKeys={[location.pathname]}
     >
-      <Menu.Item key="/">
-        <Link to="/">Home</Link>
+      <Menu.Item key={ROUTES.HOME}>
+        <Link to={ROUTES.HOME}>Home</Link>
       </Menu.Item>
-      <Menu.Item key="/map">
-        <Link to="/map">Map</Link>
+      <Menu.Item key={ROUTES.POINTS}>
+        <Link to={ROUTES.POINTS}>Points</Link>
+      </Menu.Item>
+      <Menu.Item key={ROUTES.MAP}>
+        <Link to={ROUTES.MAP}>Map</Link>
       </Menu.Item>
       <Menu.Item
-        key="/logout"
+        key={ROUTES.LOGOUT}
         onClick={() => {
           if (isAuthenticated) {
             logout();
