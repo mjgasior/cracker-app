@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useCallback } from "react";
+import { useAddMarker } from "./../../+hooks/useAddMarker";
 import { Form, Input, Button } from "antd";
 
 export const MarkerForm = ({ marker }) => {
   const [form] = Form.useForm();
+  const [addMarker] = useAddMarker();
+
+  const handleAddMarker = useCallback(() => {
+    addMarker({ variables: { position: [marker.latitude, marker.longitude] } });
+  }, [addMarker, marker]);
 
   return (
     <Form
@@ -18,7 +24,9 @@ export const MarkerForm = ({ marker }) => {
         <Input placeholder="longitude" value={marker.longitude} />
       </Form.Item>
       <Form.Item>
-        <Button type="primary">Save</Button>
+        <Button type="primary" onClick={handleAddMarker}>
+          Save
+        </Button>
       </Form.Item>
     </Form>
   );
