@@ -5,6 +5,7 @@ import { Form, Input, Button } from "antd";
 
 export const MarkerForm = ({ marker, reset }) => {
   const { latitude, longitude, id } = marker;
+  const isSavedMarker = id !== undefined;
 
   const [form] = Form.useForm();
   const [addMarker] = useAddMarker();
@@ -20,7 +21,7 @@ export const MarkerForm = ({ marker, reset }) => {
     reset();
   }, [removeMarker, reset]);
 
-  const isSavedMarker = id !== undefined;
+  const onFinish = (vvv) => console.log(vvv);
 
   return (
     <Form
@@ -28,18 +29,37 @@ export const MarkerForm = ({ marker, reset }) => {
       wrapperCol={{ span: 14 }}
       layout="horizontal"
       form={form}
+      onFinish={onFinish}
+      fields={[
+        {
+          name: ["latitude"],
+          value: latitude,
+        },
+        {
+          name: ["longitude"],
+          value: longitude,
+        },
+      ]}
     >
-      <Form.Item label="Latitude">
-        <Input placeholder="latitude" value={latitude} />
+      <Form.Item name={["latitude"]} label="Latitude">
+        <Input placeholder="latitude" />
       </Form.Item>
-      <Form.Item label="Longitude">
-        <Input placeholder="longitude" value={longitude} />
+      <Form.Item name={["longitude"]} label="Longitude">
+        <Input placeholder="longitude" />
+      </Form.Item>
+      <Form.Item name={["description", "polish"]} label="Polish description">
+        <Input.TextArea />
+      </Form.Item>
+      <Form.Item name={["description", "english"]} label="English description">
+        <Input.TextArea />
       </Form.Item>
       <Form.Item>
         {isSavedMarker ? (
-          <Button onClick={handleDeleteMarker}>Delete</Button>
+          <Button htmlType="button" onClick={handleDeleteMarker}>
+            Delete
+          </Button>
         ) : (
-          <Button type="primary" onClick={handleAddMarker}>
+          <Button type="primary" htmlType="submit">
             Save
           </Button>
         )}

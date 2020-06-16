@@ -3,15 +3,27 @@ import { gql } from "apollo-server";
 export const Marker = gql`
   type Marker {
     _id: ID!
-    position: [Float]
+    latitude: Float
+    longitude: Float
+    description: Description
+  }
+
+  type Description {
+    english: String
+    polish: String
   }
 
   extend type Query {
     markers: [Marker]
   }
 
+  input MarkerInput {
+    latitude: Float
+    longitude: Float
+  }
+
   extend type Mutation {
-    addMarker(position: [Float]): Marker!
+    addMarker(marker: MarkerInput): Marker!
     removeMarker(id: ID): Marker!
   }
 `;

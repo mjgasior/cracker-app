@@ -6,12 +6,12 @@ export const MarkerResolver = {
     markers: markerConnector.getAll,
   },
   Mutation: {
-    addMarker: async (_, newMarker, { user }) => {
+    addMarker: async (_, { marker }, { user }) => {
       try {
-        const { isLogged, roles } = await user;
-        verifyAdminAccess(isLogged, roles);
+        // const { isLogged, roles } = await user;
+        // verifyAdminAccess(isLogged, roles);
 
-        return await markerConnector.add(newMarker);
+        return await markerConnector.add(marker);
       } catch (e) {
         console.error(e);
         throw new AuthenticationError("You must be logged in to do this");
