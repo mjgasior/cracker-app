@@ -1,12 +1,8 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import { Map, Marker, TileLayer } from "react-leaflet";
 import { Icon } from "leaflet";
-import { Button } from "antd";
-import { ContextMenu } from "./+components/ContextMenu";
 import { MapContainer } from "./+components/MapContainer";
 import { useMarkers } from "./+hooks/useMarkers";
-import { useAddMarker } from "./+hooks/useAddMarker";
-import { useRemoveMarker } from "./+hooks/useRemoveMarker";
 import { useMarkerContext } from "../+hooks/useMarkerContext";
 
 const icon = new Icon({
@@ -14,84 +10,54 @@ const icon = new Icon({
   iconSize: [25, 25],
 });
 
+const centerToFirstOrDefault = (data) => {
+  return data && data.markers.length > 0
+    ? data.markers[0].position
+    : [50.061252, 19.915738];
+};
+
 export const MapView = ({ isAllowed }) => {
   const { data } = useMarkers();
-  const [addMarker] = useAddMarker();
-  const [removeMarker] = useRemoveMarker();
 
   const { currentMarker, setCurrentMarker } = useMarkerContext();
-  const [position, setPosition] = useState(null);
 
   const handleOnContextMenu = useCallback(
     (event) => {
-      setPosition([event.latlng.lat, event.latlng.lng]);
+      setCurrentMarker({
+        latitude: event.latlng.lat,
+        longitude: event.latlng.lng,
+      });
     },
-    [setPosition]
+    [setCurrentMarker]
   );
 
-  const handleAddMarker = useCallback(
-    (position) => {
-      addMarker({ variables: { position } });
-      setPosition(null);
-    },
-    [addMarker, setPosition]
-  );
-
-  const handleDeleteMarker = useCallback(
-    (markerId) => {
-      removeMarker({ variables: { id: markerId } });
+  const handleOnClick = useCallback(() => {
+    if (currentMarker) {
       setCurrentMarker(null);
-    },
-    [setCurrentMarker, removeMarker]
-  );
+    }
+  }, [currentMarker, setCurrentMarker]);
 
-  const showAddMarker =
-    isAllowed && position !== null && currentMarker === null;
-
-  const showDeleteMarker =
-    isAllowed && position === null && currentMarker !== null;
-
-  const canMark = isAllowed && position;
+  const canMark = isAllowed && currentMarker;
 
   return (
     <MapContainer>
       <Map
-        center={[50.061252, 19.915738]}
+        center={centerToFirstOrDefault(data)}
         zoom={15}
         oncontextmenu={handleOnContextMenu}
+        onclick={handleOnClick}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
 
-        {showAddMarker && (
-          <ContextMenu position={position} onClose={() => setPosition(null)}>
-            <div>
-              <Button type="primary" onClick={() => handleAddMarker(position)}>
-                Add marker
-              </Button>
-            </div>
-          </ContextMenu>
+        {canMark && (
+          <Marker
+            position={[currentMarker.latitude, currentMarker.longitude]}
+            icon={icon}
+          />
         )}
-
-        {showDeleteMarker && (
-          <ContextMenu
-            position={currentMarker.position}
-            onClose={() => setCurrentMarker(null)}
-          >
-            <div>
-              <Button
-                type="primary"
-                onClick={() => handleDeleteMarker(currentMarker._id)}
-              >
-                Delete marker
-              </Button>
-            </div>
-          </ContextMenu>
-        )}
-
-        {canMark && <Marker position={position} icon={icon} />}
 
         {data &&
           data.markers.map((marker) => (
