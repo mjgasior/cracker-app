@@ -9,7 +9,6 @@ import { Logo } from "./+components/Logo";
 import { Switch, Route } from "react-router-dom";
 import { Callback } from "./+components/Callback";
 import { Home } from "./home/Home";
-import { MapView } from "./map/MapView";
 import { Navigation } from "./+components/Navigation";
 import styled from "styled-components";
 import { MarkersView } from "./markers/MarkersView";
@@ -49,7 +48,6 @@ class App extends Component {
           <Switch>
             <Route exact path={ROUTES.CALLBACK} component={Callback} />
             <Route path={ROUTES.MARKERS} component={MarkersView} />
-            <Route path={ROUTES.MAP} component={MapView} />
             <Route path={ROUTES.HOME} component={Home} />
           </Switch>
         </Container>

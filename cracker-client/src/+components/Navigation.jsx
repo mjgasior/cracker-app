@@ -27,9 +27,6 @@ export const Navigation = () => {
       <Menu.Item key={ROUTES.MARKERS}>
         <Link to={ROUTES.MARKERS}>Markers</Link>
       </Menu.Item>
-      <Menu.Item key={ROUTES.MAP}>
-        <Link to={ROUTES.MAP}>Map</Link>
-      </Menu.Item>
       <Menu.Item
         key={ROUTES.LOGOUT}
         onClick={() => {

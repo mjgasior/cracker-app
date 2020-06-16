@@ -7,23 +7,20 @@ import { MapContainer } from "./+components/MapContainer";
 import { useMarkers } from "./+hooks/useMarkers";
 import { useAddMarker } from "./+hooks/useAddMarker";
 import { useRemoveMarker } from "./+hooks/useRemoveMarker";
-import auth from "../+utils/Auth";
-import { useMarkerContext } from "../markers/+hooks/useMarkerContext";
+import { useMarkerContext } from "../+hooks/useMarkerContext";
 
 const icon = new Icon({
   iconUrl: "/marker.svg",
   iconSize: [25, 25],
 });
 
-export const MapView = () => {
+export const MapView = ({ isAllowed }) => {
   const { data } = useMarkers();
   const [addMarker] = useAddMarker();
   const [removeMarker] = useRemoveMarker();
 
   const { currentMarker, setCurrentMarker } = useMarkerContext();
   const [position, setPosition] = useState(null);
-
-  const isAllowed = auth.isAuthenticated() && auth.isUserAdmin();
 
   const handleOnContextMenu = useCallback(
     (event) => {
