@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { Map, Marker, TileLayer } from "react-leaflet";
 import { Icon } from "leaflet";
 import { MapContainer } from "./+components/MapContainer";
-import { useMarkers } from "./+hooks/useMarkers";
+import { useMarkers } from "../+hooks/useMarkers";
 import { useMarkerContext } from "../+hooks/useMarkerContext";
 
 const icon = new Icon({
@@ -11,9 +11,10 @@ const icon = new Icon({
 });
 
 const centerToFirstOrDefault = (data) => {
+  const KRAKOW_JORDAN_PARK_COORDS = [50.061252, 19.915738];
   return data && data.markers.length > 0
     ? data.markers[0].position
-    : [50.061252, 19.915738];
+    : KRAKOW_JORDAN_PARK_COORDS;
 };
 
 export const MapView = ({ isAllowed }) => {

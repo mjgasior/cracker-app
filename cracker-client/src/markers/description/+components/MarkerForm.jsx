@@ -18,7 +18,7 @@ export const MarkerForm = ({ marker }) => {
         <Input placeholder="longitude" value={marker.longitude} />
       </Form.Item>
       <Form.Item>
-        <Button type="primary">Submit</Button>
+        <Button type="primary">Save</Button>
       </Form.Item>
     </Form>
   );
