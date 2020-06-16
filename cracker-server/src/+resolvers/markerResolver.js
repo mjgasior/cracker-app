@@ -20,9 +20,9 @@ export const MarkerResolver = {
 
     removeMarker: async (_, { id }, { user }) => {
       try {
-        const { isLogged, roles } = await user;
+        // const { isLogged, roles } = await user;
+        //verifyAdminAccess(isLogged, roles);
 
-        verifyAdminAccess(isLogged, roles);
         return await markerConnector.remove(id);
       } catch (e) {
         console.error(e);

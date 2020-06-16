@@ -13,7 +13,7 @@ const icon = new Icon({
 const centerToFirstOrDefault = (data) => {
   const KRAKOW_JORDAN_PARK_COORDS = [50.061252, 19.915738];
   return data && data.markers.length > 0
-    ? data.markers[0].position
+    ? [data.markers[0].latitude, data.markers[0].longitude]
     : KRAKOW_JORDAN_PARK_COORDS;
 };
 
@@ -61,16 +61,16 @@ export const MapView = ({ isAllowed }) => {
         )}
 
         {data &&
-          data.markers.map((marker) => (
+          data.markers.map(({ latitude, longitude, _id }) => (
             <Marker
-              key={`${marker.position[0]}${marker.position[1]}`}
-              position={marker.position}
+              key={_id}
+              position={[latitude, longitude]}
               icon={icon}
               onClick={() =>
                 setCurrentMarker({
-                  latitude: marker.position[0],
-                  longitude: marker.position[1],
-                  id: marker._id,
+                  latitude,
+                  longitude,
+                  id: _id,
                 })
               }
             />

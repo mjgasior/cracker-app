@@ -20,6 +20,12 @@ export const Marker = gql`
   input MarkerInput {
     latitude: Float
     longitude: Float
+    description: DescriptionInput
+  }
+
+  input DescriptionInput {
+    english: String
+    polish: String
   }
 
   extend type Mutation {

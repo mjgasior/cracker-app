@@ -11,17 +11,18 @@ export const MarkerForm = ({ marker, reset }) => {
   const [addMarker] = useAddMarker();
   const [removeMarker] = useRemoveMarker();
 
-  const handleAddMarker = useCallback(() => {
-    addMarker({ variables: { position: [marker.latitude, marker.longitude] } });
-    reset();
-  }, [addMarker, marker, reset]);
+  const handleAddMarker = useCallback(
+    (newMarker) => {
+      addMarker({ variables: { marker: newMarker } });
+      reset();
+    },
+    [addMarker, reset]
+  );
 
   const handleDeleteMarker = useCallback(() => {
-    removeMarker({ variables: { id } });
+    removeMarker({ variables: { id: marker._id } });
     reset();
-  }, [removeMarker, reset]);
-
-  const onFinish = (vvv) => console.log(vvv);
+  }, [removeMarker, reset, marker]);
 
   return (
     <Form
@@ -29,7 +30,7 @@ export const MarkerForm = ({ marker, reset }) => {
       wrapperCol={{ span: 14 }}
       layout="horizontal"
       form={form}
-      onFinish={onFinish}
+      onFinish={handleAddMarker}
       fields={[
         {
           name: ["latitude"],
