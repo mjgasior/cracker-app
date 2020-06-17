@@ -1,10 +1,10 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useAddMarker } from "./../../+hooks/useAddMarker";
 import { useRemoveMarker } from "./../../+hooks/useRemoveMarker";
 import { Form, Input, Button } from "antd";
 
 export const MarkerForm = ({ marker, reset }) => {
-  const { latitude, longitude, _id } = marker;
+  const { latitude, longitude, description, _id } = marker;
   const isSavedMarker = _id !== undefined;
 
   const [form] = Form.useForm();
@@ -22,7 +22,9 @@ export const MarkerForm = ({ marker, reset }) => {
   const handleDeleteMarker = useCallback(() => {
     removeMarker({ variables: { id: _id } });
     reset();
-  }, [removeMarker, reset, marker]);
+  }, [removeMarker, reset, _id]);
+
+  useEffect(() => form.resetFields(), [marker, form]);
 
   return (
     <Form
@@ -31,16 +33,7 @@ export const MarkerForm = ({ marker, reset }) => {
       layout="horizontal"
       form={form}
       onFinish={handleAddMarker}
-      fields={[
-        {
-          name: ["latitude"],
-          value: latitude,
-        },
-        {
-          name: ["longitude"],
-          value: longitude,
-        },
-      ]}
+      initialValues={{ latitude, longitude, description }}
     >
       <Form.Item name={["latitude"]} label="Latitude">
         <Input placeholder="latitude" />

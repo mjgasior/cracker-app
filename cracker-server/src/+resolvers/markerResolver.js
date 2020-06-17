@@ -8,8 +8,8 @@ export const MarkerResolver = {
   Mutation: {
     addMarker: async (_, { marker }, { user }) => {
       try {
-        // const { isLogged, roles } = await user;
-        // verifyAdminAccess(isLogged, roles);
+        const { isLogged, roles } = await user;
+        verifyAdminAccess(isLogged, roles);
 
         return await markerConnector.add(marker);
       } catch (e) {
@@ -20,8 +20,8 @@ export const MarkerResolver = {
 
     removeMarker: async (_, { id }, { user }) => {
       try {
-        // const { isLogged, roles } = await user;
-        //verifyAdminAccess(isLogged, roles);
+        const { isLogged, roles } = await user;
+        verifyAdminAccess(isLogged, roles);
 
         return await markerConnector.remove(id);
       } catch (e) {
