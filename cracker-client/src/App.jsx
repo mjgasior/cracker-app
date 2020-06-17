@@ -9,9 +9,10 @@ import { Logo } from "./+components/Logo";
 import { Switch, Route } from "react-router-dom";
 import { Callback } from "./+components/Callback";
 import { Home } from "./home/Home";
-import { MapView } from "./map/MapView";
 import { Navigation } from "./+components/Navigation";
 import styled from "styled-components";
+import { MarkersView } from "./markers/MarkersView";
+import { ROUTES } from "./+utils/routes";
 
 const { Header, Content, Footer } = Layout;
 
@@ -45,9 +46,9 @@ class App extends Component {
         </Header>
         <Container>
           <Switch>
-            <Route exact path="/callback" component={Callback} />
-            <Route path="/map" component={MapView} />
-            <Route path="/" component={Home} />
+            <Route exact path={ROUTES.CALLBACK} component={Callback} />
+            <Route path={ROUTES.MARKERS} component={MarkersView} />
+            <Route path={ROUTES.HOME} component={Home} />
           </Switch>
         </Container>
         <Footer style={{ textAlign: "center" }}>

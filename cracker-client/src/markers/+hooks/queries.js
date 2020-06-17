@@ -1,10 +1,15 @@
 import { gql } from "apollo-boost";
 
 export const ADD_MARKER = gql`
-  mutation addMarker($position: [Float]) {
-    addMarker(position: $position) {
-      position
+  mutation addMarker($marker: MarkerInput) {
+    addMarker(marker: $marker) {
       _id
+      latitude
+      longitude
+      description {
+        polish
+        english
+      }
     }
   }
 `;
@@ -20,8 +25,13 @@ export const REMOVE_MARKER = gql`
 export const MARKERS = gql`
   {
     markers {
-      position
       _id
+      latitude
+      longitude
+      description {
+        polish
+        english
+      }
     }
   }
 `;
