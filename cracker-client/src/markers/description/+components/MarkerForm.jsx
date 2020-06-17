@@ -28,7 +28,7 @@ export const MarkerForm = ({ marker, reset }) => {
 
   return (
     <Form
-      labelCol={{ span: 4 }}
+      labelCol={{ span: 5 }}
       wrapperCol={{ span: 14 }}
       layout="horizontal"
       form={form}
