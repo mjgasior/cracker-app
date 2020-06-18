@@ -33,8 +33,8 @@ rm "./cracker-client/.env.production"
 
 # Access instance and restart
 ssh ubuntu@$static_ip "cd ../../srv/docker && docker-compose down \
-    && docker rmi mjgasior/cracker-client:0.0.3 --force \
-    && docker rmi mjgasior/cracker-server:0.0.1 --force \
+    && docker pull mjgasior/cracker-client:0.0.3 \
+    && docker pull mjgasior/cracker-server:0.0.1 \
     && docker-compose up -d"
 ssh ubuntu@$static_ip
 
