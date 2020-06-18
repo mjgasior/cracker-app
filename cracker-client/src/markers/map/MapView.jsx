@@ -19,8 +19,9 @@ const centerToFirstOrDefault = (data) => {
 
 export const MapView = ({ isAllowed }) => {
   const { data } = useMarkers();
-
   const { currentMarker, setCurrentMarker } = useMarkerContext();
+
+  const canMark = isAllowed && currentMarker;
 
   const handleOnContextMenu = useCallback(
     (event) => {
@@ -40,7 +41,14 @@ export const MapView = ({ isAllowed }) => {
     }
   }, [currentMarker, setCurrentMarker]);
 
-  const canMark = isAllowed && currentMarker;
+  const handleMarkerClick = useCallback(
+    (selectedMarker) => {
+      if (canMark) {
+        setCurrentMarker(selectedMarker);
+      }
+    },
+    [canMark]
+  );
 
   return (
     <MapContainer>
@@ -70,7 +78,7 @@ export const MapView = ({ isAllowed }) => {
                 key={_id}
                 position={[latitude, longitude]}
                 icon={icon}
-                onClick={() => setCurrentMarker(marker)}
+                onClick={(marker) => handleMarkerClick(marker)}
               />
             );
           })}
