@@ -24,16 +24,18 @@ export const MapView = ({ isAllowed }) => {
 
   const handleOnContextMenu = useCallback(
     (event) => {
-      setCurrentMarker({
-        latitude: event.latlng.lat,
-        longitude: event.latlng.lng,
-      });
+      if (canMark) {
+        setCurrentMarker({
+          latitude: event.latlng.lat,
+          longitude: event.latlng.lng,
+        });
+      }
     },
     [setCurrentMarker]
   );
 
   const handleOnClick = useCallback(() => {
-    if (currentMarker) {
+    if (canMark && currentMarker) {
       setCurrentMarker(null);
     }
   }, [currentMarker, setCurrentMarker]);
