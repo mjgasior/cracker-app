@@ -9,10 +9,10 @@
     "start": "nodemon src/index.js --exec babel-node --presets babel-preset-env"
   },
   "devDependencies": {
-    "nodemon": "^2.0.3"
+    "nodemon": "^2.0.4"
   },
   "dependencies": {
-    "apollo-server": "^2.14.3",
+    "apollo-server": "^2.15.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
@@ -20,6 +20,6 @@
     "graphql": "^15.1.0",
     "jsonwebtoken": "^8.5.1",
     "jwks-rsa": "^1.8.0",
-    "mongoose": "^5.9.18"
+    "mongoose": "^5.9.19"
   }
 }
