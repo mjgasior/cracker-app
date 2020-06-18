@@ -36,10 +36,6 @@ ssh ubuntu@$static_ip "cd ../../srv/docker && docker-compose down \
     && docker pull mjgasior/cracker-client:0.0.3 \
     && docker pull mjgasior/cracker-server:0.0.1 \
     && docker-compose up -d"
-ssh ubuntu@$static_ip
-
-echo -e "\e[96mPress any key to exit...\e[0m"
-read
 
 echo -e "\e[96mPress any key to exit...\e[0m"
 read
