@@ -1,5 +1,7 @@
 echo -e "\e[93;104mCracker app scripts\e[0m\n"
 
+aws lightsail get-static-ip --static-ip-name Cracker-app-ip
+
 read -p "Enter allocated static IP: " static_ip
 
 echo "Static IP: $static_ip"
@@ -28,6 +30,16 @@ docker push mjgasior/cracker-client:0.0.3
 # Remove configuration files
 rm ".env.production"
 rm "./cracker-client/.env.production"
+
+# Access instance and restart
+ssh ubuntu@$static_ip "cd ../../srv/docker && docker-compose down \
+    && docker rmi mjgasior/cracker-client:0.0.3 --force \
+    && docker rmi mjgasior/cracker-server:0.0.1 --force \
+    && docker-compose up -d"
+ssh ubuntu@$static_ip
+
+echo -e "\e[96mPress any key to exit...\e[0m"
+read
 
 echo -e "\e[96mPress any key to exit...\e[0m"
 read
