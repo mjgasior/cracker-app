@@ -35,6 +35,9 @@ export const MarkerForm = ({ marker, reset }) => {
       onFinish={handleAddMarker}
       initialValues={{ latitude, longitude, description }}
     >
+      <Form.Item name={["name"]} label="Name">
+        <Input placeholder="name" />
+      </Form.Item>
       <Form.Item name={["latitude"]} label="Latitude">
         <Input placeholder="latitude" />
       </Form.Item>
