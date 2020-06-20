@@ -9,10 +9,10 @@ export const ProfileView = () => {
     <div>
       <h2>Profile</h2>
       <p>
-        This is the environment build: <i>{process.env.NODE_ENV}</i>
+        Current build type: <i>{process.env.NODE_ENV}</i>
       </p>
-      <p>{process.env.REACT_APP_API_URL}</p>
-      <p>{process.env.REACT_APP_AUTH0_ORIGIN}</p>
+      <p>Current API URL: {process.env.REACT_APP_API_URL}</p>
+      <p>Current Auth0 origin: {process.env.REACT_APP_AUTH0_ORIGIN}</p>
       <p>
         {isAdmin
           ? "You have admin rights. You can add markers."
