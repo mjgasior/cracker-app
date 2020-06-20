@@ -5,12 +5,10 @@ export const Home = () => {
   return (
     <div>
       <h2>Home</h2>
-      <BigLogo />
       <p>
-        This is the environment build: <i>{process.env.NODE_ENV}</i>
+        <i>Crack Kraków with Cracker!</i>
       </p>
-      <p>{process.env.REACT_APP_API_URL}</p>
-      <p>{process.env.REACT_APP_AUTH0_ORIGIN}</p>
+      <BigLogo />
     </div>
   );
 };

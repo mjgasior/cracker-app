@@ -25,29 +25,29 @@ export const MapView = ({ isAllowed }) => {
 
   const handleOnContextMenu = useCallback(
     (event) => {
-      if (canMark) {
+      if (isAllowed) {
         setCurrentMarker({
           latitude: event.latlng.lat,
           longitude: event.latlng.lng,
         });
       }
     },
-    [setCurrentMarker]
+    [isAllowed, setCurrentMarker]
   );
 
   const handleOnClick = useCallback(() => {
-    if (canMark && currentMarker) {
+    if (canMark) {
       setCurrentMarker(null);
     }
-  }, [currentMarker, setCurrentMarker]);
+  }, [canMark, setCurrentMarker]);
 
   const handleMarkerClick = useCallback(
     (selectedMarker) => {
-      if (canMark) {
+      if (isAllowed) {
         setCurrentMarker(selectedMarker);
       }
     },
-    [canMark]
+    [isAllowed, setCurrentMarker]
   );
 
   return (
@@ -78,7 +78,7 @@ export const MapView = ({ isAllowed }) => {
                 key={_id}
                 position={[latitude, longitude]}
                 icon={icon}
-                onClick={(marker) => handleMarkerClick(marker)}
+                onClick={() => handleMarkerClick(marker)}
               />
             );
           })}
