@@ -46,6 +46,7 @@ class Auth {
   setSession(authResult) {
     this.idToken = authResult.idToken;
     this.roles = authResult.idTokenPayload[CRACKER_ROLES];
+    console.log(this.roles);
     localStorage.setItem(this.authFlag, JSON.stringify(true));
   }
 
@@ -78,6 +79,7 @@ class Auth {
   }
 
   isUserAdmin() {
+    console.log(this.roles);
     return this.roles && this.roles.includes("admin");
   }
 }
