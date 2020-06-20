@@ -3,6 +3,8 @@ import auth from "../+utils/Auth";
 
 export const ProfileView = () => {
   const isAdmin = auth.isUserAdmin();
+  const email = auth.getEmail();
+  const isEmailVerified = auth.getIsEmailVerified();
   return (
     <div>
       <h2>Profile</h2>
@@ -15,6 +17,9 @@ export const ProfileView = () => {
         {isAdmin
           ? "You have admin rights. You can add markers."
           : "You don't have admin rights. Please ask for admin rights to add markers."}
+      </p>
+      <p>
+        Your email is {email} and it is {!isEmailVerified && "not "}verified.
       </p>
     </div>
   );

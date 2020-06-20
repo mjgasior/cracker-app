@@ -1,6 +1,29 @@
 import auth0 from "auth0-js";
 
-const CRACKER_ROLES = "http://www.crackerapp.com/roles";
+const AUTH_RESULT = {
+  ACCESS_TOKEN: "accessToken",
+  APP_STATE: "appState",
+  EXPIRES_IN: "expiresIn",
+  ID_TOKEN: "idToken",
+  ID_TOKEN_PAYLOAD: "idTokenPayload",
+  REFRESH_TOKEN: "refreshToken",
+  SCOPE: "scope",
+  STATE: "state",
+  TOKEN_TYPE: "tokenType",
+};
+
+const ID_TOKEN_PAYLOAD = {
+  CRACKER_ROLES: "http://www.crackerapp.com/roles",
+  AT_HASH: "at_hash",
+  AUDIENCE: "aud",
+  EMAIL: "email",
+  IS_EMAIL_VERIFIED: "email_verified",
+  EXPIARION: "exp",
+  ISSUED_AT: "iat",
+  ISSUER: "iss",
+  NONCE: "nonce",
+  SUBJECT: "sub",
+};
 
 class Auth {
   constructor() {
@@ -40,9 +63,14 @@ class Auth {
   };
 
   setSession = (authResult) => {
-    this.idToken = authResult.idToken;
-    this.roles = authResult.idTokenPayload[CRACKER_ROLES];
-    this.tokenData = authResult;
+    this.idToken = authResult[AUTH_RESULT.ID_TOKEN];
+
+    const idTokenPayload = authResult[AUTH_RESULT.ID_TOKEN_PAYLOAD];
+
+    this.email = idTokenPayload[ID_TOKEN_PAYLOAD.EMAIL];
+    this.isEmailVerified = idTokenPayload[ID_TOKEN_PAYLOAD.IS_EMAIL_VERIFIED];
+    this.roles = idTokenPayload[ID_TOKEN_PAYLOAD.CRACKER_ROLES];
+
     localStorage.setItem(this.authFlag, JSON.stringify(true));
   };
 
@@ -76,6 +104,14 @@ class Auth {
 
   isUserAdmin = () => {
     return this.roles && this.roles.includes("admin");
+  };
+
+  getIsEmailVerified = () => {
+    return this.isEmailVerified;
+  };
+
+  getEmail = () => {
+    return this.email;
   };
 }
 

@@ -78,7 +78,7 @@ export const MapView = ({ isAllowed }) => {
                 key={_id}
                 position={[latitude, longitude]}
                 icon={icon}
-                onClick={(marker) => handleMarkerClick(marker)}
+                onClick={() => handleMarkerClick(marker)}
               />
             );
           })}
