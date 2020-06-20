@@ -13,6 +13,7 @@ import { Navigation } from "./+components/Navigation";
 import styled from "styled-components";
 import { MarkersView } from "./markers/MarkersView";
 import { ROUTES } from "./+utils/routes";
+import { ProfileView } from "./profile/ProfileView";
 
 const { Header, Content, Footer } = Layout;
 
@@ -48,6 +49,7 @@ class App extends Component {
           <Switch>
             <Route exact path={ROUTES.CALLBACK} component={Callback} />
             <Route path={ROUTES.MARKERS} component={MarkersView} />
+            <Route path={ROUTES.PROFILE} component={ProfileView} />
             <Route path={ROUTES.HOME} component={Home} />
           </Switch>
         </Container>

@@ -14,21 +14,17 @@ class Auth {
     });
 
     this.authFlag = "isLoggedIn";
-    this.login = this.login.bind(this);
-    this.logout = this.logout.bind(this);
-    this.handleAuthentication = this.handleAuthentication.bind(this);
-    this.isAuthenticated = this.isAuthenticated.bind(this);
   }
 
-  login() {
+  login = () => {
     this.auth0.authorize();
-  }
+  };
 
-  getIdToken() {
+  getIdToken = () => {
     return this.idToken;
-  }
+  };
 
-  handleAuthentication() {
+  handleAuthentication = () => {
     return new Promise((resolve, reject) => {
       this.auth0.parseHash((err, authResult) => {
         if (err) {
@@ -41,16 +37,16 @@ class Auth {
         resolve();
       });
     });
-  }
+  };
 
-  setSession(authResult) {
+  setSession = (authResult) => {
     this.idToken = authResult.idToken;
     this.roles = authResult.idTokenPayload[CRACKER_ROLES];
-    console.log(this.roles);
+    this.tokenData = authResult;
     localStorage.setItem(this.authFlag, JSON.stringify(true));
-  }
+  };
 
-  logout() {
+  logout = () => {
     const logoutUrl = process.env.REACT_APP_AUTH0_ORIGIN;
     const clientID = process.env.REACT_APP_AUTH0_CLIENT_ID;
     localStorage.setItem(this.authFlag, JSON.stringify(false));
@@ -58,9 +54,9 @@ class Auth {
       returnTo: logoutUrl,
       clientID,
     });
-  }
+  };
 
-  silentAuth() {
+  silentAuth = () => {
     if (this.isAuthenticated()) {
       return new Promise((resolve, reject) => {
         this.auth0.checkSession({}, (err, authResult) => {
@@ -72,16 +68,15 @@ class Auth {
         });
       });
     }
-  }
+  };
 
-  isAuthenticated() {
+  isAuthenticated = () => {
     return JSON.parse(localStorage.getItem(this.authFlag));
-  }
+  };
 
-  isUserAdmin() {
-    console.log(this.roles);
+  isUserAdmin = () => {
     return this.roles && this.roles.includes("admin");
-  }
+  };
 }
 
 const auth = new Auth();

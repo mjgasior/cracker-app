@@ -25,8 +25,6 @@ export const MapView = ({ isAllowed }) => {
 
   const handleOnContextMenu = useCallback(
     (event) => {
-      alert("v");
-      console.log(isAllowed);
       if (isAllowed) {
         setCurrentMarker({
           latitude: event.latlng.lat,
@@ -38,8 +36,6 @@ export const MapView = ({ isAllowed }) => {
   );
 
   const handleOnClick = useCallback(() => {
-    alert("a");
-    console.log(canMark);
     if (canMark) {
       setCurrentMarker(null);
     }
@@ -47,7 +43,6 @@ export const MapView = ({ isAllowed }) => {
 
   const handleMarkerClick = useCallback(
     (selectedMarker) => {
-      alert("b");
       if (isAllowed) {
         setCurrentMarker(selectedMarker);
       }
