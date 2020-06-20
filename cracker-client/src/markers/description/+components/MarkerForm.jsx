@@ -4,7 +4,7 @@ import { useRemoveMarker } from "./../../+hooks/useRemoveMarker";
 import { Form, Input, Button } from "antd";
 
 export const MarkerForm = ({ marker, reset }) => {
-  const { latitude, longitude, description, _id } = marker;
+  const { name, latitude, longitude, description, _id } = marker;
   const isSavedMarker = _id !== undefined;
 
   const [form] = Form.useForm();
@@ -33,7 +33,7 @@ export const MarkerForm = ({ marker, reset }) => {
       layout="horizontal"
       form={form}
       onFinish={handleAddMarker}
-      initialValues={{ latitude, longitude, description }}
+      initialValues={{ name, latitude, longitude, description }}
     >
       <Form.Item name={["name"]} label="Name">
         <Input placeholder="name" />

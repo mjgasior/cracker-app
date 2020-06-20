@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
@@ -9,4 +9,4 @@ const markerSchema = new Schema({
   description: { english: String, polish: String },
 });
 
-export const Marker = mongoose.model('marker', markerSchema);
+export const Marker = mongoose.model("marker", markerSchema);

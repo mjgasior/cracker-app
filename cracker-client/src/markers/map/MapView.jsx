@@ -72,13 +72,14 @@ export const MapView = ({ isAllowed }) => {
 
         {data &&
           data.markers.map((marker) => {
-            const { latitude, longitude, _id } = marker;
+            const { name, latitude, longitude, _id } = marker;
             return (
               <Marker
                 key={_id}
                 position={[latitude, longitude]}
                 icon={icon}
                 onClick={() => handleMarkerClick(marker)}
+                title={name}
               />
             );
           })}

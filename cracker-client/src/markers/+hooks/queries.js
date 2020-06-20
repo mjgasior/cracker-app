@@ -4,6 +4,7 @@ export const ADD_MARKER = gql`
   mutation addMarker($marker: MarkerInput) {
     addMarker(marker: $marker) {
       _id
+      name
       latitude
       longitude
       description {
@@ -26,6 +27,7 @@ export const MARKERS = gql`
   {
     markers {
       _id
+      name
       latitude
       longitude
       description {
