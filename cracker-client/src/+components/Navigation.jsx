@@ -27,6 +27,11 @@ export const Navigation = () => {
       <Menu.Item key={ROUTES.MARKERS}>
         <Link to={ROUTES.MARKERS}>Markers</Link>
       </Menu.Item>
+      {isAuthenticated && (
+        <Menu.Item key={ROUTES.PROFILE}>
+          <Link to={ROUTES.PROFILE}>Profile</Link>
+        </Menu.Item>
+      )}
       <Menu.Item
         key={ROUTES.LOGOUT}
         onClick={() => {

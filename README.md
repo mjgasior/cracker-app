@@ -2,7 +2,7 @@
 
 # cracker-app
 
-_"Crack the history of Krakow with the Cracker app!"_
+_"Crack Kraków with the Cracker!"_
 
 Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barlima](https://github.com/barlima) for time and advice. :clap:
 
