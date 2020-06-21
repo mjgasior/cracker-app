@@ -4,6 +4,7 @@
 
 _"Crack Kraków with the Cracker!"_
 
+Big thanks to :octocat: [zgm92](https://github.com/zgm92) for collaboration. :clap:
 Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barlima](https://github.com/barlima) for time and advice. :clap:
 
 ![Cracker demo gif made with LICEcap](/crackerdemo.gif)
@@ -124,6 +125,7 @@ You can use the `setup.sh` script to setup a new instance on Lightsail autmatica
 - `docker system prune -a` - remove all stopped containers, all dangling images, and all unused networks
 - `docker rmi $(docker images -a -q)` - remove all images, [the -q flag is used to pass the Image ID](https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes)
 - `docker run -it -p 3000:3000 -e CHOKIDAR_USEPOLLING=true -v $(pwd):/var/www -w "/var/www" node:12.0-alpine yarn start`
+- `git branch | %{ $_.Trim() } | ?{ $_ -ne 'master' } | %{ git branch -D $_ }` - [delete all branches except master](https://dev.to/koscheyscrag/git-how-to-delete-all-branches-except-master-2pi0)
 - `exit` - to exit out of the docker container bash shell just run this
 
 ## Visual Studio Code extensions:
