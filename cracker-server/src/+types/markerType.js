@@ -3,6 +3,7 @@ import { gql } from "apollo-server";
 export const Marker = gql`
   type Marker {
     _id: ID!
+    name: String
     latitude: Float
     longitude: Float
     description: Description
@@ -18,6 +19,7 @@ export const Marker = gql`
   }
 
   input MarkerInput {
+    name: String
     latitude: Float
     longitude: Float
     description: DescriptionInput
