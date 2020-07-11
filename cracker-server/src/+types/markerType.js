@@ -11,7 +11,7 @@ export const Marker = gql`
 
   type Description {
     name: String
-    content: String
+    description: String
   }
 
   extend type Query {
@@ -27,7 +27,7 @@ export const Marker = gql`
 
   input DescriptionInput {
     name: String
-    content: String
+    description: String
   }
 
   extend type Mutation {

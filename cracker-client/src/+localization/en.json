@@ -1,10 +1,13 @@
 {
   "translation": {
+    "delete": "Delete",
+    "english_description": "English description",
     "english_name": "English name",
-    "polish_name": "Polish name",
-    "english_content": "English content",
-    "polish_content": "Polish content",
+    "home": "Home",
     "latitude": "Latitude",
-    "longitude": "Longitude"
+    "longitude": "Longitude",
+    "polish_description": "Polish description",
+    "polish_name": "Polish name",
+    "save": "Save"
   }
 }

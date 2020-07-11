@@ -30,7 +30,7 @@ export const MarkerForm = ({ marker, reset }) => {
 
   return (
     <Form
-      labelCol={{ span: 5 }}
+      labelCol={{ span: 6 }}
       wrapperCol={{ span: 14 }}
       layout="horizontal"
       form={form}
@@ -49,20 +49,26 @@ export const MarkerForm = ({ marker, reset }) => {
       <Form.Item name={["longitude"]} label={t("longitude")}>
         <Input placeholder={t("longitude")} />
       </Form.Item>
-      <Form.Item name={["polish", "content"]} label={t("polish_content")}>
+      <Form.Item
+        name={["polish", "description"]}
+        label={t("polish_description")}
+      >
         <Input.TextArea />
       </Form.Item>
-      <Form.Item name={["english", "content"]} label={t("english_content")}>
+      <Form.Item
+        name={["english", "description"]}
+        label={t("english_description")}
+      >
         <Input.TextArea />
       </Form.Item>
       <Form.Item>
         {isSavedMarker ? (
           <Button htmlType="button" onClick={handleDeleteMarker}>
-            Delete
+            {t("delete")}
           </Button>
         ) : (
           <Button type="primary" htmlType="submit">
-            Save
+            {t("save")}
           </Button>
         )}
       </Form.Item>

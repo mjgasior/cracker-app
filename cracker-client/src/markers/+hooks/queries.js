@@ -8,11 +8,11 @@ export const ADD_MARKER = gql`
       longitude
       polish {
         name
-        content
+        description
       }
       english {
         name
-        content
+        description
       }
     }
   }
@@ -34,11 +34,11 @@ export const MARKERS = gql`
       longitude
       polish {
         name
-        content
+        description
       }
       english {
         name
-        content
+        description
       }
     }
   }

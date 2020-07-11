@@ -1,10 +1,13 @@
 {
   "translation": {
+    "delete": "Usuń",
+    "english_description": "Angielski opis",
     "english_name": "Angielska nazwa",
-    "polish_name": "Polska nazwa",
-    "english_content": "Angielska zawartość",
-    "polish_content": "Polska zawartość",
+    "home": "Strona główna",
     "latitude": "Szerokość geograficzna",
-    "longitude": "Długość geograficzna"
+    "longitude": "Długość geograficzna",
+    "polish_description": "Polski opis",
+    "polish_name": "Polska nazwa",
+    "save": "Zapisz"
   }
 }
