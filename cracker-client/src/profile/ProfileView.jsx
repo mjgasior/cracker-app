@@ -1,25 +1,28 @@
 import React from "react";
 import auth from "../+utils/Auth";
+import { useTranslation } from "react-i18next";
 
 export const ProfileView = () => {
+  const { t } = useTranslation();
   const isAdmin = auth.isUserAdmin();
   const email = auth.getEmail();
   const isEmailVerified = auth.getIsEmailVerified();
   return (
     <div>
-      <h2>Profile</h2>
+      <h2>{t("profile")}</h2>
       <p>
-        Current build type: <i>{process.env.NODE_ENV}</i>
+        {t("current_build")}: <i>{process.env.NODE_ENV}</i>
       </p>
-      <p>Current API URL: {process.env.REACT_APP_API_URL}</p>
-      <p>Current Auth0 origin: {process.env.REACT_APP_AUTH0_ORIGIN}</p>
       <p>
-        {isAdmin
-          ? "You have admin rights. You can add markers."
-          : "You don't have admin rights. Please ask for admin rights to add markers."}
+        {t("current_api_url")}: {process.env.REACT_APP_API_URL}
       </p>
+      <p>
+        {t("current_auth0")}: {process.env.REACT_APP_AUTH0_ORIGIN}
+      </p>
+      <p>{isAdmin ? t("admin_rights") : t("admin_rights_lack")}</p>
       <p>
         Your email is {email} and it is {!isEmailVerified && "not "}verified.
+        {t("profile")}
       </p>
     </div>
   );
