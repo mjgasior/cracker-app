@@ -6,6 +6,7 @@ Initial script for a new AWS Lightsail instance:
     chmod +x ./lightsail-compose.sh
     ./lightsail-compose.sh
 
+- `db-drop.sh` - drops the MongoDB database that resides in the container
 - `db-dump.sh` - creates a database dump from a local Docker container MongoDB in current folder
 - `db-upload.sh` - not yet ready - will upload the database dump to Lightsail instance (this script needs ip address as an argument, for example `.\scripts\db-upload.sh 18.184.225.8`)
 - `new-instance.sh` - this script creates a new \$3.50 plan (nano plan) Ubuntu 16 instance on Lightsail and allocates a new static IP and attaches it to the instance

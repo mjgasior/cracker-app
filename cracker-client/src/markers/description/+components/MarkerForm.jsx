@@ -1,9 +1,11 @@
 import React, { useCallback, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { Form, Input, Button } from "antd";
 import { useAddMarker } from "./../../+hooks/useAddMarker";
 import { useRemoveMarker } from "./../../+hooks/useRemoveMarker";
-import { Form, Input, Button } from "antd";
 
 export const MarkerForm = ({ marker, reset }) => {
+  const { t } = useTranslation();
   const { english, polish, latitude, longitude, _id } = marker;
   const isSavedMarker = _id !== undefined;
 
@@ -35,22 +37,22 @@ export const MarkerForm = ({ marker, reset }) => {
       onFinish={handleAddMarker}
       initialValues={{ english, polish, latitude, longitude }}
     >
-      <Form.Item name={["polish", "name"]} label="Polish name">
-        <Input placeholder="Polish name" />
+      <Form.Item name={["polish", "name"]} label={t("polish_name")}>
+        <Input placeholder={t("polish_name")} />
       </Form.Item>
-      <Form.Item name={["english", "name"]} label="English name">
-        <Input placeholder="English name" />
+      <Form.Item name={["english", "name"]} label={t("english_name")}>
+        <Input placeholder={t("english_name")} />
       </Form.Item>
-      <Form.Item name={["latitude"]} label="Latitude">
-        <Input placeholder="latitude" />
+      <Form.Item name={["latitude"]} label={t("latitude")}>
+        <Input placeholder={t("latitude")} />
       </Form.Item>
-      <Form.Item name={["longitude"]} label="Longitude">
-        <Input placeholder="longitude" />
+      <Form.Item name={["longitude"]} label={t("longitude")}>
+        <Input placeholder={t("longitude")} />
       </Form.Item>
-      <Form.Item name={["polish", "content"]} label="Polish description">
+      <Form.Item name={["polish", "content"]} label={t("polish_content")}>
         <Input.TextArea />
       </Form.Item>
-      <Form.Item name={["english", "content"]} label="English description">
+      <Form.Item name={["english", "content"]} label={t("english_content")}>
         <Input.TextArea />
       </Form.Item>
       <Form.Item>
