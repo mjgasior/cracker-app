@@ -3,15 +3,15 @@ import { gql } from "apollo-server";
 export const Marker = gql`
   type Marker {
     _id: ID!
-    name: String
     latitude: Float
     longitude: Float
-    description: Description
+    english: Description
+    polish: Description
   }
 
   type Description {
-    english: String
-    polish: String
+    name: String
+    content: String
   }
 
   extend type Query {
@@ -19,15 +19,15 @@ export const Marker = gql`
   }
 
   input MarkerInput {
-    name: String
     latitude: Float
     longitude: Float
-    description: DescriptionInput
+    english: DescriptionInput
+    polish: DescriptionInput
   }
 
   input DescriptionInput {
-    english: String
-    polish: String
+    name: String
+    content: String
   }
 
   extend type Mutation {
