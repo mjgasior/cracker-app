@@ -4,7 +4,7 @@ import { useRemoveMarker } from "./../../+hooks/useRemoveMarker";
 import { Form, Input, Button } from "antd";
 
 export const MarkerForm = ({ marker, reset }) => {
-  const { name, latitude, longitude, description, _id } = marker;
+  const { english, polish, latitude, longitude, _id } = marker;
   const isSavedMarker = _id !== undefined;
 
   const [form] = Form.useForm();
@@ -33,10 +33,13 @@ export const MarkerForm = ({ marker, reset }) => {
       layout="horizontal"
       form={form}
       onFinish={handleAddMarker}
-      initialValues={{ name, latitude, longitude, description }}
+      initialValues={{ english, polish, latitude, longitude }}
     >
-      <Form.Item name={["name"]} label="Name">
-        <Input placeholder="name" />
+      <Form.Item name={["polish", "name"]} label="Polish name">
+        <Input placeholder="Polish name" />
+      </Form.Item>
+      <Form.Item name={["english", "name"]} label="English name">
+        <Input placeholder="English name" />
       </Form.Item>
       <Form.Item name={["latitude"]} label="Latitude">
         <Input placeholder="latitude" />
@@ -44,10 +47,10 @@ export const MarkerForm = ({ marker, reset }) => {
       <Form.Item name={["longitude"]} label="Longitude">
         <Input placeholder="longitude" />
       </Form.Item>
-      <Form.Item name={["description", "polish"]} label="Polish description">
+      <Form.Item name={["polish", "content"]} label="Polish description">
         <Input.TextArea />
       </Form.Item>
-      <Form.Item name={["description", "english"]} label="English description">
+      <Form.Item name={["english", "content"]} label="English description">
         <Input.TextArea />
       </Form.Item>
       <Form.Item>
