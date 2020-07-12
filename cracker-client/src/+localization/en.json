@@ -6,6 +6,8 @@
     "current_auth0": "Current Auth0 origin",
     "current_build": "Current build",
     "delete": "Delete",
+    "deleted": "Deleted",
+    "deleted_marker": "The marker was deleted successfully.",
     "english_description": "English description",
     "english_name": "English name",
     "home": "Home",
@@ -21,6 +23,10 @@
     "profile": "Profile",
     "profile_data": "Your email is {{email}} and it is {{verificationLabel}}.",
     "save": "Save",
-    "update": "Update"
+    "saved": "Saved",
+    "saved_marker": "The new marker was saved successfully.",
+    "update": "Update",
+    "updated": "Updated",
+    "updated_marker": "The marker was updated successfully."
   }
 }

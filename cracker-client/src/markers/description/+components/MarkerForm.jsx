@@ -5,16 +5,25 @@ import { useAddMarker } from "./../../+hooks/useAddMarker";
 import { useRemoveMarker } from "./../../+hooks/useRemoveMarker";
 import { useUpdateMarker } from "../../+hooks/useUpdateMarker";
 
-const openNotification = () => {
+const openNotification = (message, description) => {
   notification.info({
-    message: "Updated",
-    description: "The marker was updated",
+    message,
+    description,
     placement: "bottomRight",
   });
 };
 
+const setTitle = (marker, i18n, actionLabel) => {
+  let name = marker.polish.name;
+  if (i18n.language === "en") {
+    name = marker.english.name;
+  }
+
+  return `${actionLabel} ${name}`;
+};
+
 export const MarkerForm = ({ marker, reset }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { english, polish, latitude, longitude, _id } = marker;
   const isSavedMarker = _id !== undefined;
 
@@ -26,20 +35,32 @@ export const MarkerForm = ({ marker, reset }) => {
   const handleAddMarker = useCallback(
     (newMarker) => {
       addMarker({ variables: { marker: newMarker } });
+
+      const title = setTitle(newMarker, i18n, t("saved"));
+      openNotification(title, t("saved_marker"));
+
       reset();
     },
     [addMarker, reset]
   );
 
   const handleDeleteMarker = useCallback(() => {
+    const marker = form.getFieldsValue();
     removeMarker({ variables: { id: _id } });
+
+    const title = setTitle(marker, i18n, t("deleted"));
+    openNotification(title, t("deleted_marker"));
+
     reset();
-  }, [removeMarker, reset, _id]);
+  }, [removeMarker, t, i18n, form, reset, _id]);
 
   const handleUpdateMarker = useCallback(() => {
-    updateMarker({ variables: { id: _id, marker: form.getFieldsValue() } });
-    openNotification("bottomLeft");
-  }, [updateMarker, form, _id]);
+    const marker = form.getFieldsValue();
+    updateMarker({ variables: { id: _id, marker } });
+
+    const title = setTitle(marker, i18n, t("updated"));
+    openNotification(title, t("updated_marker"));
+  }, [updateMarker, t, i18n, form, _id]);
 
   useEffect(() => form.resetFields(), [marker, form]);
 

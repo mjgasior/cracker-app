@@ -6,6 +6,8 @@
     "current_auth0": "Bieżący adres źródłowy Auth0",
     "current_build": "Bieżący typ aplikacji",
     "delete": "Usuń",
+    "deleted": "Usunięto",
+    "deleted_marker": "Znacznik został usunięty pomyślnie.",
     "english_description": "Angielski opis",
     "english_name": "Angielska nazwa",
     "home": "Strona główna",
@@ -21,6 +23,10 @@
     "profile": "Profil",
     "profile_data": "Twój email to {{email}} i {{verificationLabel}}.",
     "save": "Zapisz",
-    "update": "Zaktualizuj"
+    "saved": "Zapisano",
+    "saved_marker": "Nowy znacznik został zapisany pomyślnie.",
+    "update": "Zaktualizuj",
+    "updated": "Zaktualizowano",
+    "updated_marker": "Dane znacznika zostały zaktualizowane."
   }
 }

@@ -35,9 +35,7 @@ export const MarkerResolver = {
         const { isLogged, roles } = await user;
         verifyAdminAccess(isLogged, roles);
 
-        const aaa = await markerConnector.update(id, marker);
-        console.log(aaa);
-        return aaa;
+        return await markerConnector.update(id, marker);
       } catch (e) {
         console.error(e);
         throw new AuthenticationError("You must be logged in to do this");
