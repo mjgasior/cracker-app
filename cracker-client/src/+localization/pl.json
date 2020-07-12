@@ -19,7 +19,7 @@
     "polish_description": "Polski opis",
     "polish_name": "Polska nazwa",
     "profile": "Profil",
-    "profile_data": "Twój email to {{email}} i {{verification}}.",
+    "profile_data": "Twój email to {{email}} i {{verificationLabel}}.",
     "save": "Zapisz",
     "update": "Zaktualizuj"
   }

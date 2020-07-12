@@ -19,7 +19,7 @@
     "polish_description": "Polish description",
     "polish_name": "Polish name",
     "profile": "Profile",
-    "profile_data": "Your email is {{email}} and it is {{verification}}.",
+    "profile_data": "Your email is {{email}} and it is {{verificationLabel}}.",
     "save": "Save",
     "update": "Update"
   }

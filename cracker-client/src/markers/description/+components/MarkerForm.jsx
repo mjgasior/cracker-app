@@ -26,6 +26,10 @@ export const MarkerForm = ({ marker, reset }) => {
     reset();
   }, [removeMarker, reset, _id]);
 
+  const handleUpdateMarker = useCallback(() => {
+    console.log(form.getFieldsValue());
+  }, [form]);
+
   useEffect(() => form.resetFields(), [marker, form]);
 
   return (
@@ -70,7 +74,7 @@ export const MarkerForm = ({ marker, reset }) => {
             <Button
               htmlType="button"
               type="primary"
-              onClick={handleDeleteMarker}
+              onClick={handleUpdateMarker}
             >
               {t("update")}
             </Button>
