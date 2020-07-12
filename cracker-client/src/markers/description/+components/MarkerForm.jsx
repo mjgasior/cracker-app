@@ -1,9 +1,17 @@
 import React, { useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, notification } from "antd";
 import { useAddMarker } from "./../../+hooks/useAddMarker";
 import { useRemoveMarker } from "./../../+hooks/useRemoveMarker";
 import { useUpdateMarker } from "../../+hooks/useUpdateMarker";
+
+const openNotification = () => {
+  notification.info({
+    message: "Updated",
+    description: "The marker was updated",
+    placement: "bottomRight",
+  });
+};
 
 export const MarkerForm = ({ marker, reset }) => {
   const { t } = useTranslation();
@@ -30,6 +38,7 @@ export const MarkerForm = ({ marker, reset }) => {
 
   const handleUpdateMarker = useCallback(() => {
     updateMarker({ variables: { id: _id, marker: form.getFieldsValue() } });
+    openNotification("bottomLeft");
   }, [updateMarker, form, _id]);
 
   useEffect(() => form.resetFields(), [marker, form]);

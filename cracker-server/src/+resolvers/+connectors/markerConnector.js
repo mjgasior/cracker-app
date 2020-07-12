@@ -18,7 +18,7 @@ export const markerConnector = {
   },
   update: async (markerId, marker) => {
     try {
-      return await Marker.updateOne(markerId, marker);
+      return await Marker.findByIdAndUpdate(markerId, marker);
     } catch (e) {
       return e.message;
     }
