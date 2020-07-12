@@ -3,6 +3,9 @@ import { initReactI18next } from "react-i18next";
 import en from "./en.json";
 import pl from "./pl.json";
 
+export const PRIMARY_LANGUAGE = "en";
+export const SECONDARY_LANGUAGE = "pl";
+
 const resources = {
   en,
   pl,
@@ -10,7 +13,7 @@ const resources = {
 
 i18n.use(initReactI18next).init({
   resources,
-  lng: "pl",
+  lng: PRIMARY_LANGUAGE,
   keySeparator: false,
   interpolation: {
     escapeValue: false,

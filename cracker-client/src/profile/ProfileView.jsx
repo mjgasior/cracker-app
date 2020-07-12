@@ -2,6 +2,7 @@ import React, { useCallback } from "react";
 import auth from "../+utils/Auth";
 import { Switch } from "antd";
 import { useTranslation } from "react-i18next";
+import { PRIMARY_LANGUAGE, SECONDARY_LANGUAGE } from "../+localization/i18n";
 
 export const ProfileView = () => {
   const { t, i18n } = useTranslation();
@@ -13,7 +14,7 @@ export const ProfileView = () => {
 
   const handleLanguageChange = useCallback(
     (isChecked) => {
-      i18n.changeLanguage(isChecked ? "en" : "pl");
+      i18n.changeLanguage(isChecked ? PRIMARY_LANGUAGE : SECONDARY_LANGUAGE);
     },
     [i18n]
   );
@@ -23,8 +24,9 @@ export const ProfileView = () => {
       <h2>{t("profile")}</h2>
       <p>
         <Switch
-          checkedChildren="EN"
-          unCheckedChildren="PL"
+          defaultChecked
+          checkedChildren={PRIMARY_LANGUAGE}
+          unCheckedChildren={SECONDARY_LANGUAGE}
           onChange={handleLanguageChange}
         />
       </p>
