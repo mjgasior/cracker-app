@@ -21,8 +21,12 @@ export const ProfileView = () => {
       </p>
       <p>{isAdmin ? t("admin_rights") : t("admin_rights_lack")}</p>
       <p>
-        Your email is {email} and it is {!isEmailVerified && "not "}verified.
-        {t("profile")}
+        {t("profile_data", {
+          email,
+          verification: isEmailVerified
+            ? t("is_verified")
+            : t("is_not_verified"),
+        })}
       </p>
     </div>
   );
