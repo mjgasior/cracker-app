@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import "./+localization/i18n";
 import { client, ApolloProvider } from "./+utils/apolloSetup";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ThemeProvider } from "styled-components";

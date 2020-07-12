@@ -1,0 +1,25 @@
+{
+  "translation": {
+    "admin_rights": "You have admin rights. You can add markers.",
+    "admin_rights_lack": "You don't have admin rights. Please ask for admin rights to add markers.",
+    "current_api_url": "Current API URL",
+    "current_auth0": "Current Auth0 origin",
+    "current_build": "Current build",
+    "delete": "Delete",
+    "english_description": "English description",
+    "english_name": "English name",
+    "home": "Home",
+    "is_verified": "is verified",
+    "is_not_verified": "is not verified",
+    "latitude": "Latitude",
+    "longitude": "Longitude",
+    "log_in": "Log in",
+    "log_out": "Log out",
+    "markers": "Markers",
+    "polish_description": "Polish description",
+    "polish_name": "Polish name",
+    "profile": "Profile",
+    "profile_data": "Your email is {{email}} and it is {{verification}}.",
+    "save": "Save"
+  }
+}

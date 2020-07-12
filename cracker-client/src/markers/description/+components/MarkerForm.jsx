@@ -1,10 +1,12 @@
 import React, { useCallback, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { Form, Input, Button } from "antd";
 import { useAddMarker } from "./../../+hooks/useAddMarker";
 import { useRemoveMarker } from "./../../+hooks/useRemoveMarker";
-import { Form, Input, Button } from "antd";
 
 export const MarkerForm = ({ marker, reset }) => {
-  const { name, latitude, longitude, description, _id } = marker;
+  const { t } = useTranslation();
+  const { english, polish, latitude, longitude, _id } = marker;
   const isSavedMarker = _id !== undefined;
 
   const [form] = Form.useForm();
@@ -28,36 +30,45 @@ export const MarkerForm = ({ marker, reset }) => {
 
   return (
     <Form
-      labelCol={{ span: 5 }}
+      labelCol={{ span: 6 }}
       wrapperCol={{ span: 14 }}
       layout="horizontal"
       form={form}
       onFinish={handleAddMarker}
-      initialValues={{ name, latitude, longitude, description }}
+      initialValues={{ english, polish, latitude, longitude }}
     >
-      <Form.Item name={["name"]} label="Name">
-        <Input placeholder="name" />
+      <Form.Item name={["polish", "name"]} label={t("polish_name")}>
+        <Input placeholder={t("polish_name")} />
       </Form.Item>
-      <Form.Item name={["latitude"]} label="Latitude">
-        <Input placeholder="latitude" />
+      <Form.Item name={["english", "name"]} label={t("english_name")}>
+        <Input placeholder={t("english_name")} />
       </Form.Item>
-      <Form.Item name={["longitude"]} label="Longitude">
-        <Input placeholder="longitude" />
+      <Form.Item name={["latitude"]} label={t("latitude")}>
+        <Input placeholder={t("latitude")} />
       </Form.Item>
-      <Form.Item name={["description", "polish"]} label="Polish description">
+      <Form.Item name={["longitude"]} label={t("longitude")}>
+        <Input placeholder={t("longitude")} />
+      </Form.Item>
+      <Form.Item
+        name={["polish", "description"]}
+        label={t("polish_description")}
+      >
         <Input.TextArea />
       </Form.Item>
-      <Form.Item name={["description", "english"]} label="English description">
+      <Form.Item
+        name={["english", "description"]}
+        label={t("english_description")}
+      >
         <Input.TextArea />
       </Form.Item>
       <Form.Item>
         {isSavedMarker ? (
           <Button htmlType="button" onClick={handleDeleteMarker}>
-            Delete
+            {t("delete")}
           </Button>
         ) : (
           <Button type="primary" htmlType="submit">
-            Save
+            {t("save")}
           </Button>
         )}
       </Form.Item>

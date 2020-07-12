@@ -1,25 +1,51 @@
-import React from "react";
+import React, { useCallback } from "react";
 import auth from "../+utils/Auth";
+import { Switch } from "antd";
+import { useTranslation } from "react-i18next";
+import { PRIMARY_LANGUAGE, SECONDARY_LANGUAGE } from "../+localization/i18n";
 
 export const ProfileView = () => {
+  const { t, i18n } = useTranslation();
+
+  const handleLanguageChange = useCallback(
+    (isChecked) => {
+      i18n.changeLanguage(isChecked ? PRIMARY_LANGUAGE : SECONDARY_LANGUAGE);
+    },
+    [i18n]
+  );
+
   const isAdmin = auth.isUserAdmin();
   const email = auth.getEmail();
-  const isEmailVerified = auth.getIsEmailVerified();
+  const verificationLabel = auth.getIsEmailVerified()
+    ? t("is_verified")
+    : t("is_not_verified");
+
   return (
     <div>
-      <h2>Profile</h2>
+      <h2>{t("profile")}</h2>
       <p>
-        Current build type: <i>{process.env.NODE_ENV}</i>
-      </p>
-      <p>Current API URL: {process.env.REACT_APP_API_URL}</p>
-      <p>Current Auth0 origin: {process.env.REACT_APP_AUTH0_ORIGIN}</p>
-      <p>
-        {isAdmin
-          ? "You have admin rights. You can add markers."
-          : "You don't have admin rights. Please ask for admin rights to add markers."}
+        <Switch
+          defaultChecked
+          checkedChildren={PRIMARY_LANGUAGE}
+          unCheckedChildren={SECONDARY_LANGUAGE}
+          onChange={handleLanguageChange}
+        />
       </p>
       <p>
-        Your email is {email} and it is {!isEmailVerified && "not "}verified.
+        {t("current_build")}: <i>{process.env.NODE_ENV}</i>
+      </p>
+      <p>
+        {t("current_api_url")}: {process.env.REACT_APP_API_URL}
+      </p>
+      <p>
+        {t("current_auth0")}: {process.env.REACT_APP_AUTH0_ORIGIN}
+      </p>
+      <p>{isAdmin ? t("admin_rights") : t("admin_rights_lack")}</p>
+      <p>
+        {t("profile_data", {
+          email,
+          verification: verificationLabel,
+        })}
       </p>
     </div>
   );

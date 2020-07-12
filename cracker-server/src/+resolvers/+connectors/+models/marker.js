@@ -3,10 +3,10 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const markerSchema = new Schema({
-  name: String,
   latitude: Number,
   longitude: Number,
-  description: { english: String, polish: String },
+  english: { name: String, description: String },
+  polish: { name: String, description: String },
 });
 
 export const Marker = mongoose.model("marker", markerSchema);

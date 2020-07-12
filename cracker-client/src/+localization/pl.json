@@ -1,0 +1,25 @@
+{
+  "translation": {
+    "admin_rights": "Masz uprawnienia administratora. Możesz dodawać znaczniki.",
+    "admin_rights_lack": "Nie masz uprawnień administratora. Poproś o nie by móc dodawać znaczniki.",
+    "current_api_url": "Bieżący adres API",
+    "current_auth0": "Bieżący adres źródłowy Auth0",
+    "current_build": "Bieżący typ aplikacji",
+    "delete": "Usuń",
+    "english_description": "Angielski opis",
+    "english_name": "Angielska nazwa",
+    "home": "Strona główna",
+    "is_verified": "został zweryfikowany",
+    "is_not_verified": "nie został zweryfikowany",
+    "latitude": "Szerokość geograficzna",
+    "longitude": "Długość geograficzna",
+    "log_in": "Zaloguj",
+    "log_out": "Wyloguj",
+    "markers": "Znaczniki",
+    "polish_description": "Polski opis",
+    "polish_name": "Polska nazwa",
+    "profile": "Profil",
+    "profile_data": "Twój email to {{email}} i {{verification}}.",
+    "save": "Zapisz"
+  }
+}
