@@ -29,6 +29,20 @@ export const MarkerResolver = {
         throw new AuthenticationError("You must be logged in to do this");
       }
     },
+
+    updateMarker: async (_, { id, marker }, { user }) => {
+      try {
+        const { isLogged, roles } = await user;
+        verifyAdminAccess(isLogged, roles);
+
+        const aaa = await markerConnector.update(id, marker);
+        console.log(aaa);
+        return aaa;
+      } catch (e) {
+        console.error(e);
+        throw new AuthenticationError("You must be logged in to do this");
+      }
+    },
   },
 };
 

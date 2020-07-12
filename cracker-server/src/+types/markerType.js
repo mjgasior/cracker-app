@@ -33,5 +33,6 @@ export const Marker = gql`
   extend type Mutation {
     addMarker(marker: MarkerInput): Marker!
     removeMarker(id: ID): Marker!
+    updateMarker(id: ID, marker: MarkerInput): Marker!
   }
 `;

@@ -16,6 +16,13 @@ export const markerConnector = {
       return e.message;
     }
   },
+  update: async (markerId, marker) => {
+    try {
+      return await Marker.updateOne(markerId, marker);
+    } catch (e) {
+      return e.message;
+    }
+  },
   getAll: async () => {
     const markers = await Marker.find({}).exec();
     return markers;

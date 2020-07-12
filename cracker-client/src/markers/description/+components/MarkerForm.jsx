@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Form, Input, Button } from "antd";
 import { useAddMarker } from "./../../+hooks/useAddMarker";
 import { useRemoveMarker } from "./../../+hooks/useRemoveMarker";
+import { useUpdateMarker } from "../../+hooks/useUpdateMarker";
 
 export const MarkerForm = ({ marker, reset }) => {
   const { t } = useTranslation();
@@ -12,6 +13,7 @@ export const MarkerForm = ({ marker, reset }) => {
   const [form] = Form.useForm();
   const [addMarker] = useAddMarker();
   const [removeMarker] = useRemoveMarker();
+  const [updateMarker] = useUpdateMarker();
 
   const handleAddMarker = useCallback(
     (newMarker) => {
@@ -27,8 +29,8 @@ export const MarkerForm = ({ marker, reset }) => {
   }, [removeMarker, reset, _id]);
 
   const handleUpdateMarker = useCallback(() => {
-    console.log(form.getFieldsValue());
-  }, [form]);
+    updateMarker({ variables: { id: _id, marker: form.getFieldsValue() } });
+  }, [updateMarker, form, _id]);
 
   useEffect(() => form.resetFields(), [marker, form]);
 
