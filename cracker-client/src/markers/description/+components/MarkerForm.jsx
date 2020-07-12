@@ -63,9 +63,18 @@ export const MarkerForm = ({ marker, reset }) => {
       </Form.Item>
       <Form.Item>
         {isSavedMarker ? (
-          <Button htmlType="button" onClick={handleDeleteMarker}>
-            {t("delete")}
-          </Button>
+          <>
+            <Button htmlType="button" onClick={handleDeleteMarker}>
+              {t("delete")}
+            </Button>
+            <Button
+              htmlType="button"
+              type="primary"
+              onClick={handleDeleteMarker}
+            >
+              {t("update")}
+            </Button>
+          </>
         ) : (
           <Button type="primary" htmlType="submit">
             {t("save")}

@@ -20,6 +20,7 @@
     "polish_name": "Polska nazwa",
     "profile": "Profil",
     "profile_data": "Twój email to {{email}} i {{verification}}.",
-    "save": "Zapisz"
+    "save": "Zapisz",
+    "update": "Zaktualizuj"
   }
 }
