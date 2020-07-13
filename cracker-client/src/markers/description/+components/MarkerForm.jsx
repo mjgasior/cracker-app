@@ -41,7 +41,7 @@ export const MarkerForm = ({ marker, reset }) => {
 
       reset();
     },
-    [addMarker, reset]
+    [addMarker, i18n, t, reset]
   );
 
   const handleDeleteMarker = useCallback(() => {
