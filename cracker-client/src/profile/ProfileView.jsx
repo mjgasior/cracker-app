@@ -44,7 +44,7 @@ export const ProfileView = () => {
       <p>
         {t("profile_data", {
           email,
-          verification: verificationLabel,
+          verificationLabel,
         })}
       </p>
     </div>
