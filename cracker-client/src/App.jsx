@@ -14,6 +14,7 @@ import styled from "styled-components";
 import { MarkersView } from "./markers/MarkersView";
 import { ROUTES } from "./+utils/routes";
 import { ProfileView } from "./profile/ProfileView";
+import { MarkersListView } from "./markersList/MarkersListView";
 
 const { Header, Content, Footer } = Layout;
 
@@ -49,6 +50,7 @@ class App extends Component {
           <Switch>
             <Route exact path={ROUTES.CALLBACK} component={Callback} />
             <Route path={ROUTES.MARKERS} component={MarkersView} />
+            <Route path={ROUTES.MARKERS_LIST} component={MarkersListView} />
             <Route path={ROUTES.PROFILE} component={ProfileView} />
             <Route path={ROUTES.HOME} component={Home} />
           </Switch>
