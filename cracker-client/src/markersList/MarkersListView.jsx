@@ -23,7 +23,7 @@ export const MarkersListView = () => {
                   {item.english.name[0].toUpperCase()}
                 </StyledAvatar>
               }
-              title={<a href="https://ant.design">{item.english.name}</a>}
+              title={<a href={`/${item._id}`}>{item.english.name}</a>}
               description={item.english.description}
             />
           </List.Item>
