@@ -1,11 +1,9 @@
 import { gql } from "apollo-boost";
 
 export const MARKERS = gql`
-  {
-    markers {
+  query {
+    getMarkers(language: "english") {
       _id
-      latitude
-      longitude
       polish {
         name
         description

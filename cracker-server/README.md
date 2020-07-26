@@ -62,6 +62,7 @@ For Docker Compose instructions refer to `cracker-product` repository.
 
 ## Resources:
 
+- [Alphabetical sorting in MongoDB](https://stackoverflow.com/questions/14279924/mongoose-sort-alphabetically)
 - [Authorization in Mongoose](https://mongoosejs.com/docs/connections.html)
 - [Create a GraphQL API with graphql-compose-mongoose](https://getstream.io/blog/tutorial-create-a-graphql-api-with-node-mongoose-and-express/)
 - [Dockerizing Node.js applications (online exercise)](https://www.katacoda.com/courses/docker/3# "Katacoda course")

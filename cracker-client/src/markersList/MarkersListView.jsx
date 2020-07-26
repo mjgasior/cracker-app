@@ -14,7 +14,7 @@ export const MarkersListView = () => {
     return (
       <List
         itemLayout="horizontal"
-        dataSource={data.markers}
+        dataSource={data.getMarkers}
         renderItem={(item) => (
           <List.Item>
             <List.Item.Meta
