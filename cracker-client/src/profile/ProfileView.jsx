@@ -25,7 +25,7 @@ export const ProfileView = () => {
       <h2>{t("profile")}</h2>
       <p>
         <Switch
-          defaultChecked
+          defaultChecked={i18n.language === PRIMARY_LANGUAGE}
           checkedChildren={PRIMARY_LANGUAGE}
           unCheckedChildren={SECONDARY_LANGUAGE}
           onChange={handleLanguageChange}

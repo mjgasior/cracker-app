@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { List, Avatar, Skeleton } from "antd";
 import { useMarkers } from "./+hooks/useMarkers";
+import { useCurrentLanguage } from "./+hooks/useCurrentLanguage";
 
 const StyledAvatar = styled(Avatar)`
   color: #bbb;
@@ -9,7 +10,8 @@ const StyledAvatar = styled(Avatar)`
 `;
 
 export const MarkersListView = () => {
-  const { data } = useMarkers();
+  const currentLanguage = useCurrentLanguage();
+  const { data } = useMarkers(currentLanguage);
   if (data) {
     return (
       <List
@@ -20,11 +22,11 @@ export const MarkersListView = () => {
             <List.Item.Meta
               avatar={
                 <StyledAvatar>
-                  {item.english.name[0].toUpperCase()}
+                  {item[currentLanguage].name[0].toUpperCase()}
                 </StyledAvatar>
               }
-              title={<a href={`/${item._id}`}>{item.english.name}</a>}
-              description={item.english.description}
+              title={<a href={`/${item._id}`}>{item[currentLanguage].name}</a>}
+              description={item[currentLanguage].description}
             />
           </List.Item>
         )}
