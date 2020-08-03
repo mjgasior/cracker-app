@@ -4,6 +4,9 @@ import { AuthenticationError } from "apollo-server";
 export const MarkerResolver = {
   Query: {
     markers: markerConnector.getAll,
+    getMarkers: async (_, { language }) => {
+      return await markerConnector.get(language);
+    },
   },
   Mutation: {
     addMarker: async (_, { marker }, { user }) => {

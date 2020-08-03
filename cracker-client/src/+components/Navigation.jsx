@@ -29,6 +29,9 @@ export const Navigation = () => {
       <Menu.Item key={ROUTES.MARKERS}>
         <Link to={ROUTES.MARKERS}>{t("markers")}</Link>
       </Menu.Item>
+      <Menu.Item key={ROUTES.MARKERS_LIST}>
+        <Link to={ROUTES.MARKERS_LIST}>{t("markers_list")}</Link>
+      </Menu.Item>
       {isAuthenticated && (
         <Menu.Item key={ROUTES.PROFILE}>
           <Link to={ROUTES.PROFILE}>{t("profile")}</Link>

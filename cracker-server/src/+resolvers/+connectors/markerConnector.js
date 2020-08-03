@@ -23,6 +23,17 @@ export const markerConnector = {
       return e.message;
     }
   },
+  get: async (language) => {
+    const sortObject = {};
+    sortObject[`${language}.name`] = 1;
+
+    const markers = await Marker.find({})
+      .collation({ locale: "en" })
+      .sort(sortObject)
+      .exec();
+
+    return markers;
+  },
   getAll: async () => {
     const markers = await Marker.find({}).exec();
     return markers;

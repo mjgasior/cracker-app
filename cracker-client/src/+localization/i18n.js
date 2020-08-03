@@ -6,6 +6,13 @@ import pl from "./pl.json";
 export const PRIMARY_LANGUAGE = "en";
 export const SECONDARY_LANGUAGE = "pl";
 
+export const getLanguage = (language) => {
+  if (language === PRIMARY_LANGUAGE) {
+    return "english";
+  }
+  return "polish";
+};
+
 const resources = {
   en,
   pl,
