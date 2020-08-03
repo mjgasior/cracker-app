@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { List, Avatar, Skeleton } from "antd";
 import { useMarkers } from "./+hooks/useMarkers";
 import { useCurrentLanguage } from "./+hooks/useCurrentLanguage";
+import { useHistory } from "react-router-dom";
 
 const StyledAvatar = styled(Avatar)`
   color: #bbb;
@@ -10,6 +11,7 @@ const StyledAvatar = styled(Avatar)`
 `;
 
 export const MarkersListView = () => {
+  const history = useHistory();
   const currentLanguage = useCurrentLanguage();
   const { data } = useMarkers(currentLanguage);
   if (data) {
@@ -25,7 +27,11 @@ export const MarkersListView = () => {
                   {item[currentLanguage].name[0].toUpperCase()}
                 </StyledAvatar>
               }
-              title={<a href={`/${item._id}`}>{item[currentLanguage].name}</a>}
+              title={
+                <a onClick={() => history.push(`markers/${item._id}`)}>
+                  {item[currentLanguage].name}
+                </a>
+              }
               description={item[currentLanguage].description}
             />
           </List.Item>
