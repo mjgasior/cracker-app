@@ -15,9 +15,8 @@ export const Marker = gql`
   }
 
   type File {
-    filename: String!
-    mimetype: String!
-    encoding: String!
+    name: String!
+    type: String!
   }
 
   extend type Query {

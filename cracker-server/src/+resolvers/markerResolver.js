@@ -24,6 +24,7 @@ export const MarkerResolver = {
       }
     },
     async singleUpload(parent, { file }) {
+      console.log(JSON.stringify(file));
       const { stream, filename, mimetype, encoding } = await file;
 
       // 1. Validate file metadata.

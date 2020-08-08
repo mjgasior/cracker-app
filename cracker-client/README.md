@@ -62,3 +62,6 @@ For Docker Compose instructions refer to `cracker-product` repository.
 - [Leaflet with React](https://blog.logrocket.com/how-to-use-react-leaflet/)
 - [Serve static files through Nginx in Docker (online exercise)](https://www.katacoda.com/courses/docker/create-nginx-static-web-server "Katacoda online courses")
 - [Readme.md markdown cheatsheet](https://github.com/tchapi/markdown-cheatsheet/blob/master/README.md)
+
+https://www.youtube.com/watch?v=-Zx-9BKgTAs
+https://github.com/apollographql/apollo-feature-requests/issues/51

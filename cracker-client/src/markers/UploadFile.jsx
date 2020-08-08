@@ -19,11 +19,15 @@ export const UploadFile = () => {
       validity,
       files: [file],
     },
-  }) =>
-    validity.valid &&
-    uploadFileMutation({ variables: { file } }).then(() => {
-      apolloClient.resetStore();
-    });
+  }) => {
+    console.log(file);
+    return (
+      validity.valid &&
+      uploadFileMutation({ variables: { file } }).then(() => {
+        apolloClient.resetStore();
+      })
+    );
+  };
 
   return <input type="file" required onChange={onChange} />;
 };
