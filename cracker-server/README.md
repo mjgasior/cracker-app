@@ -67,5 +67,6 @@ For Docker Compose instructions refer to `cracker-product` repository.
 - [Create a GraphQL API with graphql-compose-mongoose](https://getstream.io/blog/tutorial-create-a-graphql-api-with-node-mongoose-and-express/)
 - [Dockerizing Node.js applications (online exercise)](https://www.katacoda.com/courses/docker/3# "Katacoda course")
 - [Enable ES6 (and beyond) syntax with Node and Express](https://www.freecodecamp.org/news/how-to-enable-es6-and-beyond-syntax-with-node-and-express-68d3e11fe1ab/)
+- [File Uploads with Apollo Server 2.0](https://www.apollographql.com/blog/file-uploads-with-apollo-server-2-0-5db2f3f60675/#File-upload-with-schema-param) (there is a bug that requires [scalar Upload](https://github.com/apollographql/apollo-server/issues/1317#issuecomment-403648624) to be defined for uploads to work properly)
 - [Modularizing GraphQL schema code](https://www.apollographql.com/blog/modularizing-your-graphql-schema-code-d7f71d5ed5f2)
 - [The Beginner’s Guide to using GraphQL with Node and Mongo](https://medium.com/@williamyang93/graphql-apollo-mongodb-mongoose-part-i-a727bb22f1f6)

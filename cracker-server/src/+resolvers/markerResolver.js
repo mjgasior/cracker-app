@@ -7,6 +7,9 @@ export const MarkerResolver = {
     getMarkers: async (_, { language }) => {
       return await markerConnector.get(language);
     },
+    uploads: () => {
+      return null;
+    },
   },
   Mutation: {
     addMarker: async (_, { marker }, { user }) => {
@@ -20,7 +23,20 @@ export const MarkerResolver = {
         throw new AuthenticationError("You must be logged in to do this");
       }
     },
+    async singleUpload(parent, { file }) {
+      const { stream, filename, mimetype, encoding } = await file;
 
+      // 1. Validate file metadata.
+
+      // 2. Stream file contents into cloud storage:
+      // https://nodejs.org/api/stream.html
+
+      // 3. Record the file upload in your DB.
+      // const id = await recordFile( … )
+      console.log(filename);
+
+      return { filename, mimetype, encoding };
+    },
     removeMarker: async (_, { id }, { user }) => {
       try {
         const { isLogged, roles } = await user;

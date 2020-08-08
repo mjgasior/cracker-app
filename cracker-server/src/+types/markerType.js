@@ -14,9 +14,16 @@ export const Marker = gql`
     description: String
   }
 
+  type File {
+    filename: String!
+    mimetype: String!
+    encoding: String!
+  }
+
   extend type Query {
     markers: [Marker]
     getMarkers(language: String): [Marker]
+    uploads: [File]
   }
 
   input MarkerInput {
@@ -32,6 +39,7 @@ export const Marker = gql`
   }
 
   extend type Mutation {
+    singleUpload(file: Upload!): File!
     addMarker(marker: MarkerInput): Marker!
     removeMarker(id: ID): Marker!
     updateMarker(id: ID, marker: MarkerInput): Marker!

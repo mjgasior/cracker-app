@@ -5,6 +5,8 @@ import { Marker } from "./+types/markerType";
 import { MarkerResolver } from "./+resolvers/markerResolver";
 
 const Base = gql`
+  scalar Upload
+
   type Query {
     _empty: String
   }
