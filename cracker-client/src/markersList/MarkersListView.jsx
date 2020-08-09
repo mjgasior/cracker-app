@@ -28,9 +28,9 @@ export const MarkersListView = () => {
                 </StyledAvatar>
               }
               title={
-                <a onClick={() => history.push(`markers/${item._id}`)}>
+                <button onClick={() => history.push(`markers/${item._id}`)}>
                   {item[currentLanguage].name}
-                </a>
+                </button>
               }
               description={item[currentLanguage].description}
             />
