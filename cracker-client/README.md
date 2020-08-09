@@ -37,10 +37,10 @@ For Docker Compose instructions refer to `cracker-product` repository.
 
 ## Packages:
 
-- `@apollo/client` - integration with Apollo based on React hooks
+- `@apollo/client` - this single package contains virtually everything you need to set up Apollo Client - it includes the in-memory cache, local state management, error handling, and a React-based view layer
 - `antd` - Ant Design is a UI design language and React UI components library (I usually used [Material UI](https://material-ui.com/) but this time I wanted to try out something new)
 - `auth0-js` - client side JavaScript toolkit for Auth0 authorization API
-- `graphql` - the JavaScript reference implementation for GraphQL, a query language for APIs created by Facebook
+- `graphql` - the JavaScript reference implementation for GraphQL, a query language for APIs created by Facebook (provides logic for parsing GraphQL queries)
 - `leaflet` - open-source JavaScript library for mobile-friendly interactive maps based on OpenStreetMap
 - `leaflet-contextmenu` - just a context menu for Leaflet
 - `react-leaflet` - this package provides an abstraction of 🍃 [Leaflet](https://leafletjs.com/reference-1.6.0.html) as ⚛️ React components.
