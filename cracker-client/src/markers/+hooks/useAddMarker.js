@@ -1,4 +1,4 @@
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/client";
 import { ADD_MARKER, MARKERS } from "./queries";
 
 export const useAddMarker = () => {

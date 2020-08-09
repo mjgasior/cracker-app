@@ -1,5 +1,4 @@
-import ApolloClient from "apollo-boost";
-import { ApolloProvider } from "@apollo/react-hooks";
+import { ApolloClient, ApolloProvider } from "@apollo/client";
 import auth from "./Auth";
 
 const client = new ApolloClient({
