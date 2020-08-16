@@ -18,18 +18,10 @@ const server = new ApolloServer({
     },
   },
   schema,
-  context: async ({ req }) => {
+  context: async ({ req, ...rest }) => {
     const token = req.headers.authorization;
     const user = getUser(token);
-
-    let isAuthenticated = false;
-    try {
-      const authorizationHeader = {};
-    } catch {
-      console.log("ERROR");
-    }
-
-    return { user, isAuthenticated };
+    return { req, ...rest, user };
   },
 });
 

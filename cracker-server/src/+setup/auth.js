@@ -37,6 +37,7 @@ export const getUser = (token) =>
       const roles = decoded[AUTH0_NAMESPACE + "roles"];
       resolve({ roles, email: decoded.email, isLogged: true });
     });
-  }).catch(() => {
+  }).catch((error) => {
+    console.error(error);
     return { isLogged: false };
   });
