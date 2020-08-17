@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import auth from "./+utils/Auth";
 import { withRouter } from "react-router-dom";
 
 import "antd/dist/antd.css";
@@ -7,7 +6,6 @@ import { Layout } from "antd";
 import { Logo } from "./+components/Logo";
 
 import { Switch, Route } from "react-router-dom";
-import { Callback } from "./+components/Callback";
 import { Home } from "./home/Home";
 import { Navigation } from "./+components/Navigation";
 import styled from "styled-components";
@@ -23,22 +21,6 @@ const Container = styled(Content)`
 `;
 
 class App extends Component {
-  async componentDidMount() {
-    if (this.props.location.pathname === "/callback") {
-      return;
-    }
-
-    try {
-      await auth.silentAuth();
-      this.forceUpdate();
-    } catch (err) {
-      if (err.error === "login_required") {
-        return;
-      }
-      console.log(err.error);
-    }
-  }
-
   render() {
     return (
       <Layout>
@@ -48,7 +30,6 @@ class App extends Component {
         </Header>
         <Container>
           <Switch>
-            <Route exact path={ROUTES.CALLBACK} component={Callback} />
             <Route path={ROUTES.MARKERS} component={MarkersView} />
             <Route path={ROUTES.MARKERS_LIST} component={MarkersListView} />
             <Route path={ROUTES.PROFILE} component={ProfileView} />

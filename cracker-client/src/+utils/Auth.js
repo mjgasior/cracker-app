@@ -1,4 +1,6 @@
-import auth0 from "auth0-js";
+// import auth0 from "auth0-js";
+
+const auth0 = {};
 
 const AUTH_RESULT = {
   ACCESS_TOKEN: "accessToken",
@@ -27,14 +29,14 @@ const ID_TOKEN_PAYLOAD = {
 
 class Auth {
   constructor() {
-    this.auth0 = new auth0.WebAuth({
+    /*this.auth0 = new auth0.WebAuth({
       domain: process.env.REACT_APP_AUTH0_DOMAIN,
       clientID: process.env.REACT_APP_AUTH0_CLIENT_ID,
       redirectUri: `${process.env.REACT_APP_AUTH0_ORIGIN}/callback`,
       audience: `https://${process.env.REACT_APP_AUTH0_DOMAIN}/userinfo`,
       responseType: "token id_token",
       scope: "openid email",
-    });
+    });*/
 
     this.authFlag = "isLoggedIn";
   }

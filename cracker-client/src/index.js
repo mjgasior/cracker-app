@@ -8,16 +8,29 @@ import { ThemeProvider } from "styled-components";
 import "./index.css";
 import App from "./App";
 import { theme } from "./+utils/theme";
+import { Auth0Provider } from "@auth0/auth0-react";
 
+/*
+      domain: process.env.REACT_APP_AUTH0_DOMAIN,
+      clientID: process.env.REACT_APP_AUTH0_CLIENT_ID,
+      redirectUri: `${process.env.REACT_APP_AUTH0_ORIGIN}/callback`,
+      audience: `https://${process.env.REACT_APP_AUTH0_DOMAIN}/userinfo`,
+      */
 ReactDOM.render(
   <React.StrictMode>
-    <ApolloProvider client={client}>
-      <Router>
-        <ThemeProvider theme={theme}>
-          <App />
-        </ThemeProvider>
-      </Router>
-    </ApolloProvider>
+    <Auth0Provider
+      domain={process.env.REACT_APP_AUTH0_DOMAIN}
+      clientId={process.env.REACT_APP_AUTH0_CLIENT_ID}
+      redirectUri={`${process.env.REACT_APP_AUTH0_ORIGIN}/callback`}
+    >
+      <ApolloProvider client={client}>
+        <Router>
+          <ThemeProvider theme={theme}>
+            <App />
+          </ThemeProvider>
+        </Router>
+      </ApolloProvider>
+    </Auth0Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );

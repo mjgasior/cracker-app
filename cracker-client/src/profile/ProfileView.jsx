@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import auth from "../+utils/Auth";
+// import auth from "../+utils/Auth";
 import { Switch } from "antd";
 import { useTranslation } from "react-i18next";
 import { PRIMARY_LANGUAGE, SECONDARY_LANGUAGE } from "../+localization/i18n";
@@ -14,11 +14,10 @@ export const ProfileView = () => {
     [i18n]
   );
 
-  const isAdmin = auth.isUserAdmin();
-  const email = auth.getEmail();
-  const verificationLabel = auth.getIsEmailVerified()
-    ? t("is_verified")
-    : t("is_not_verified");
+  const isAdmin = false; // auth.isUserAdmin();
+  const email = ""; // auth.getEmail();
+  // const verificationLabel = auth.getIsEmailVerified()
+  const verificationLabel = false ? t("is_verified") : t("is_not_verified");
 
   return (
     <div>

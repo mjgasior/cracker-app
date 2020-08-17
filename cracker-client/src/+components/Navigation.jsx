@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import auth from "../+utils/Auth";
+// import auth from "../+utils/Auth";
 import { Menu } from "antd";
 import { ROUTES } from "../+utils/routes";
 
@@ -11,11 +11,11 @@ export const Navigation = () => {
   const history = useHistory();
 
   const logout = useCallback(() => {
-    auth.logout();
+    // auth.logout();
     history.replace(ROUTES.HOME);
   }, [history]);
 
-  const isAuthenticated = auth.isAuthenticated();
+  const isAuthenticated = false; // auth.isAuthenticated();
 
   return (
     <Menu
@@ -43,7 +43,7 @@ export const Navigation = () => {
           if (isAuthenticated) {
             logout();
           } else {
-            auth.login();
+            // auth.login();
           }
         }}
       >

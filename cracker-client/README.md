@@ -38,9 +38,9 @@ For Docker Compose instructions refer to `cracker-product` repository.
 ## Packages:
 
 - `@apollo/react-hooks` - integration with Apollo based on React hooks
+- `@auth0/auth0-react` - the Auth0 React SDK (auth0-react.js) is a JavaScript library for implementing authentication and authorization in React apps with Auth0 (it provides a custom React hook and other Higher Order Components)
 - `antd` - Ant Design is a UI design language and React UI components library (I usually used [Material UI](https://material-ui.com/) but this time I wanted to try out something new)
 - `apollo-boost` - package containing everything you need to set up Apollo Client (bare `@apollo/client` was lacking a comfortable way of [adding authorization header](https://www.apollographql.com/docs/react/networking/authentication/#header "Apollo GQL docs") to all GQL requests)
-- `auth0-js` - client side JavaScript toolkit for Auth0 authorization API
 - `graphql` - the JavaScript reference implementation for GraphQL, a query language for APIs created by Facebook
 - `leaflet` - open-source JavaScript library for mobile-friendly interactive maps based on OpenStreetMap
 - `leaflet-contextmenu` - just a context menu for Leaflet
