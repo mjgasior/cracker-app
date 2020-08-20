@@ -4,6 +4,8 @@ In `nginx` directory there is the `cracker.conf` Nginx configuration file which 
 
 ## SSL:
 
+This step is not very necessary. You can just set `HTTPS=true` in the `.env` file and delete the `SSL_CRT_FILE` and `SSL_KEY_FILE` settings.
+
 1. Use [this](https://medium.com/the-new-control-plane/generating-self-signed-certificates-on-windows-7812a600c2d8) instruction to generate SSL certificates (I have used Windows OpenSSL alternative which is available [here](https://slproweb.com/products/Win32OpenSSL.html) - everything is described in the instruction provided previously). Keep the name of the certificate `crackerssl.key` and `crackerssl.crt`, for example, using OpenSSL:
 
    openssl req -x509 -newkey rsa:4096 -nodes -keyout crackerssl.key -out crackerssl.crt -subj “/C=PL/L=Kraków/CN=cracker.com” -days 600
