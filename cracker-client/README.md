@@ -8,6 +8,7 @@ Before starting the app please pepare a `.env` file which will include these val
     REACT_APP_AUTH0_ORIGIN="address of the app seen from Auth0 perspective"
     REACT_APP_AUTH0_DOMAIN="Auth0 user domain"
     REACT_APP_AUTH0_CLIENT_ID="Auth0 user client ID"
+    HTTPS=true
 
 Example:
 
@@ -15,6 +16,9 @@ Example:
     REACT_APP_AUTH0_ORIGIN=http://192.168.99.100
     REACT_APP_AUTH0_DOMAIN=domain.region.auth0.com
     REACT_APP_AUTH0_CLIENT_ID=i6mdgjdsjs45asdmfdg3453TADasdkaa
+    HTTPS=true
+
+The `HTTPS=true` setting forces [Create React App](https://create-react-app.dev/docs/using-https-in-development/) to work in https. Use this instruction to generate [SSL](https://medium.com/the-new-control-plane/generating-self-signed-certificates-on-windows-7812a600c2d8) certificates.
 
 ## Snippets:
 
@@ -62,4 +66,3 @@ For Docker Compose instructions refer to `cracker-product` repository.
 - [Leaflet with React](https://blog.logrocket.com/how-to-use-react-leaflet/)
 - [Serve static files through Nginx in Docker (online exercise)](https://www.katacoda.com/courses/docker/create-nginx-static-web-server "Katacoda online courses")
 - [Readme.md markdown cheatsheet](https://github.com/tchapi/markdown-cheatsheet/blob/master/README.md)
-- [Using HTTPS in development for Create React App](https://create-react-app.dev/docs/using-https-in-development/)

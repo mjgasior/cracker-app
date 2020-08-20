@@ -15,6 +15,7 @@ services:
       dockerfile: Dockerfile.dev
     stdin_open: true # Without this React webserver exits immediately after setup
     environment:
+      - HTTPS=true
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true # Webpack uses Chokidar for watching changes - this forces the use of polling in a virtual machine
     volumes: # For webpack dev server to use our local files
