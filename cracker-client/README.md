@@ -2,6 +2,16 @@
 
 In `nginx` directory there is the `cracker.conf` Nginx configuration file which allows to reach the backend server.
 
+## SSL:
+
+1. Use this instruction to generate [SSL](https://medium.com/the-new-control-plane/generating-self-signed-certificates-on-windows-7812a600c2d8) certificates (I have used Windows OpenSSL alternative which is available [here](https://slproweb.com/products/Win32OpenSSL.html) - everything is described in the instruction provided previously). Keep the name of the certificate `crackerssl.key` and `crackerssl.crt`, for example, using OpenSSL:
+
+   openssl req -x509 -newkey rsa:4096 -sha256 -keyout crackerssl.key -out crackerssl.crt -subj “/CN=cracker.com” -days 600
+
+2. After you have generated the SSL certificate, you should have two files with `.crt` and `.key` extensions. Copy them to `./cracker-client` directory (next to `package.json` file).
+
+## Configuration
+
 Before starting the app please pepare a `.env` file which will include these values:
 
     REACT_APP_API_URL="address of Apollo GQL backend"
@@ -9,6 +19,8 @@ Before starting the app please pepare a `.env` file which will include these val
     REACT_APP_AUTH0_DOMAIN="Auth0 user domain"
     REACT_APP_AUTH0_CLIENT_ID="Auth0 user client ID"
     HTTPS=true
+    SSL_CRT_FILE=crackerssl.crt
+    SSL_KEY_FILE=crackerssl.key
 
 Example:
 
@@ -17,8 +29,10 @@ Example:
     REACT_APP_AUTH0_DOMAIN=domain.region.auth0.com
     REACT_APP_AUTH0_CLIENT_ID=i6mdgjdsjs45asdmfdg3453TADasdkaa
     HTTPS=true
+    SSL_CRT_FILE=crackerssl.crt
+    SSL_KEY_FILE=crackerssl.key
 
-The `HTTPS=true` setting forces [Create React App](https://create-react-app.dev/docs/using-https-in-development/) to work in https. Use this instruction to generate [SSL](https://medium.com/the-new-control-plane/generating-self-signed-certificates-on-windows-7812a600c2d8) certificates.
+The `HTTPS=true` setting forces [Create React App](https://create-react-app.dev/docs/using-https-in-development/) to work in https.
 
 ## Snippets:
 
