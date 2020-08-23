@@ -153,6 +153,7 @@ As I found, this might be a [faulty DNS](https://github.com/gliderlabs/docker-al
 - [Docker Tips](https://nickjanetakis.com/blog/docker-tip-2-the-difference-between-copy-and-add-in-a-dockerile)
 - [Dropping Mongo database manually](https://www.tutorialkart.com/mongodb/mongodb-delete-database/)
 - [Dropping Mongo database with a shell script](https://stackoverflow.com/questions/40907133/how-do-i-drop-a-mongodb-collection-from-the-command-line)
+- [How to create SSL certificates for development](https://medium.com/better-programming/how-to-create-ssl-certificates-for-development-861237235933)
 - [LICEcap for simple animated screen captures](https://www.cockos.com/licecap/)
 - [Managing MongoDB on docker with docker-compose](https://medium.com/faun/managing-mongodb-on-docker-with-docker-compose-26bf8a0bbae3)
 - [Unable to start Docker MongoDB image on Windows with a volume](https://stackoverflow.com/questions/54911021/unable-to-start-docker-mongo-image-on-windows "Stack Overflow question")
