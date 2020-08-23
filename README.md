@@ -5,6 +5,7 @@
 _"Crack Kraków with the Cracker!"_
 
 Big thanks to :octocat: [zgm92](https://github.com/zgm92) for collaboration. :clap:
+
 Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barlima](https://github.com/barlima) for time and advice. :clap:
 
 ![Cracker demo gif made with LICEcap](/crackerdemo.gif)
@@ -21,11 +22,11 @@ Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barli
    - Client ID (required in `cracker-client` as `REACT_APP_AUTH0_DOMAIN` and `cracker-server` as `AUTH0_DOMAIN`)
 5. Please remember to set the callback URLs in Auth0 (URLs should be separated with a comma):
    - Allowed Callback URLs:
-     - `http://localhost:3000/callback` - running app fully locally
-     - `http://the.ip.of.docker.machine/callback` - running app as Docker production build
+     - `https://localhost:3000/callback` - running app fully locally
+     - `https://the.ip.of.docker.machine/callback` - running app as Docker production build
    - Allowed Logout URLs, Allowed Web Origins and Allowed Origins (CORS):
-     - `http://localhost:3000/` - running app fully locally
-     - `http://the.ip.of.docker.machine/` - running app as Docker production build
+     - `https://localhost:3000/` - running app fully locally
+     - `https://the.ip.of.docker.machine/` - running app as Docker production build
 
 ### Roles setup:
 
@@ -36,7 +37,7 @@ Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barli
 ```
 function (user, context, callback) {
   user.app_metadata = user.app_metadata || {};
-  context.idToken['http://www.crackerapp.com/roles'] = user.app_metadata.roles;
+  context.idToken['https://www.crackerapp.com/roles'] = user.app_metadata.roles;
   return callback(null, user, context);
 }
 ```
