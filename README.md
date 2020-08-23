@@ -42,7 +42,7 @@ function (user, context, callback) {
 }
 ```
 
-The `http://` namespaced convention is necessary in Auth0 to [avoid overriding default fields](https://auth0.com/docs/tokens/guides/create-namespaced-custom-claims).
+The `https://` namespaced convention is necessary in Auth0 to [avoid overriding default fields](https://auth0.com/docs/tokens/guides/create-namespaced-custom-claims).
 
 4. Save changes and go to `Users & Roles`. After that select `Users` section.
 5. Pick the user that you want to assign the `admin` role and `View details` of the account.
@@ -74,19 +74,21 @@ REACT_APP_API_URL="address of Apollo GQL backend"
 REACT_APP_AUTH0_ORIGIN="address of the app seen from Auth0 perspective"
 REACT_APP_AUTH0_DOMAIN="Auth0 user domain"
 REACT_APP_AUTH0_CLIENT_ID="Auth0 user client ID"
+HTTPS=true
 ```
 
-Remember that while setting `REACT_APP_API_URL` in local development, the client container does not contain `nginx` - that means that `cracker-server` is available as `:4000` and not `/api`. Apollo GQL Playground should be available after start at `:4000` (if you use `VirtualBox`, the address can be `http://192.168.99.100:4000/` and for regular `Docker` development either `http://127.0.0.1:4000/` or `http://localhost:4000/`).
+Remember that while setting `REACT_APP_API_URL` in local development, the client container does not have `nginx` - that means that `cracker-server` is available as `:4000` HTTP and not `/api` HTTPS. Apollo GQL Playground should be available after start at `:4000` (if you use `VirtualBox`, the address can be `http://192.168.99.100:4000/` and for regular `Docker` development either `http://127.0.0.1:4000/` or `http://localhost:4000/`).
 
-On the other hand, the `:3000` port for Webpack React development is mapped in `docker-compose.yml` to standard HTTP `:80` port, so the app is visible for Auth0 as (for example) `http://127.0.0.1/` - keep that in mind while setting the `REACT_APP_AUTH0_ORIGIN` value.
+On the other hand, the `:3000` port for Webpack React development is mapped in `docker-compose.yml` to standard HTTP `:443` HTTPS port, so the app is visible for Auth0 as (for example) `https://127.0.0.1/` - keep that in mind while setting the `REACT_APP_AUTH0_ORIGIN` value (go to [cracker-client](https://github.com/mjgasior/cracker-app/tree/master/cracker-client) to read more on how to configure custom SSL certificates for HTTPS local development if necessary).
 
 Example of local development `.env` for `cracker-client`:
 
 ```
 REACT_APP_API_URL=http://127.0.0.1:4000
-REACT_APP_AUTH0_ORIGIN=http://127.0.0.1
+REACT_APP_AUTH0_ORIGIN=https://127.0.0.1
 REACT_APP_AUTH0_DOMAIN=domain.region.auth0.com
 REACT_APP_AUTH0_CLIENT_ID=i6mdgjdsjs45asdmfdg3453TADasdkaa
+HTTPS=true
 ```
 
 3. Run `yarn` in `cracker-client`.
@@ -99,9 +101,10 @@ REACT_APP_AUTH0_CLIENT_ID=i6mdgjdsjs45asdmfdg3453TADasdkaa
 You can use the `setup.sh` script to setup a new instance on Lightsail autmatically. Please keep this directory as current work directory (invoke the script as `./scripts/setup.sh`). Remember to have the `aws cli` installed and logged to your account. Also, you will need to be logged to Docker Hub (images in the script are tagged for my repository - you need to change this manually, for example `mjgasior/cracker-server:0.0.1` to `youraccount/cracker-server:0.0.1`)
 
 0. Remember to set up proper Auth0 (client ID and the domain) values in `cracker-client` and `cracker-server`.
-1. Set proper IP address of the API in `.env` file in `cracker-client` for new Lightsail instance (for example `REACT_APP_API_URL=http://18.196.197.102/api` and `REACT_APP_AUTH0_ORIGIN=http://18.196.197.102`).
-2. Run `docker-compose -f docker-compose.prod.yml build`
-3. Run `docker-compose -f docker-compose.prod.yml up`
+1. Put the SSL certificates for HTTPS next to `nginx` configuration in `cracker-client/nginx` directory. The names should be `crackerssl.crt` and `crackerssl.key`.
+2. Set proper IP address of the API in `.env` file in `cracker-client` for new Lightsail instance (for example `REACT_APP_API_URL=https://18.196.197.102/api` and `REACT_APP_AUTH0_ORIGIN=https://18.196.197.102`).
+3. Run `docker-compose -f docker-compose.prod.yml build`
+4. Run `docker-compose -f docker-compose.prod.yml up`
 
 ### Setup for completely separate run:
 
