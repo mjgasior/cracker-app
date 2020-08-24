@@ -156,4 +156,5 @@ As I found, this might be a [faulty DNS](https://github.com/gliderlabs/docker-al
 - [How to create SSL certificates for development](https://medium.com/better-programming/how-to-create-ssl-certificates-for-development-861237235933)
 - [LICEcap for simple animated screen captures](https://www.cockos.com/licecap/)
 - [Managing MongoDB on docker with docker-compose](https://medium.com/faun/managing-mongodb-on-docker-with-docker-compose-26bf8a0bbae3)
+- [Nginx and Let’s Encrypt with Docker in Less Than 5 Minutes](https://medium.com/@pentacent/nginx-and-lets-encrypt-with-docker-in-less-than-5-minutes-b4b8a60d3a71)
 - [Unable to start Docker MongoDB image on Windows with a volume](https://stackoverflow.com/questions/54911021/unable-to-start-docker-mongo-image-on-windows "Stack Overflow question")
