@@ -2,6 +2,9 @@ version: "3"
 services:
   certbot:
     image: certbot/certbot
+    volumes: # For certbot to provide certificates to webpack
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
 
   cracker-db:
     image: mongo:4.2.6
