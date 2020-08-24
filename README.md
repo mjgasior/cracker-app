@@ -5,6 +5,7 @@
 _"Crack Kraków with the Cracker!"_
 
 Big thanks to :octocat: [zgm92](https://github.com/zgm92) for collaboration. :clap:
+
 Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barlima](https://github.com/barlima) for time and advice. :clap:
 
 ![Cracker demo gif made with LICEcap](/crackerdemo.gif)
@@ -21,11 +22,11 @@ Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barli
    - Client ID (required in `cracker-client` as `REACT_APP_AUTH0_DOMAIN` and `cracker-server` as `AUTH0_DOMAIN`)
 5. Please remember to set the callback URLs in Auth0 (URLs should be separated with a comma):
    - Allowed Callback URLs:
-     - `http://localhost:3000/callback` - running app fully locally
-     - `http://the.ip.of.docker.machine/callback` - running app as Docker production build
+     - `https://localhost:3000/callback` - running app fully locally
+     - `https://the.ip.of.docker.machine/callback` - running app as Docker production build
    - Allowed Logout URLs, Allowed Web Origins and Allowed Origins (CORS):
-     - `http://localhost:3000/` - running app fully locally
-     - `http://the.ip.of.docker.machine/` - running app as Docker production build
+     - `https://localhost:3000/` - running app fully locally
+     - `https://the.ip.of.docker.machine/` - running app as Docker production build
 
 ### Roles setup:
 
@@ -36,12 +37,12 @@ Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barli
 ```
 function (user, context, callback) {
   user.app_metadata = user.app_metadata || {};
-  context.idToken['http://www.crackerapp.com/roles'] = user.app_metadata.roles;
+  context.idToken['https://www.crackerapp.com/roles'] = user.app_metadata.roles;
   return callback(null, user, context);
 }
 ```
 
-The `http://` namespaced convention is necessary in Auth0 to [avoid overriding default fields](https://auth0.com/docs/tokens/guides/create-namespaced-custom-claims).
+The `https://` namespaced convention is necessary in Auth0 to [avoid overriding default fields](https://auth0.com/docs/tokens/guides/create-namespaced-custom-claims).
 
 4. Save changes and go to `Users & Roles`. After that select `Users` section.
 5. Pick the user that you want to assign the `admin` role and `View details` of the account.
@@ -73,19 +74,21 @@ REACT_APP_API_URL="address of Apollo GQL backend"
 REACT_APP_AUTH0_ORIGIN="address of the app seen from Auth0 perspective"
 REACT_APP_AUTH0_DOMAIN="Auth0 user domain"
 REACT_APP_AUTH0_CLIENT_ID="Auth0 user client ID"
+HTTPS=true
 ```
 
-Remember that while setting `REACT_APP_API_URL` in local development, the client container does not contain `nginx` - that means that `cracker-server` is available as `:4000` and not `/api`. Apollo GQL Playground should be available after start at `:4000` (if you use `VirtualBox`, the address can be `http://192.168.99.100:4000/` and for regular `Docker` development either `http://127.0.0.1:4000/` or `http://localhost:4000/`).
+Remember that while setting `REACT_APP_API_URL` in local development, the client container does not have `nginx` - that means that `cracker-server` is available as `:4000` HTTP and not `/api` HTTPS. Apollo GQL Playground should be available after start at `:4000` (if you use `VirtualBox`, the address can be `http://192.168.99.100:4000/` and for regular `Docker` development either `http://127.0.0.1:4000/` or `http://localhost:4000/`).
 
-On the other hand, the `:3000` port for Webpack React development is mapped in `docker-compose.yml` to standard HTTP `:80` port, so the app is visible for Auth0 as (for example) `http://127.0.0.1/` - keep that in mind while setting the `REACT_APP_AUTH0_ORIGIN` value.
+On the other hand, the `:3000` port for Webpack React development is mapped in `docker-compose.yml` to standard HTTP `:443` HTTPS port, so the app is visible for Auth0 as (for example) `https://127.0.0.1/` - keep that in mind while setting the `REACT_APP_AUTH0_ORIGIN` value (go to [cracker-client](https://github.com/mjgasior/cracker-app/tree/master/cracker-client) to read more on how to configure custom SSL certificates for HTTPS local development if necessary).
 
 Example of local development `.env` for `cracker-client`:
 
 ```
 REACT_APP_API_URL=http://127.0.0.1:4000
-REACT_APP_AUTH0_ORIGIN=http://127.0.0.1
+REACT_APP_AUTH0_ORIGIN=https://127.0.0.1
 REACT_APP_AUTH0_DOMAIN=domain.region.auth0.com
 REACT_APP_AUTH0_CLIENT_ID=i6mdgjdsjs45asdmfdg3453TADasdkaa
+HTTPS=true
 ```
 
 3. Run `yarn` in `cracker-client`.
@@ -98,9 +101,10 @@ REACT_APP_AUTH0_CLIENT_ID=i6mdgjdsjs45asdmfdg3453TADasdkaa
 You can use the `setup.sh` script to setup a new instance on Lightsail autmatically. Please keep this directory as current work directory (invoke the script as `./scripts/setup.sh`). Remember to have the `aws cli` installed and logged to your account. Also, you will need to be logged to Docker Hub (images in the script are tagged for my repository - you need to change this manually, for example `mjgasior/cracker-server:0.0.1` to `youraccount/cracker-server:0.0.1`)
 
 0. Remember to set up proper Auth0 (client ID and the domain) values in `cracker-client` and `cracker-server`.
-1. Set proper IP address of the API in `.env` file in `cracker-client` for new Lightsail instance (for example `REACT_APP_API_URL=http://18.196.197.102/api` and `REACT_APP_AUTH0_ORIGIN=http://18.196.197.102`).
-2. Run `docker-compose -f docker-compose.prod.yml build`
-3. Run `docker-compose -f docker-compose.prod.yml up`
+1. Put the SSL certificates for HTTPS next to `nginx` configuration in `cracker-client/nginx` directory. The names should be `crackerssl.crt` and `crackerssl.key`.
+2. Set proper IP address of the API in `.env` file in `cracker-client` for new Lightsail instance (for example `REACT_APP_API_URL=https://18.196.197.102/api` and `REACT_APP_AUTH0_ORIGIN=https://18.196.197.102`).
+3. Run `docker-compose -f docker-compose.prod.yml build`
+4. Run `docker-compose -f docker-compose.prod.yml up`
 
 ### Setup for completely separate run:
 
@@ -149,6 +153,8 @@ As I found, this might be a [faulty DNS](https://github.com/gliderlabs/docker-al
 - [Docker Tips](https://nickjanetakis.com/blog/docker-tip-2-the-difference-between-copy-and-add-in-a-dockerile)
 - [Dropping Mongo database manually](https://www.tutorialkart.com/mongodb/mongodb-delete-database/)
 - [Dropping Mongo database with a shell script](https://stackoverflow.com/questions/40907133/how-do-i-drop-a-mongodb-collection-from-the-command-line)
+- [How to create SSL certificates for development](https://medium.com/better-programming/how-to-create-ssl-certificates-for-development-861237235933)
 - [LICEcap for simple animated screen captures](https://www.cockos.com/licecap/)
 - [Managing MongoDB on docker with docker-compose](https://medium.com/faun/managing-mongodb-on-docker-with-docker-compose-26bf8a0bbae3)
+- [Nginx and Let’s Encrypt with Docker in Less Than 5 Minutes](https://medium.com/@pentacent/nginx-and-lets-encrypt-with-docker-in-less-than-5-minutes-b4b8a60d3a71)
 - [Unable to start Docker MongoDB image on Windows with a volume](https://stackoverflow.com/questions/54911021/unable-to-start-docker-mongo-image-on-windows "Stack Overflow question")

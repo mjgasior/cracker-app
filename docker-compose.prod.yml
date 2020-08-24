@@ -17,6 +17,7 @@ services:
       - cracknet
     ports:
       - "80:80"
+      - "443:443"
 
   cracker-server:
     container_name: cracker-server

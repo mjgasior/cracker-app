@@ -13,7 +13,7 @@ const AUTH_RESULT = {
 };
 
 const ID_TOKEN_PAYLOAD = {
-  CRACKER_ROLES: "http://www.crackerapp.com/roles",
+  CRACKER_ROLES: "https://www.crackerapp.com/roles",
   AT_HASH: "at_hash",
   AUDIENCE: "aud",
   EMAIL: "email",

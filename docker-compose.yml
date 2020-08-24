@@ -20,7 +20,7 @@ services:
     volumes: # For webpack dev server to use our local files
       - ./cracker-client:/usr/src/app
     ports:
-      - "80:3000" # For docker to now where to redirect HMR queries
+      - "443:3000" # For docker to now where to redirect HMR queries
 
   cracker-server:
     container_name: cracker-server-dev
