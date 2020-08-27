@@ -165,3 +165,6 @@ As I found, this might be a [faulty DNS](https://github.com/gliderlabs/docker-al
 1. [Medium article with certbot](https://medium.com/@pentacent/nginx-and-lets-encrypt-with-docker-in-less-than-5-minutes-b4b8a60d3a71)
 1. [Certbot in Docker](https://certbot.eff.org/docs/install.html#running-with-docker)
 1. [Self signed certificate](https://medium.com/@oliver.zampieri/self-signed-ssl-reverse-proxy-with-docker-dbfc78c05b41)
+1. [Self singed for IP](https://medium.com/@antelle/how-to-generate-a-self-signed-ssl-certificate-for-an-ip-address-f0dd8dddf754)
+
+san.cnf file is config for OpenSSL (there is extension OpenSSL Configuration Syntax)
