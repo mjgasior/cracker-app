@@ -164,3 +164,4 @@ As I found, this might be a [faulty DNS](https://github.com/gliderlabs/docker-al
 1. [How to install](https://www.linode.com/docs/security/ssl/install-lets-encrypt-to-create-ssl-certificates/)
 1. [Medium article with certbot](https://medium.com/@pentacent/nginx-and-lets-encrypt-with-docker-in-less-than-5-minutes-b4b8a60d3a71)
 1. [Certbot in Docker](https://certbot.eff.org/docs/install.html#running-with-docker)
+1. [Self signed certificate](https://medium.com/@oliver.zampieri/self-signed-ssl-reverse-proxy-with-docker-dbfc78c05b41)
