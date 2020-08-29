@@ -158,3 +158,5 @@ As I found, this might be a [faulty DNS](https://github.com/gliderlabs/docker-al
 - [Managing MongoDB on docker with docker-compose](https://medium.com/faun/managing-mongodb-on-docker-with-docker-compose-26bf8a0bbae3)
 - [Nginx and Let’s Encrypt with Docker in Less Than 5 Minutes](https://medium.com/@pentacent/nginx-and-lets-encrypt-with-docker-in-less-than-5-minutes-b4b8a60d3a71)
 - [Unable to start Docker MongoDB image on Windows with a volume](https://stackoverflow.com/questions/54911021/unable-to-start-docker-mongo-image-on-windows "Stack Overflow question")
+
+https://medium.com/@pavanskipo/how-to-secure-a-private-ip-address-with-https-nginx-ubuntu-ef8374dbfa4e
