@@ -1,6 +1,3 @@
-FROM node:12.0-alpine AS build-dependencies
-WORKDIR /usr/src/app
-
 FROM nginx:1.12-alpine
 
 # bash and curl are not present in Alpine by default
@@ -8,7 +5,7 @@ FROM nginx:1.12-alpine
 RUN apk add --no-cache bash
 RUN apk add --no-cache curl
 
-COPY --from=build-dependencies /usr/src/app/nginx /etc/nginx/conf.d
+COPY ./nginx /etc/nginx/conf.d
 
 EXPOSE 80
 EXPOSE 443
