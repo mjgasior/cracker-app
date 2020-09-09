@@ -6,6 +6,7 @@ RUN apk add --no-cache bash
 RUN apk add --no-cache curl
 
 COPY ./nginx /etc/nginx/conf.d
+COPY ./certs /etc/nginx
 
 EXPOSE 80
 EXPOSE 443

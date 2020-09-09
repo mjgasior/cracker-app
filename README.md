@@ -160,3 +160,4 @@ As I found, this might be a [faulty DNS](https://github.com/gliderlabs/docker-al
 - [Unable to start Docker MongoDB image on Windows with a volume](https://stackoverflow.com/questions/54911021/unable-to-start-docker-mongo-image-on-windows "Stack Overflow question")
 
 https://medium.com/@pavanskipo/how-to-secure-a-private-ip-address-with-https-nginx-ubuntu-ef8374dbfa4e
+https://www.humankode.com/ssl/how-to-set-up-free-ssl-certificates-from-lets-encrypt-using-docker-and-nginx
