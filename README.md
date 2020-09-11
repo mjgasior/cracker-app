@@ -98,6 +98,8 @@ HTTPS=true
 
 ### Production build:
 
+Please remember that Lightsail has a firewall that doesn't have HTTPS port 443 open by default. This port is closed every time a new instance is being set up, so it is very important to open it to make the app reachable with `https://` address.
+
 You can use the `setup.sh` script to setup a new instance on Lightsail autmatically. Please keep this directory as current work directory (invoke the script as `./scripts/setup.sh`). Remember to have the `aws cli` installed and logged to your account. Also, you will need to be logged to Docker Hub (images in the script are tagged for my repository - you need to change this manually, for example `mjgasior/cracker-server:0.0.1` to `youraccount/cracker-server:0.0.1`)
 
 0. Remember to set up proper Auth0 (client ID and the domain) values in `cracker-client` and `cracker-server`.
