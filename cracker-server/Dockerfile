@@ -1,4 +1,4 @@
-FROM node:12.0-alpine
+FROM node:lts-alpine
 
 # bash and curl are not present in Alpine by default
 # these two are installed only for development and debugging purposes
