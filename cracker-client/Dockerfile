@@ -6,7 +6,7 @@ COPY . ./
 
 RUN yarn build
 
-FROM nginx:1.12-alpine
+FROM nginx:1.19-alpine
 
 # bash and curl are not present in Alpine by default
 # these two are installed only for development and debugging purposes
