@@ -3,7 +3,7 @@ version: "3"
 services:
   cracker-db:
     container_name: cracker-db
-    image: mongo:4.2.6
+    image: mongo:4.4.0
     networks:
       - cracknet
     ports:
