@@ -6,6 +6,8 @@ _"Crack Kraków with the Cracker!"_
 
 Big thanks to :octocat: [zgm92](https://github.com/zgm92) for collaboration. :clap:
 
+Big thanks to :octocat: [ASchabowska](https://github.com/ASchabowska) for debugging and dev-ops help. :clap:
+
 Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barlima](https://github.com/barlima) for time and advice. :clap:
 
 ![Cracker demo gif made with LICEcap](/crackerdemo.gif)
