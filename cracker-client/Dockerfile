@@ -1,4 +1,4 @@
-FROM node:12.0-alpine AS build-dependencies
+FROM node:lts-alpine AS build-dependencies
 WORKDIR /usr/src/app
 COPY package.json yarn.lock ./
 RUN yarn
