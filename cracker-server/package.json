@@ -6,14 +6,12 @@
   "author": "Michal J. Gasior <michaljgasior@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "babel-node": "babel-node --presets='@babel/preset-env' --ignore='foo|bar|baz'",
-    "startold": "nodemon src/index.js --exec babel-node --presets babel-preset-env",
-    "start2": "nodemon --exec npm run babel-node -- src/index.js",
-    "start": "nodemon --exec babel-node --presets=@babel/preset-env --ignore='foo|bar|baz' -- src/index.js"
+    "start": "nodemon --exec babel-node --presets=@babel/preset-env -- src/index.js"
   },
   "devDependencies": {
     "@babel/core": "^7.11.6",
     "@babel/node": "^7.10.5",
+    "@babel/preset-env": "^7.11.5",
     "nodemon": "^2.0.4"
   },
   "dependencies": {
