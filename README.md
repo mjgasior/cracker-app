@@ -6,6 +6,8 @@ _"Crack Kraków with the Cracker!"_
 
 Big thanks to :octocat: [zgm92](https://github.com/zgm92) for collaboration. :clap:
 
+Big thanks to :octocat: [ASchabowska](https://github.com/ASchabowska) for debugging and dev-ops help. :clap:
+
 Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barlima](https://github.com/barlima) for time and advice. :clap:
 
 ![Cracker demo gif made with LICEcap](/crackerdemo.gif)
@@ -97,6 +99,8 @@ HTTPS=true
 6. Run `docker-compose up`.
 
 ### Production build:
+
+Please remember that Lightsail has a firewall that doesn't have HTTPS port 443 open by default. This port is closed every time a new instance is being set up, so it is very important to open it to make the app reachable with `https://` address.
 
 You can use the `setup.sh` script to setup a new instance on Lightsail autmatically. Please keep this directory as current work directory (invoke the script as `./scripts/setup.sh`). Remember to have the `aws cli` installed and logged to your account. Also, you will need to be logged to Docker Hub (images in the script are tagged for my repository - you need to change this manually, for example `mjgasior/cracker-server:0.0.1` to `youraccount/cracker-server:0.0.1`)
 
