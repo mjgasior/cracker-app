@@ -29,8 +29,8 @@ services:
       - REACT_APP_API_URL=https://192.168.99.100:5000
       - REACT_APP_AUTH0_ORIGIN=https://192.168.99.100
       - HTTPS=true
-      - SSL_CRT_FILE=certs/crackerssl.crt
-      - SSL_KEY_FILE=certs/crackerssl.key
+      - SSL_CRT_FILE=nginx/crackerssl.crt
+      - SSL_KEY_FILE=nginx/crackerssl.key
     volumes: # For webpack dev server to use our local files
       - ./cracker-client:/usr/src/app
     ports:
