@@ -2,26 +2,6 @@
 
 In `nginx` directory there is the `cracker.conf` Nginx configuration file which allows to reach the backend server.
 
-## SSL:
-
-This step is not very necessary. You can just set `HTTPS=true` in the `.env` file and delete the `SSL_CRT_FILE` and `SSL_KEY_FILE` settings.
-
-1. Use [this](https://medium.com/the-new-control-plane/generating-self-signed-certificates-on-windows-7812a600c2d8) instruction to generate SSL certificates (I have used Windows OpenSSL alternative which is available [here](https://slproweb.com/products/Win32OpenSSL.html) - everything is described in the instruction provided previously). Keep the name of the certificate `crackerssl.key` and `crackerssl.crt`, for example, using OpenSSL:
-
-   openssl req -x509 -newkey rsa:4096 -nodes -keyout crackerssl.key -out crackerssl.crt -subj “/C=PL/L=Kraków/CN=cracker.com” -days 600
-
-- `req` - request a certificate
-- `-x509` - a standard defining the format of public key certificates
-- `-newkey rsa:4096` - a new private key (`-newkey`) using the RSA algorithm with a 4096-bit key length (`rsa:4096`)
-- `-nodes` - private key should be without using a passphrase
-- `-keyout` - key filename
-- `-out` - certificate filename
-- `-subj` - subject - this can have parameters like country (`C=PL`), location (`L=Poland`), organisation (`O=Cracker Ltd`), company name (`CN=www.cracker.app`)
-- `-days` - how long should the certificate be valid
-
-2. After you have generated the SSL certificate, you should have two files with `.crt` and `.key` extensions. Copy them to `./cracker-client` directory (next to `package.json` file).
-3. You can install your new certificate using Chrome advanced settings (the security part, certificates management).
-
 ## Configuration
 
 Before starting the app please pepare a `.env` file which will include these values:

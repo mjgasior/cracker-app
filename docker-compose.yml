@@ -1,12 +1,21 @@
 version: "3"
 services:
+  cracker-proxy:
+    container_name: cracker-proxy-dev
+    build:
+      context: ./cracker-proxy
+    volumes: # For webpack dev server to use our local files
+      - ./cracker-proxy/nginx:/etc/nginx/conf.d
+    ports:
+      - 5000:5000
+
   cracker-db:
     image: mongo:4.4.0
     container_name: cracker-db-dev
     volumes:
       - mongodb_data:/data/db
     ports:
-      - "27017:27017"
+      - 27017:27017
 
   cracker-client:
     container_name: cracker-client-dev
@@ -17,10 +26,13 @@ services:
     environment:
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true # Webpack uses Chokidar for watching changes - this forces the use of polling in a virtual machine
+      - HTTPS=true
+      - SSL_CRT_FILE=nginx/crackerssl.crt
+      - SSL_KEY_FILE=nginx/crackerssl.key
     volumes: # For webpack dev server to use our local files
       - ./cracker-client:/usr/src/app
     ports:
-      - "443:3000" # For docker to now where to redirect HMR queries
+      - 443:3000 # For docker to now where to redirect HMR queries
 
   cracker-server:
     container_name: cracker-server-dev
@@ -33,7 +45,7 @@ services:
     volumes:
       - ./cracker-server:/usr/src/api
     ports:
-      - "4000:4000"
+      - 4000:4000
     depends_on:
       - "cracker-db"
 
