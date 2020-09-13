@@ -14,9 +14,8 @@ export const ProfileView = () => {
     [i18n]
   );
 
-  const isAdmin = false; // auth.isUserAdmin();
-  const email = ""; // auth.getEmail();
-  // const verificationLabel = auth.getIsEmailVerified()
+  const isAdmin = false;
+  const email = "";
   const verificationLabel = false ? t("is_verified") : t("is_not_verified");
 
   return (

@@ -1,7 +1,6 @@
 import React, { useCallback } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-// import auth from "../+utils/Auth";
 import { Menu } from "antd";
 import { ROUTES } from "../+utils/routes";
 
@@ -11,11 +10,10 @@ export const Navigation = () => {
   const history = useHistory();
 
   const logout = useCallback(() => {
-    // auth.logout();
     history.replace(ROUTES.HOME);
   }, [history]);
 
-  const isAuthenticated = false; // auth.isAuthenticated();
+  const isAuthenticated = false;
 
   return (
     <Menu
