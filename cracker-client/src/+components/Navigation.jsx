@@ -38,7 +38,7 @@ export const Navigation = () => {
           <Link to={ROUTES.PROFILE}>{t("profile")}</Link>
         </Menu.Item>
       )}
-      <Menu.Item key={ROUTES.LOGOUT} onClick={handleAuthentication}>
+      <Menu.Item key={"auth_button"} onClick={handleAuthentication}>
         {t(isAuthenticated ? "log_out" : "log_in")}
       </Menu.Item>
     </Menu>
