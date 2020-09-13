@@ -62,6 +62,12 @@ The `https://` namespaced convention is necessary in Auth0 to [avoid overriding 
 
 ### SSL setup:
 
+In production mode, Cracker app uses Nginx to serve the React static files and route traffic to the backend API. This way the HTTPS can be handled in a quite easy way by Nginx itself and that is the point of [SSL termination](https://avinetworks.com/glossary/ssl-termination/) (going from encrypted HTTPS to unecrypted HTTP).
+
+A problem emerges in local development mode where we would want to utilize all the benefits of Webpack hosting React files and providing HTTPS. Because Apollo backend API doesn't have HTTPS defined, the direct calls from React client to Apollo backend would be blocked by the browser due to [mixed content](https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content/How_to_fix_website_with_mixed_content) (one can't call HTTP endpoint while being hosted with HTTPS). That is why we have an additional container - `cracker-proxy` which handles the HTTPS termination for communication with the backend.
+
+The proxy listens on `:5000` port with HTTPS and proxies the traffic with HTTP to port `:4000` of Apollo API. The API and the Apollo GQL playground are still available with a direct `:4000` call.
+
 1. Use [this](https://medium.com/the-new-control-plane/generating-self-signed-certificates-on-windows-7812a600c2d8) instruction to generate SSL certificates (I have used Windows OpenSSL alternative which is available [here](https://slproweb.com/products/Win32OpenSSL.html) - everything is described in the instruction provided previously). Keep the name of the certificate `crackerssl.key` and `crackerssl.crt`, for example, using OpenSSL:
 
    openssl req -x509 -newkey rsa:4096 -nodes -keyout crackerssl.key -out crackerssl.crt -subj “/C=PL/L=Kraków/CN=cracker.red” -days 600
