@@ -33,16 +33,6 @@ MONGODB_ADDRESS=192.168.99.100:27017
   }
 ```
 
-## Run production build with Docker Compose:
-
-For Docker Compose instructions refer to `cracker-product` repository.
-
-## Run on Docker:
-
-1. `docker build -t cracker-server:v1 .` - build the image
-2. `docker run -d -p 4000:4000 cracker-server:v1` - run the image
-3. `docker-machine ip default` - the website should be available at this IP on port 4000
-
 ## Packages:
 
 - `@babel/core` - toolchain that is mainly used to convert ECMAScript 2015+ (ES6) code into a backwards compatible version of JavaScript in current and older browsers or environments

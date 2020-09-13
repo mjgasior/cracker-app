@@ -15,5 +15,7 @@ RUN apk add --no-cache curl
 
 COPY --from=build-dependencies /usr/src/app/build /usr/share/nginx/html
 COPY --from=build-dependencies /usr/src/app/nginx /etc/nginx/conf.d
+
 EXPOSE 80
+
 CMD ["nginx", "-g", "daemon off;"]
