@@ -1,17 +1,29 @@
-import ApolloClient from "apollo-boost";
-import { ApolloProvider } from "@apollo/react-hooks";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+} from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
 import auth from "./Auth";
 
-const client = new ApolloClient({
+const httpLink = createHttpLink({
   uri: process.env.REACT_APP_API_URL,
-  request: (operation) => {
-    operation.setContext((context) => ({
-      headers: {
-        ...context.headers,
-        authorization: auth.getIdToken(),
-      },
-    }));
-  },
+  credentials: "include",
+});
+
+const authLink = setContext((_, { headers }) => {
+  return {
+    headers: {
+      ...headers,
+      authorization: auth.getIdToken(),
+    },
+  };
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
 });
 
 export { client, ApolloProvider };

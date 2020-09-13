@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import jwksClient from "jwks-rsa";
 
-const AUTH0_NAMESPACE = "http://www.crackerapp.com/";
+const AUTH0_NAMESPACE = "https://www.crackerapp.com/";
 
 const client = jwksClient({
   jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`,
@@ -37,6 +37,7 @@ export const getUser = (token) =>
       const roles = decoded[AUTH0_NAMESPACE + "roles"];
       resolve({ roles, email: decoded.email, isLogged: true });
     });
-  }).catch(() => {
+  }).catch((error) => {
+    console.error(error);
     return { isLogged: false };
   });

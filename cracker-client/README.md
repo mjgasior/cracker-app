@@ -2,12 +2,17 @@
 
 In `nginx` directory there is the `cracker.conf` Nginx configuration file which allows to reach the backend server.
 
+## Configuration
+
 Before starting the app please pepare a `.env` file which will include these values:
 
     REACT_APP_API_URL="address of Apollo GQL backend"
     REACT_APP_AUTH0_ORIGIN="address of the app seen from Auth0 perspective"
     REACT_APP_AUTH0_DOMAIN="Auth0 user domain"
     REACT_APP_AUTH0_CLIENT_ID="Auth0 user client ID"
+    HTTPS=true
+    SSL_CRT_FILE=crackerssl.crt
+    SSL_KEY_FILE=crackerssl.key
 
 Example:
 
@@ -15,6 +20,11 @@ Example:
     REACT_APP_AUTH0_ORIGIN=http://192.168.99.100
     REACT_APP_AUTH0_DOMAIN=domain.region.auth0.com
     REACT_APP_AUTH0_CLIENT_ID=i6mdgjdsjs45asdmfdg3453TADasdkaa
+    HTTPS=true
+    SSL_CRT_FILE=crackerssl.crt
+    SSL_KEY_FILE=crackerssl.key
+
+The `HTTPS=true` setting forces [Create React App](https://create-react-app.dev/docs/using-https-in-development/) to work in https.
 
 ## Snippets:
 
@@ -37,11 +47,10 @@ For Docker Compose instructions refer to `cracker-product` repository.
 
 ## Packages:
 
-- `@apollo/react-hooks` - integration with Apollo based on React hooks
+- `@apollo/client` - this single package contains virtually everything you need to set up Apollo Client - it includes the in-memory cache, local state management, error handling, and a React-based view layer
 - `@auth0/auth0-react` - the Auth0 React SDK (auth0-react.js) is a JavaScript library for implementing authentication and authorization in React apps with Auth0 (it provides a custom React hook and other Higher Order Components)
 - `antd` - Ant Design is a UI design language and React UI components library (I usually used [Material UI](https://material-ui.com/) but this time I wanted to try out something new)
-- `apollo-boost` - package containing everything you need to set up Apollo Client (bare `@apollo/client` was lacking a comfortable way of [adding authorization header](https://www.apollographql.com/docs/react/networking/authentication/#header "Apollo GQL docs") to all GQL requests)
-- `graphql` - the JavaScript reference implementation for GraphQL, a query language for APIs created by Facebook
+- `graphql` - the JavaScript reference implementation for GraphQL, a query language for APIs created by Facebook (provides logic for parsing GraphQL queries)
 - `leaflet` - open-source JavaScript library for mobile-friendly interactive maps based on OpenStreetMap
 - `leaflet-contextmenu` - just a context menu for Leaflet
 - `react-leaflet` - this package provides an abstraction of 🍃 [Leaflet](https://leafletjs.com/reference-1.6.0.html) as ⚛️ React components.
