@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { withRouter } from "react-router-dom";
 
 import "antd/dist/antd.css";
@@ -13,6 +13,7 @@ import { MarkersView } from "./markers/MarkersView";
 import { ROUTES } from "./+utils/routes";
 import { ProfileView } from "./profile/ProfileView";
 import { MarkersListView } from "./markersList/MarkersListView";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const { Header, Content, Footer } = Layout;
 
@@ -20,28 +21,32 @@ const Container = styled(Content)`
   padding: 50px;
 `;
 
-class App extends Component {
-  render() {
-    return (
-      <Layout>
-        <Header>
-          <Logo />
-          <Navigation />
-        </Header>
-        <Container>
-          <Switch>
-            <Route path={ROUTES.MARKERS} component={MarkersView} />
-            <Route path={ROUTES.MARKERS_LIST} component={MarkersListView} />
-            <Route path={ROUTES.PROFILE} component={ProfileView} />
-            <Route path={ROUTES.HOME} component={Home} />
-          </Switch>
-        </Container>
-        <Footer style={{ textAlign: "center" }}>
-          Cracker app ©2020 Created by Michał J. Gąsior
-        </Footer>
-      </Layout>
-    );
+export const App = () => {
+  const { isLoading, error } = useAuth0();
+  if (isLoading) {
+    return <div>Loading...</div>;
   }
-}
+  if (error) {
+    return <div>Oops... {error.message}</div>;
+  }
 
-export default withRouter(App);
+  return (
+    <Layout>
+      <Header>
+        <Logo />
+        <Navigation />
+      </Header>
+      <Container>
+        <Switch>
+          <Route path={ROUTES.MARKERS} component={MarkersView} />
+          <Route path={ROUTES.MARKERS_LIST} component={MarkersListView} />
+          <Route path={ROUTES.PROFILE} component={ProfileView} />
+          <Route path={ROUTES.HOME} component={Home} />
+        </Switch>
+      </Container>
+      <Footer style={{ textAlign: "center" }}>
+        Cracker app ©2020 Created by Michał J. Gąsior
+      </Footer>
+    </Layout>
+  );
+};
