@@ -75,7 +75,7 @@ The `https://` namespaced convention is necessary in Auth0 to [avoid overriding 
 - `-subj` - subject - this can have parameters like country (`C=PL`), location (`L=Poland`), organisation (`O=Cracker Ltd`), company name (`CN=www.cracker.red`)
 - `-days` - how long should the certificate be valid
 
-2. After you have generated the SSL certificate, you should have two files with `.crt` and `.key` extensions. Copy them to `./cracker-client/nginx` and `./cracker-proxy/nginx` directory (next to `package.json` file).
+2. After you have generated the SSL certificate, you should have two files with `.crt` and `.key` extensions. Copy them to `./cracker-client/nginx` and `./cracker-proxy/nginx` directories.
 
 ### Local development configuration setup:
 
@@ -93,7 +93,6 @@ REACT_APP_API_URL="address of Apollo GQL backend"
 REACT_APP_AUTH0_ORIGIN="address of the app seen from Auth0 perspective"
 REACT_APP_AUTH0_DOMAIN="Auth0 user domain"
 REACT_APP_AUTH0_CLIENT_ID="Auth0 user client ID"
-HTTPS=true
 ```
 
 Remember that while setting `REACT_APP_API_URL` in local development, the client container does not have `nginx` - that means that `cracker-server` is available as `:4000` HTTP and not `/api` HTTPS. Apollo GQL Playground should be available after start at `:4000` (if you use `VirtualBox`, the address can be `http://192.168.99.100:4000/` and for regular `Docker` development either `http://127.0.0.1:4000/` or `http://localhost:4000/`).
@@ -107,7 +106,6 @@ REACT_APP_API_URL=http://127.0.0.1:4000
 REACT_APP_AUTH0_ORIGIN=https://127.0.0.1
 REACT_APP_AUTH0_DOMAIN=domain.region.auth0.com
 REACT_APP_AUTH0_CLIENT_ID=i6mdgjdsjs45asdmfdg3453TADasdkaa
-HTTPS=true
 ```
 
 3. Run `yarn` in `cracker-client`.
