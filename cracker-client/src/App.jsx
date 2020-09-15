@@ -1,5 +1,4 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
 
 import "antd/dist/antd.css";
 import { Layout } from "antd";
