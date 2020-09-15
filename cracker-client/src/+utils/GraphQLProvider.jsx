@@ -1,3 +1,4 @@
+import React from "react";
 import {
   ApolloClient,
   ApolloProvider,
@@ -5,9 +6,7 @@ import {
   InMemoryCache,
 } from "@apollo/client";
 import { setContext } from "@apollo/link-context";
-import React from "react";
-
-import { useAuth0 } from "../react-auth0-spa";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export const GraphQLProvider = ({ children }) => {
   const { getTokenSilently } = useAuth0();
