@@ -1,27 +1,35 @@
+import {
+  ApolloClient,
+  ApolloProvider,
+  createHttpLink,
+  InMemoryCache,
+} from "@apollo/client";
+import { setContext } from "@apollo/link-context";
 import React from "react";
-import ApolloClient from "apollo-boost";
-import { ApolloProvider } from "@apollo/react-hooks";
-import { useAuth0 } from "@auth0/auth0-react";
+
+import { useAuth0 } from "../react-auth0-spa";
 
 export const GraphQLProvider = ({ children }) => {
-  const { loading, isAuthenticated, getTokenSilently } = useAuth0();
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  const { getTokenSilently } = useAuth0();
 
-  const client = new ApolloClient({
+  const httpLink = createHttpLink({
     uri: process.env.REACT_APP_API_URL,
-    request: async (operation) => {
-      // Get token or get refreshed token
-      const token = isAuthenticated ? await getTokenSilently() : null;
-
-      operation.setContext({
-        headers: {
-          authorization: token ? `Bearer ${token}` : undefined,
-        },
-      });
-    },
   });
 
-  return <ApolloProvider client={client}>{children}</ApolloProvider>;
+  const authLink = setContext(async () => {
+    const token = await getTokenSilently();
+    return {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+  });
+
+  const apolloClient = new ApolloClient({
+    link: authLink.concat(httpLink),
+    cache: new InMemoryCache(),
+    connectToDevTools: true,
+  });
+
+  return <ApolloProvider client={apolloClient}>{children}</ApolloProvider>;
 };
