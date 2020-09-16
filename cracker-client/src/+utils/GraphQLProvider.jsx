@@ -1,34 +1,77 @@
 import React from "react";
-import {
-  ApolloClient,
-  ApolloProvider,
-  createHttpLink,
-  InMemoryCache,
-} from "@apollo/client";
-import { setContext } from "@apollo/link-context";
+
+import { ApolloClient } from "apollo-client";
+import { ApolloLink } from "apollo-link";
+import { ApolloProvider } from "react-apollo";
+import { BatchHttpLink } from "apollo-link-batch-http";
+import { InMemoryCache } from "apollo-cache-inmemory";
+import { onError } from "apollo-link-error";
+import { RetryLink } from "apollo-link-retry";
 import { useAuth0 } from "@auth0/auth0-react";
+import LogRocket from "logrocket";
 
-export const GraphQLProvider = ({ children }) => {
-  const { getTokenSilently } = useAuth0();
+import { setContext } from "apollo-link-context";
 
-  const httpLink = createHttpLink({
-    uri: process.env.REACT_APP_API_URL,
-  });
+// IF you want to enable/disable dev tools in different enviroments
+const devTools = localStorage.getItem("apolloDevTools") || false;
 
-  const authLink = setContext(async () => {
-    const token = await getTokenSilently();
+const AuthorizedApolloProvider = ({ children }) => {
+  const { getAccessTokenSilently } = useAuth0();
+  const authMiddleware = setContext(async (_, { headers, ...context }) => {
+    const token = await getAccessTokenSilently();
+    //Optional if the ti
+    if (typeof Storage !== "undefined") {
+      localStorage.setItem("token", token);
+    }
+
+    console.log("Network ID:", activeNetworkID);
     return {
       headers: {
-        Authorization: `Bearer ${token}`,
+        ...headers,
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
       },
+      ...context,
     };
   });
 
-  const apolloClient = new ApolloClient({
-    link: authLink.concat(httpLink),
+  /**
+   * Adding fix to improve logRocket recording
+   * https://docs.logrocket.com/docs/troubleshooting-sessions#apollo-client
+   */
+
+  const fetcher = (...args) => {
+    return window.fetch(...args);
+  };
+
+  const client = new ApolloClient({
+    link: ApolloLink.from([
+      onError(({ graphQLErrors, networkError }) => {
+        if (graphQLErrors) {
+          LogRocket.captureException(graphQLErrors);
+          graphQLErrors.forEach(({ message, locations, path }) =>
+            console.error(
+              `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+            )
+          );
+        }
+        if (networkError) {
+          // localStorage.removeItem('token');
+          LogRocket.captureException(networkError);
+          console.error(`[Network error]:`, networkError);
+        }
+      }),
+      authMiddleware,
+      new RetryLink(),
+      new BatchHttpLink({
+        uri: `${getConfig().apiUrl}`,
+        fetch: fetcher,
+      }),
+    ]),
     cache: new InMemoryCache(),
-    connectToDevTools: true,
+    connectToDevTools: devTools,
   });
 
-  return <ApolloProvider client={apolloClient}>{children}</ApolloProvider>;
+  return <ApolloProvider client={client}>{children}</ApolloProvider>;
 };
+
+export default AuthorizedApolloProvider;

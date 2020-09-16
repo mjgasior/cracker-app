@@ -8,7 +8,6 @@ import "./index.css";
 import { App } from "./App";
 import { theme } from "./+utils/theme";
 import { Auth0Provider } from "@auth0/auth0-react";
-import { GraphQLProvider } from "./+utils/GraphQLProvider";
 import { AuthorizedProvider } from "./+utils/apolloSetup";
 
 ReactDOM.render(

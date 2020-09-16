@@ -6,6 +6,7 @@ import {
   createHttpLink,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const httpLink = createHttpLink({
   uri: process.env.REACT_APP_API_URL,
@@ -13,11 +14,15 @@ const httpLink = createHttpLink({
 });
 
 const AuthorizedProvider = ({ children }) => {
-  const authLink = setContext((_, { headers }) => {
+  const { getTokenSilently } = useAuth0();
+
+  const authLink = setContext(async (_, { headers }) => {
+    const token = await getTokenSilently();
+    console.log(token);
     return {
       headers: {
         ...headers,
-        authorization: "5",
+        authorization: "56",
       },
     };
   });
