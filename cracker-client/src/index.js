@@ -9,7 +9,7 @@ import { App } from "./App";
 import { theme } from "./+utils/theme";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { GraphQLProvider } from "./+utils/GraphQLProvider";
-import { apolloClient, AuthorizedProvider } from "./+utils/apolloSetup";
+import { AuthorizedProvider } from "./+utils/apolloSetup";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -18,7 +18,7 @@ ReactDOM.render(
       clientId={process.env.REACT_APP_AUTH0_CLIENT_ID}
       redirectUri={process.env.REACT_APP_AUTH0_ORIGIN}
     >
-      <AuthorizedProvider client={apolloClient}>
+      <AuthorizedProvider>
         <Router>
           <ThemeProvider theme={theme}>
             <App />

@@ -16,7 +16,7 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      authorization: "bbb22",
+      authorization: "bbb22234",
     },
   };
 });
@@ -26,8 +26,8 @@ const apolloClient = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-const AuthorizedProvider = ({ client, children }) => (
-  <ApolloProvider client={client}>{children}</ApolloProvider>
+const AuthorizedProvider = ({ children }) => (
+  <ApolloProvider client={apolloClient}>{children}</ApolloProvider>
 );
 
-export { apolloClient, AuthorizedProvider };
+export { AuthorizedProvider };
