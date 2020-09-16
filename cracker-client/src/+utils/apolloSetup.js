@@ -1,3 +1,4 @@
+import React from "react";
 import {
   ApolloClient,
   InMemoryCache,
@@ -15,14 +16,18 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      authorization: "bbb",
+      authorization: "bbb22",
     },
   };
 });
 
-const client = new ApolloClient({
+const apolloClient = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 
-export { client, ApolloProvider };
+const AuthorizedProvider = ({ client, children }) => (
+  <ApolloProvider client={client}>{children}</ApolloProvider>
+);
+
+export { apolloClient, AuthorizedProvider };
