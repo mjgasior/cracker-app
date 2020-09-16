@@ -12,22 +12,22 @@ const httpLink = createHttpLink({
   credentials: "include",
 });
 
-const authLink = setContext((_, { headers }) => {
-  return {
-    headers: {
-      ...headers,
-      authorization: "bbb22234",
-    },
-  };
-});
+const AuthorizedProvider = ({ children }) => {
+  const authLink = setContext((_, { headers }) => {
+    return {
+      headers: {
+        ...headers,
+        authorization: "5",
+      },
+    };
+  });
 
-const apolloClient = new ApolloClient({
-  link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
-});
+  const apolloClient = new ApolloClient({
+    link: authLink.concat(httpLink),
+    cache: new InMemoryCache(),
+  });
 
-const AuthorizedProvider = ({ children }) => (
-  <ApolloProvider client={apolloClient}>{children}</ApolloProvider>
-);
+  return <ApolloProvider client={apolloClient}>{children}</ApolloProvider>;
+};
 
 export { AuthorizedProvider };
