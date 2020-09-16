@@ -9,6 +9,7 @@ import { App } from "./App";
 import { theme } from "./+utils/theme";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { AuthorizedProvider } from "./+utils/apolloSetup";
+import { ApolloWrapper } from "./+utils/ApolloWrapper";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -17,13 +18,13 @@ ReactDOM.render(
       clientId={process.env.REACT_APP_AUTH0_CLIENT_ID}
       redirectUri={process.env.REACT_APP_AUTH0_ORIGIN}
     >
-      <AuthorizedProvider>
+      <ApolloWrapper>
         <Router>
           <ThemeProvider theme={theme}>
             <App />
           </ThemeProvider>
         </Router>
-      </AuthorizedProvider>
+      </ApolloWrapper>
     </Auth0Provider>
   </React.StrictMode>,
   document.getElementById("root")

@@ -69,5 +69,6 @@ For Docker Compose instructions refer to `cracker-product` repository.
 - [Dockerize React with Nginx](https://medium.com/@shakyShane/lets-talk-about-docker-artifacts-27454560384f)
 - [How to run React app inside Docker with env vars](https://github.com/facebook/create-react-app/issues/982 "Create React App GitHub issues")
 - [Leaflet with React](https://blog.logrocket.com/how-to-use-react-leaflet/)
+- [Securing GraphQL with Auth0 - server and client](https://youtu.be/vqHkwTWbaUk?t=5455)
 - [Serve static files through Nginx in Docker (online exercise)](https://www.katacoda.com/courses/docker/create-nginx-static-web-server "Katacoda online courses")
 - [Readme.md markdown cheatsheet](https://github.com/tchapi/markdown-cheatsheet/blob/master/README.md)
