@@ -9,18 +9,18 @@ import { setContext } from "@apollo/client/link/context";
 import { useAuth0 } from "@auth0/auth0-react";
 
 export const ApolloWrapper = ({ children }) => {
-  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const { isAuthenticated, getIdTokenClaims } = useAuth0();
   const [bearerToken, setBearerToken] = useState("");
 
   useEffect(() => {
     const getToken = async () => {
       if (isAuthenticated) {
-        const token = await getAccessTokenSilently();
+        const token = await getIdTokenClaims();
         setBearerToken(token);
       }
     };
     getToken();
-  }, [isAuthenticated, setBearerToken, getAccessTokenSilently]);
+  }, [isAuthenticated, setBearerToken, getIdTokenClaims]);
 
   const httpLink = new HttpLink({
     uri: process.env.REACT_APP_API_URL,
