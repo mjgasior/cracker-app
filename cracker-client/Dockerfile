@@ -1,6 +1,6 @@
 FROM node:lts-alpine AS build-dependencies
 WORKDIR /usr/src/app
-COPY package.json package-lock.lock ./
+COPY package.json package-lock.json ./
 RUN npm install
 COPY . ./
 
