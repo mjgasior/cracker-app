@@ -30,7 +30,6 @@ export const ApolloWrapper = ({ children }) => {
     if (!bearerToken) {
       return { headers, ...rest };
     }
-
     return {
       ...rest,
       headers: {
