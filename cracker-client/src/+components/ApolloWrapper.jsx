@@ -16,7 +16,6 @@ export const ApolloWrapper = ({ children }) => {
     const getToken = async () => {
       if (isAuthenticated) {
         const token = await getIdTokenClaims();
-        console.log(token);
         setIdToken(token.__raw);
       }
     };

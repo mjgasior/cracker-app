@@ -8,7 +8,7 @@ import "./index.css";
 import { App } from "./App";
 import { theme } from "./+utils/theme";
 import { Auth0Provider } from "@auth0/auth0-react";
-import { ApolloWrapper } from "./+utils/ApolloWrapper";
+import { ApolloWrapper } from "./+components/ApolloWrapper";
 
 ReactDOM.render(
   <React.StrictMode>

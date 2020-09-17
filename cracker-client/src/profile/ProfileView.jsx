@@ -1,11 +1,12 @@
 import React, { useCallback } from "react";
-// import auth from "../+utils/Auth";
 import { Switch } from "antd";
 import { useTranslation } from "react-i18next";
 import { PRIMARY_LANGUAGE, SECONDARY_LANGUAGE } from "../+localization/i18n";
+import { useUser } from "../+hooks/useUser";
 
 export const ProfileView = () => {
   const { t, i18n } = useTranslation();
+  const { email, isAdmin, isEmailVerified } = useUser();
 
   const handleLanguageChange = useCallback(
     (isChecked) => {
@@ -14,9 +15,9 @@ export const ProfileView = () => {
     [i18n]
   );
 
-  const isAdmin = false;
-  const email = "";
-  const verificationLabel = false ? t("is_verified") : t("is_not_verified");
+  const verificationLabel = isEmailVerified
+    ? t("is_verified")
+    : t("is_not_verified");
 
   return (
     <div>

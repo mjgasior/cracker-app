@@ -26,7 +26,6 @@ const verifyToken = (token, callback) => {
 
 export const getUser = (token) =>
   new Promise((resolve, reject) => {
-    console.log(token);
     if (token === "undefined") {
       return resolve({ isLogged: false });
     }
