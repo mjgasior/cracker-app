@@ -1,10 +1,10 @@
 FROM node:lts-alpine AS build-dependencies
 WORKDIR /usr/src/app
-COPY package.json yarn.lock ./
-RUN yarn
+COPY package.json package-lock.lock ./
+RUN npm install
 COPY . ./
 
-RUN yarn build
+RUN npm run build
 
 FROM nginx:1.19-alpine
 

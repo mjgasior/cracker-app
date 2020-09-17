@@ -168,7 +168,7 @@ As I found, this might be a [faulty DNS](https://github.com/gliderlabs/docker-al
 
 - [Adding custom claims in Auth0](https://auth0.com/docs/api-auth/tutorials/adoption/scope-custom-claims)
 - [Dockerizing a React App](https://mherman.org/blog/dockerizing-a-react-app/)
-- [Docker Tips](https://nickjanetakis.com/blog/docker-tip-2-the-difference-between-copy-and-add-in-a-dockerile)
+- [Docker tips](https://nickjanetakis.com/blog/docker-tip-2-the-difference-between-copy-and-add-in-a-dockerile)
 - [Dropping Mongo database manually](https://www.tutorialkart.com/mongodb/mongodb-delete-database/)
 - [Dropping Mongo database with a shell script](https://stackoverflow.com/questions/40907133/how-do-i-drop-a-mongodb-collection-from-the-command-line)
 - [How to create SSL certificates for development](https://medium.com/better-programming/how-to-create-ssl-certificates-for-development-861237235933)

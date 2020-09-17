@@ -1,21 +1,22 @@
 import React, { useCallback } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import auth from "../+utils/Auth";
+import { useAuth0 } from "@auth0/auth0-react";
 import { Menu } from "antd";
 import { ROUTES } from "../+utils/routes";
 
 export const Navigation = () => {
+  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
   const { t } = useTranslation();
   const location = useLocation();
-  const history = useHistory();
 
-  const logout = useCallback(() => {
-    auth.logout();
-    history.replace(ROUTES.HOME);
-  }, [history]);
-
-  const isAuthenticated = auth.isAuthenticated();
+  const handleAuthentication = useCallback(() => {
+    if (isAuthenticated) {
+      logout({ returnTo: window.location.origin });
+    } else {
+      loginWithRedirect();
+    }
+  }, [isAuthenticated, logout, loginWithRedirect]);
 
   return (
     <Menu
@@ -37,16 +38,7 @@ export const Navigation = () => {
           <Link to={ROUTES.PROFILE}>{t("profile")}</Link>
         </Menu.Item>
       )}
-      <Menu.Item
-        key={ROUTES.LOGOUT}
-        onClick={() => {
-          if (isAuthenticated) {
-            logout();
-          } else {
-            auth.login();
-          }
-        }}
-      >
+      <Menu.Item key={"auth_button"} onClick={handleAuthentication}>
         {t(isAuthenticated ? "log_out" : "log_in")}
       </Menu.Item>
     </Menu>
