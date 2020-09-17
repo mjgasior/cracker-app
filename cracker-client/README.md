@@ -65,7 +65,6 @@ For Docker Compose instructions refer to `cracker-product` repository.
 ## Resources:
 
 - [Adding custom environment variables](https://create-react-app.dev/docs/adding-custom-environment-variables/ "Create React App documentation")
-- [Auth0 with React and Apollo](https://auth0.com/blog/develop-modern-apps-with-react-graphql-apollo-and-add-authentication/)
 - [Dockerize React with Nginx](https://medium.com/@shakyShane/lets-talk-about-docker-artifacts-27454560384f)
 - [How to run React app inside Docker with env vars](https://github.com/facebook/create-react-app/issues/982 "Create React App GitHub issues")
 - [Leaflet with React](https://blog.logrocket.com/how-to-use-react-leaflet/)
