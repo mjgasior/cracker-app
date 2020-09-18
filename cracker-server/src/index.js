@@ -8,10 +8,10 @@ const server = new ApolloServer({
   cors: {
     credentials: true,
     origin: (origin, callback) => {
-      const whitelist = ["https://192.168.99.100", "https://cracker.red"];
+      const whitelist = process.env.CORS_WHITELIST;
       console.log(`Request from ${origin} called - checking whitelist.`);
 
-      if (whitelist.indexOf(origin) !== -1) {
+      if (whitelist.includes(origin)) {
         callback(null, true);
       } else {
         callback(new Error("Not allowed by CORS"));
