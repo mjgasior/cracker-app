@@ -90,6 +90,15 @@ The proxy listens on `:5000` port with HTTPS and proxies the traffic with HTTP t
 ```
 AUTH0_DOMAIN="Auth0 user domain"
 AUTH0_CLIENT_ID="Auth0 user client ID"
+CORS_WHITELIST="Client origin address"
+```
+
+Example of local development `.env` for `cracker-server`:
+
+```
+AUTH0_DOMAIN=domain.region.auth0.com
+AUTH0_CLIENT_ID=i6mdgjdsjs45asdmfdg3453TADasdkaa
+CORS_WHITELIST="https://example.com https://192.168.99.100"
 ```
 
 2. Create a `.env` file in `cracker-client` directory:
