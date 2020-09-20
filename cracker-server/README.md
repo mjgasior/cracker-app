@@ -7,7 +7,7 @@ Before starting the app:
 
 ```
 AUTH0_DOMAIN="YOUR_AUTH0_DOMAIN"
-AUTH0_CLIENT_ID="YOUR_AUTH0_CLIENT_ID"
+AUDIENCE="http://your.api.identifier"
 MONGODB_ADDRESS="YOUR_MONGODB_ADDRESS"
 CORS_WHITELIST="CLIENT_ORIGIN_ADDRESS"
 ```
@@ -16,7 +16,7 @@ Example:
 
 ```
 AUTH0_DOMAIN=domain.region.auth0.com
-AUTH0_CLIENT_ID=i6mdgjdsjs45asdmfdg3453TADasdkaa
+AUDIENCE=https://cracker.app
 MONGODB_ADDRESS=192.168.99.100:27017
 CORS_WHITELIST="https://192.168.99.100"
 ```

@@ -15,7 +15,7 @@ function getKey(header, cb) {
 }
 
 const options = {
-  audience: process.env.AUTH0_CLIENT_ID,
+  audience: process.env.AUDIENCE,
   issuer: `https://${process.env.AUTH0_DOMAIN}/`,
   algorithms: ["RS256"],
 };

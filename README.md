@@ -20,7 +20,7 @@ Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barli
 2. Go to `Applications` and click `Create application`.
 3. Name it `Cracker`, select `Single Page Web Applications` and click `Create`.
 4. Go to `Settings` tab where you can find:
-   - Domain (required in `cracker-client` as `REACT_APP_AUTH0_CLIENT_ID` and `cracker-server` as `AUTH0_CLIENT_ID`)
+   - Domain (required in `cracker-client` as `REACT_APP_AUTH0_CLIENT_ID`)
    - Client ID (required in `cracker-client` as `REACT_APP_AUTH0_DOMAIN` and `cracker-server` as `AUTH0_DOMAIN`)
 5. Please remember to set the callback URLs in Auth0 (URLs should be separated with a comma):
    - Allowed Callback URLs:
@@ -32,6 +32,7 @@ Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barli
 6. Go to `APIs` and click `Create API`.
 7. Write `Cracker API` in the `Name` field.
 8. Write `https://cracker.app` in the `Identifier` field (it has to be in the HTTP format) and click `Create`.
+9. The `Identifier` value is the `AUDIENCE` setting for `.env` files for `cracker-server`.
 
 ### Roles setup:
 
@@ -92,7 +93,7 @@ The proxy listens on `:5000` port with HTTPS and proxies the traffic with HTTP t
 
 ```
 AUTH0_DOMAIN="Auth0 user domain"
-AUTH0_CLIENT_ID="Auth0 user client ID"
+AUDIENCE="http://your.api.identifier"
 CORS_WHITELIST="Client origin address"
 ```
 
@@ -100,7 +101,7 @@ Example of local development `.env` for `cracker-server`:
 
 ```
 AUTH0_DOMAIN=domain.region.auth0.com
-AUTH0_CLIENT_ID=i6mdgjdsjs45asdmfdg3453TADasdkaa
+AUDIENCE=https://cracker.app
 CORS_WHITELIST="https://example.com https://192.168.99.100"
 ```
 
