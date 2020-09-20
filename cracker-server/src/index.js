@@ -20,24 +20,19 @@ const server = new ApolloServer({
   },
   schema,
   context: async ({ req, ...rest }) => {
-    /*
-    const token = req.headers.authorization;
-    const user = getUser(token);
-    return { req, ...rest, user };
-    */
-
     let isAuthenticated = false;
     try {
       const authorizationHeader = req.headers.authorization || "";
       if (authorizationHeader) {
         const token = getTokenWithouthBearer(authorizationHeader);
+        console.log(token);
         const payload = await verifyToken(token);
         isAuthenticated = isPayloadValid(payload) ? true : false;
       }
     } catch (error) {
       console.error(error);
     }
-    return { isAuthenticated };
+    return { ...rest, req, auth: { isAuthenticated } };
   },
 });
 

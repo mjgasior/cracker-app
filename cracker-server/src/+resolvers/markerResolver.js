@@ -1,5 +1,6 @@
 import { markerConnector } from "./+connectors/markerConnector";
 import { AuthenticationError } from "apollo-server";
+import withAuth from "graphql-auth";
 
 export const MarkerResolver = {
   Query: {
@@ -9,52 +10,32 @@ export const MarkerResolver = {
     },
   },
   Mutation: {
-    addMarker: async (_, { marker }, { user }) => {
+    addMarker:  withAuth((_, { marker }) => {
       try {
-        const { isLogged, roles } = await user;
-        verifyAdminAccess(isLogged, roles);
-
         return await markerConnector.add(marker);
       } catch (e) {
         console.error(e);
         throw new AuthenticationError("You must be logged in to do this");
       }
-    },
+    }),
 
-    removeMarker: async (_, { id }, { user }) => {
+    removeMarker: withAuth((_, { id }) => {
       try {
-        const { isLogged, roles } = await user;
-        verifyAdminAccess(isLogged, roles);
-
         return await markerConnector.remove(id);
       } catch (e) {
         console.error(e);
         throw new AuthenticationError("You must be logged in to do this");
       }
-    },
+    }),
 
-    updateMarker: async (_, { id, marker }, { user }) => {
+    updateMarker: withAuth((_, { id, marker }) => {
       try {
-        const { isLogged, roles } = await user;
-        verifyAdminAccess(isLogged, roles);
-
         return await markerConnector.update(id, marker);
       } catch (e) {
         console.error(e);
         throw new AuthenticationError("You must be logged in to do this");
       }
-    },
+    }),
   },
 };
 
-const verifyAdminAccess = (isLogged, roles) => {
-  if (!isLogged) {
-    throw new AuthenticationError("User not logged in!");
-  }
-
-  if (!isAdmin(roles)) {
-    throw new AuthenticationError("User not allowed to perform this action!");
-  }
-};
-
-const isAdmin = (roles) => roles && roles.includes("admin");
