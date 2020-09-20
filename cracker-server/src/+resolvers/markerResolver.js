@@ -10,7 +10,7 @@ export const MarkerResolver = {
     },
   },
   Mutation: {
-    addMarker:  withAuth((_, { marker }) => {
+    addMarker: withAuth(async (_, { marker }) => {
       try {
         return await markerConnector.add(marker);
       } catch (e) {
@@ -19,7 +19,7 @@ export const MarkerResolver = {
       }
     }),
 
-    removeMarker: withAuth((_, { id }) => {
+    removeMarker: withAuth(async (_, { id }) => {
       try {
         return await markerConnector.remove(id);
       } catch (e) {
@@ -28,7 +28,7 @@ export const MarkerResolver = {
       }
     }),
 
-    updateMarker: withAuth((_, { id, marker }) => {
+    updateMarker: withAuth(async (_, { id, marker }) => {
       try {
         return await markerConnector.update(id, marker);
       } catch (e) {
@@ -38,4 +38,3 @@ export const MarkerResolver = {
     }),
   },
 };
-

@@ -14,7 +14,6 @@ export const verifyToken = (bearerToken) => {
   }
 
   return new Promise((resolve, reject) => {
-    console.log(`Token to be verified ${bearerToken}`);
     jwt.verify(
       bearerToken,
       getJwksClientKey,
