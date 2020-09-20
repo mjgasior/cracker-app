@@ -44,7 +44,7 @@ CORS_WHITELIST="https://192.168.99.100"
 - `dotenv` - a zero-dependency module that loads environment variables from a `.env` file into `process.env`
 - `graphql` - the library used to build a GraphQL schema and execute queries against it
 - `jsonwebtoken` - JsonWebToken implementation for Node.js
-- `jwks-rsa` - a library to retrieve RSA public keys from a JWKS (JSON Web Key Set) endpoint
+- `jwks-rsa` - a library to retrieve RSA public keys from a JWKS (JSON Web Key Set) endpoint to verify the token with the public key
 - `nodemon` - a utility that will monitor for any changes in your source and automatically restart your server
 - `mongoose` - mongodb object modeling for node.js
 
