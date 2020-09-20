@@ -25,7 +25,6 @@ const server = new ApolloServer({
       const authorizationHeader = req.headers.authorization || "";
       if (authorizationHeader) {
         const token = getTokenWithouthBearer(authorizationHeader);
-        console.log(token);
         const payload = await verifyToken(token);
         isAuthenticated = isPayloadValid(payload) ? true : false;
       }

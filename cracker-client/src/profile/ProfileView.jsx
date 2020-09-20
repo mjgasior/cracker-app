@@ -37,7 +37,7 @@ export const ProfileView = () => {
         {t("current_api_url")}: {process.env.REACT_APP_API_URL}
       </p>
       <p>
-        {t("current_auth0")}: {process.env.REACT_APP_AUTH0_ORIGIN}
+        {t("current_auth0")}: {process.env.REACT_APP_AUTH0_REDIRECT}
       </p>
       <p>{isAdmin ? t("admin_rights") : t("admin_rights_lack")}</p>
       <p>
