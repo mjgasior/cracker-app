@@ -20,7 +20,7 @@ Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barli
 2. Go to `Applications` and click `Create application`.
 3. Name it `Cracker`, select `Single Page Web Applications` and click `Create`.
 4. Go to `Settings` tab where you can find:
-   - Domain (required in `cracker-client` as `REACT_APP_AUTH0_CLIENT_ID` and `cracker-server` as `AUTH0_CLIENT_ID`)
+   - Domain (required in `cracker-client` as `REACT_APP_AUTH0_CLIENT_ID`)
    - Client ID (required in `cracker-client` as `REACT_APP_AUTH0_DOMAIN` and `cracker-server` as `AUTH0_DOMAIN`)
 5. Please remember to set the callback URLs in Auth0 (URLs should be separated with a comma):
    - Allowed Callback URLs:
@@ -29,6 +29,10 @@ Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barli
    - Allowed Logout URLs, Allowed Web Origins and Allowed Origins (CORS):
      - `https://localhost:3000/` - running app fully locally
      - `https://the.ip.of.docker.machine/` - running app as Docker production build
+6. Go to `APIs` and click `Create API`.
+7. Write `Cracker API` in the `Name` field.
+8. Write `https://cracker.app` in the `Identifier` field (it has to be in the HTTP format) and click `Create`.
+9. The `Identifier` value should be set in `.env` files under `AUDIENCE` for `cracker-server` and `REACT_APP_AUDIENCE` for `cracker-client`.
 
 ### Roles setup:
 
@@ -89,7 +93,7 @@ The proxy listens on `:5000` port with HTTPS and proxies the traffic with HTTP t
 
 ```
 AUTH0_DOMAIN="Auth0 user domain"
-AUTH0_CLIENT_ID="Auth0 user client ID"
+AUDIENCE="http://your.api.identifier"
 CORS_WHITELIST="Client origin address"
 ```
 
@@ -97,7 +101,7 @@ Example of local development `.env` for `cracker-server`:
 
 ```
 AUTH0_DOMAIN=domain.region.auth0.com
-AUTH0_CLIENT_ID=i6mdgjdsjs45asdmfdg3453TADasdkaa
+AUDIENCE=https://cracker.app
 CORS_WHITELIST="https://example.com https://192.168.99.100"
 ```
 
@@ -105,22 +109,25 @@ CORS_WHITELIST="https://example.com https://192.168.99.100"
 
 ```
 REACT_APP_API_URL="address of Apollo GQL backend"
-REACT_APP_AUTH0_ORIGIN="address of the app seen from Auth0 perspective"
+REACT_APP_AUTH0_REDIRECT="address of the app seen from Auth0 perspective"
 REACT_APP_AUTH0_DOMAIN="Auth0 user domain"
 REACT_APP_AUTH0_CLIENT_ID="Auth0 user client ID"
+REACT_APP_AUDIENCE="http://your.api.identifier"
 ```
 
 Remember that while setting `REACT_APP_API_URL` in local development, the client container does not have `nginx` - that means that `cracker-server` is available as `:4000` HTTP and not `/api` HTTPS. Apollo GQL Playground should be available after start at `:4000` (if you use `VirtualBox`, the address can be `http://192.168.99.100:4000/` and for regular `Docker` development either `http://127.0.0.1:4000/` or `http://localhost:4000/`).
 
-On the other hand, the `:3000` port for Webpack React development is mapped in `docker-compose.yml` to standard HTTP `:443` HTTPS port, so the app is visible for Auth0 as (for example) `https://127.0.0.1/` - keep that in mind while setting the `REACT_APP_AUTH0_ORIGIN` value (go to [cracker-client](https://github.com/mjgasior/cracker-app/tree/master/cracker-client) to read more on how to configure custom SSL certificates for HTTPS local development if necessary).
+On the other hand, the `:3000` port for Webpack React development is mapped in `docker-compose.yml` to standard HTTP `:443` HTTPS port, so the app is visible for Auth0 as (for example) `https://127.0.0.1/` - keep that in mind while setting the `REACT_APP_AUTH0_REDIRECT` value (go to [cracker-client](https://github.com/mjgasior/cracker-app/tree/master/cracker-client) to read more on how to configure custom SSL certificates for HTTPS local development if necessary).
 
 Example of local development `.env` for `cracker-client`:
 
 ```
 REACT_APP_API_URL=http://127.0.0.1:4000
-REACT_APP_AUTH0_ORIGIN=https://127.0.0.1
+REACT_APP_AUTH0_REDIRECT=https://127.0.0.1
 REACT_APP_AUTH0_DOMAIN=domain.region.auth0.com
 REACT_APP_AUTH0_CLIENT_ID=i6mdgjdsjs45asdmfdg3453TADasdkaa
+REACT_APP_AUDIENCE=https://cracker.app
+
 ```
 
 3. Run `yarn` in `cracker-client`.
@@ -136,7 +143,7 @@ You can use the `setup.sh` script to setup a new instance on Lightsail autmatica
 
 0. Remember to set up proper Auth0 (client ID and the domain) values in `cracker-client` and `cracker-server`.
 1. Put the SSL certificates for HTTPS next to `nginx` configuration in `cracker-client/nginx` directory. The names should be `crackerssl.crt` and `crackerssl.key`.
-2. Set proper IP address of the API in `.env` file in `cracker-client` for new Lightsail instance (for example `REACT_APP_API_URL=https://18.196.197.102/api` and `REACT_APP_AUTH0_ORIGIN=https://18.196.197.102`).
+2. Set proper IP address of the API in `.env` file in `cracker-client` for new Lightsail instance (for example `REACT_APP_API_URL=https://18.196.197.102/api` and `REACT_APP_AUTH0_REDIRECT=https://18.196.197.102`).
 3. Run `docker-compose -f docker-compose.prod.yml build`
 4. Run `docker-compose -f docker-compose.prod.yml up`
 

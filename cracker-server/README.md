@@ -7,7 +7,7 @@ Before starting the app:
 
 ```
 AUTH0_DOMAIN="YOUR_AUTH0_DOMAIN"
-AUTH0_CLIENT_ID="YOUR_AUTH0_CLIENT_ID"
+AUDIENCE="http://your.api.identifier"
 MONGODB_ADDRESS="YOUR_MONGODB_ADDRESS"
 CORS_WHITELIST="CLIENT_ORIGIN_ADDRESS"
 ```
@@ -16,7 +16,7 @@ Example:
 
 ```
 AUTH0_DOMAIN=domain.region.auth0.com
-AUTH0_CLIENT_ID=i6mdgjdsjs45asdmfdg3453TADasdkaa
+AUDIENCE=https://cracker.app
 MONGODB_ADDRESS=192.168.99.100:27017
 CORS_WHITELIST="https://192.168.99.100"
 ```
@@ -43,8 +43,9 @@ CORS_WHITELIST="https://192.168.99.100"
 - `apollo-server` - the core library for Apollo Server itself, which helps you define the shape of your data and how to fetch it
 - `dotenv` - a zero-dependency module that loads environment variables from a `.env` file into `process.env`
 - `graphql` - the library used to build a GraphQL schema and execute queries against it
+- `graphql-auth` - a very simple middleware that easily integrates with any GraphQL server that follows the GraphQL API for resolvers
 - `jsonwebtoken` - JsonWebToken implementation for Node.js
-- `jwks-rsa` - a library to retrieve RSA public keys from a JWKS (JSON Web Key Set) endpoint
+- `jwks-rsa` - a library to retrieve RSA public keys from a JWKS (JSON Web Key Set) endpoint to verify the token with the public key
 - `nodemon` - a utility that will monitor for any changes in your source and automatically restart your server
 - `mongoose` - mongodb object modeling for node.js
 
