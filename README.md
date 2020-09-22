@@ -155,6 +155,16 @@ You can use the `setup.sh` script to setup a new instance on Lightsail autmatica
 3. Push them `docker push mjgasior/cracker-client:0.0.3`.
 4. Use them. :)
 
+### Release from branch:
+
+If you want to release from branch, you can use the `./scripts/release.sh` script:
+
+1. Run `.\scripts\release.sh` (Windows slash notation here).
+2. Connect through SSH to Lightsail instance.
+3. Run `sudo curl -o /srv/docker/docker-compose.yml https://raw.githubusercontent.com/mjgasior/cracker-app/BRANCH_NAME/deploy/docker-compose.yml`.
+4. Go to `/srv/docker` with `cd /srv/docker`.
+5. Run `docker-compose down` and then `docker-compose up`.
+
 ## Snippets:
 
 - `cat filename` - [display the contents of a text file in the command line](https://unix.stackexchange.com/questions/86321/how-can-i-display-the-contents-of-a-text-file-on-the-command-line "StackExchange answer")
