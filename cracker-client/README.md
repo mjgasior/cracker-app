@@ -2,34 +2,15 @@
 
 In `nginx` directory there is the `cracker.conf` Nginx configuration file which allows to reach the backend server.
 
-## SSL:
-
-This step is not very necessary. You can just set `HTTPS=true` in the `.env` file and delete the `SSL_CRT_FILE` and `SSL_KEY_FILE` settings.
-
-1. Use [this](https://medium.com/the-new-control-plane/generating-self-signed-certificates-on-windows-7812a600c2d8) instruction to generate SSL certificates (I have used Windows OpenSSL alternative which is available [here](https://slproweb.com/products/Win32OpenSSL.html) - everything is described in the instruction provided previously). Keep the name of the certificate `crackerssl.key` and `crackerssl.crt`, for example, using OpenSSL:
-
-   openssl req -x509 -newkey rsa:4096 -nodes -keyout crackerssl.key -out crackerssl.crt -subj “/C=PL/L=Kraków/CN=cracker.com” -days 600
-
-- `req` - request a certificate
-- `-x509` - a standard defining the format of public key certificates
-- `-newkey rsa:4096` - a new private key (`-newkey`) using the RSA algorithm with a 4096-bit key length (`rsa:4096`)
-- `-nodes` - private key should be without using a passphrase
-- `-keyout` - key filename
-- `-out` - certificate filename
-- `-subj` - subject - this can have parameters like country (`C=PL`), location (`L=Poland`), organisation (`O=Cracker Ltd`), company name (`CN=www.cracker.app`)
-- `-days` - how long should the certificate be valid
-
-2. After you have generated the SSL certificate, you should have two files with `.crt` and `.key` extensions. Copy them to `./cracker-client` directory (next to `package.json` file).
-3. You can install your new certificate using Chrome advanced settings (the security part, certificates management).
-
 ## Configuration
 
 Before starting the app please pepare a `.env` file which will include these values:
 
     REACT_APP_API_URL="address of Apollo GQL backend"
-    REACT_APP_AUTH0_ORIGIN="address of the app seen from Auth0 perspective"
+    REACT_APP_AUTH0_REDIRECT="address of the app seen from Auth0 perspective"
     REACT_APP_AUTH0_DOMAIN="Auth0 user domain"
     REACT_APP_AUTH0_CLIENT_ID="Auth0 user client ID"
+    REACT_APP_AUDIENCE="http://your.api.identifier"
     HTTPS=true
     SSL_CRT_FILE=crackerssl.crt
     SSL_KEY_FILE=crackerssl.key
@@ -37,9 +18,10 @@ Before starting the app please pepare a `.env` file which will include these val
 Example:
 
     REACT_APP_API_URL=http://192.168.99.100/api
-    REACT_APP_AUTH0_ORIGIN=http://192.168.99.100
+    REACT_APP_AUTH0_REDIRECT=http://192.168.99.100
     REACT_APP_AUTH0_DOMAIN=domain.region.auth0.com
     REACT_APP_AUTH0_CLIENT_ID=i6mdgjdsjs45asdmfdg3453TADasdkaa
+    REACT_APP_AUDIENCE=https://cracker.app
     HTTPS=true
     SSL_CRT_FILE=crackerssl.crt
     SSL_KEY_FILE=crackerssl.key
@@ -67,11 +49,10 @@ For Docker Compose instructions refer to `cracker-product` repository.
 
 ## Packages:
 
-- `@apollo/react-hooks` - integration with Apollo based on React hooks
+- `@apollo/client` - this single package contains virtually everything you need to set up Apollo Client - it includes the in-memory cache, local state management, error handling, and a React-based view layer
+- `@auth0/auth0-react` - the Auth0 React SDK (auth0-react.js) is a JavaScript library for implementing authentication and authorization in React apps with Auth0 (it provides a custom React hook and other Higher Order Components)
 - `antd` - Ant Design is a UI design language and React UI components library (I usually used [Material UI](https://material-ui.com/) but this time I wanted to try out something new)
-- `apollo-boost` - package containing everything you need to set up Apollo Client (bare `@apollo/client` was lacking a comfortable way of [adding authorization header](https://www.apollographql.com/docs/react/networking/authentication/#header "Apollo GQL docs") to all GQL requests)
-- `auth0-js` - client side JavaScript toolkit for Auth0 authorization API
-- `graphql` - the JavaScript reference implementation for GraphQL, a query language for APIs created by Facebook
+- `graphql` - the JavaScript reference implementation for GraphQL, a query language for APIs created by Facebook (provides logic for parsing GraphQL queries)
 - `leaflet` - open-source JavaScript library for mobile-friendly interactive maps based on OpenStreetMap
 - `leaflet-contextmenu` - just a context menu for Leaflet
 - `react-leaflet` - this package provides an abstraction of 🍃 [Leaflet](https://leafletjs.com/reference-1.6.0.html) as ⚛️ React components.
@@ -86,9 +67,9 @@ For Docker Compose instructions refer to `cracker-product` repository.
 ## Resources:
 
 - [Adding custom environment variables](https://create-react-app.dev/docs/adding-custom-environment-variables/ "Create React App documentation")
-- [Auth0 with React and Apollo](https://auth0.com/blog/develop-modern-apps-with-react-graphql-apollo-and-add-authentication/)
 - [Dockerize React with Nginx](https://medium.com/@shakyShane/lets-talk-about-docker-artifacts-27454560384f)
 - [How to run React app inside Docker with env vars](https://github.com/facebook/create-react-app/issues/982 "Create React App GitHub issues")
 - [Leaflet with React](https://blog.logrocket.com/how-to-use-react-leaflet/)
+- [Securing GraphQL with Auth0 - server and client](https://youtu.be/vqHkwTWbaUk?t=5455)
 - [Serve static files through Nginx in Docker (online exercise)](https://www.katacoda.com/courses/docker/create-nginx-static-web-server "Katacoda online courses")
 - [Readme.md markdown cheatsheet](https://github.com/tchapi/markdown-cheatsheet/blob/master/README.md)

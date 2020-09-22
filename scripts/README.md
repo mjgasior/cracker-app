@@ -10,7 +10,7 @@ Initial script for a new AWS Lightsail instance:
 - `db-dump.sh` - creates a database dump from a local Docker container MongoDB in current folder
 - `db-upload.sh` - not yet ready - will upload the database dump to Lightsail instance (this script needs ip address as an argument, for example `.\scripts\db-upload.sh 18.184.225.8`)
 - `new-instance.sh` - this script creates a new \$3.50 plan (nano plan) Ubuntu 16 instance on Lightsail and allocates a new static IP and attaches it to the instance
-- `release.sh` - builds, tags and pushes image of `cracker-server` and `cracker-client` and releases it to the Lightsail instance
+- `release.sh` - builds, tags and pushes image of `cracker-server` and `cracker-client` and releases it to the Lightsail instance (this script needs a pre-allocated static IP in Lightsail named `Cracker-app-ip` - you can get such address in the [Netwroking tab](https://lightsail.aws.amazon.com/ls/webapp/home/networking))
 - `setup.sh` - allocates static IP, releases a new version of images with the IP, pushes them to Docker Hub and creates a new instance on Lightsail
 - `wipe.sh` - deletes the Lightsail instance, detaches the static IP, but doesn't delete the static IP (you need to delete it manually because AWS will charge you after an hour of having a detached static IP)
 
