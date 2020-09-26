@@ -175,6 +175,7 @@ If you want to release from branch, you can use the `./scripts/release.sh` scrip
 - `docker run -it -p 3000:3000 -e CHOKIDAR_USEPOLLING=true -v $(pwd):/var/www -w "/var/www" node:12.0-alpine yarn start`
 - `git branch | %{ $_.Trim() } | ?{ $_ -ne 'master' } | %{ git branch -D $_ }` - [delete all branches except master](https://dev.to/koscheyscrag/git-how-to-delete-all-branches-except-master-2pi0)
 - `exit` - to exit out of the docker container bash shell just run this
+- `stat --format '%a' <file>` - Get the chmod numerical value for a file
 
 ## Visual Studio Code extensions:
 

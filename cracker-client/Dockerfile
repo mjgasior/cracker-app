@@ -15,6 +15,7 @@ RUN apk add --no-cache curl
 
 COPY --from=build-dependencies /usr/src/app/build /usr/share/nginx/html
 COPY --from=build-dependencies /usr/src/app/nginx /etc/nginx/conf.d
+COPY --from=build-dependencies /usr/src/app/test /var/www/certbot
 
 EXPOSE 80
 
