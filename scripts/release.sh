@@ -2,12 +2,12 @@ echo -e "\e[93;104mCracker app scripts\e[0m\n"
 
 aws lightsail get-static-ip --static-ip-name Cracker-app-ip
 
-read -p "Enter allocated static IP: " static_ip
+read -p "Enter allocated static IP (if you have a domain, write it here): " static_ip
 
 echo "Static IP: $static_ip"
 
-echo "REACT_APP_API_URL=http://$static_ip/api
-REACT_APP_AUTH0_ORIGIN=http://$static_ip" >> ".env.production"
+echo "REACT_APP_API_URL=https://$static_ip/api
+REACT_APP_AUTH0_REDIRECT=https://$static_ip" >> ".env.production"
 
 cp ".env.production" "./cracker-client/"
 
