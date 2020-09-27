@@ -74,7 +74,9 @@ The proxy listens on `:5000` port with HTTPS and proxies the traffic with HTTP t
 
 1. Use [this](https://medium.com/the-new-control-plane/generating-self-signed-certificates-on-windows-7812a600c2d8) instruction to generate SSL certificates (I have used Windows OpenSSL alternative which is available [here](https://slproweb.com/products/Win32OpenSSL.html) - everything is described in the instruction provided previously). Keep the name of the certificate `fullchain.pem` and `privkey.pem` for the private key, for example, using OpenSSL:
 
-   openssl req -x509 -newkey rsa:4096 -nodes -keyout fullchain.pem -out privkey.pem -subj “/C=PL/L=Kraków/CN=cracker.red” -days 600
+```
+openssl req -x509 -newkey rsa:4096 -nodes -keyout fullchain.pem -out privkey.pem -subj “/C=PL/L=Kraków/CN=cracker.red” -days 600
+```
 
 - `req` - request a certificate
 - `-x509` - a standard defining the format of public key certificates

@@ -15,12 +15,12 @@
     "nodemon": "^2.0.4"
   },
   "dependencies": {
-    "apollo-server": "^2.17.0",
+    "apollo-server": "^2.18.1",
     "dotenv": "^8.2.0",
     "graphql": "^15.3.0",
     "graphql-auth": "^1.0.0",
     "jsonwebtoken": "^8.5.1",
-    "jwks-rsa": "^1.9.0",
-    "mongoose": "^5.10.5"
+    "jwks-rsa": "^1.10.1",
+    "mongoose": "^5.10.7"
   }
 }
