@@ -5,6 +5,7 @@ services:
     image: nginx:1.19-alpine
     volumes:
       - ./cracker-proxy/nginx:/etc/nginx/conf.d
+      - ./certificates:/etc/nginx/certificates
     ports:
       - 5000:5000
     command: ["nginx", "-g", "daemon off;"]
@@ -25,10 +26,11 @@ services:
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true # Webpack uses Chokidar for watching changes - this forces the use of polling in a virtual machine
       - HTTPS=true
-      - SSL_CRT_FILE=nginx/fullchain.pem
-      - SSL_KEY_FILE=nginx/privkey.pem
+      - SSL_CRT_FILE=/usr/src/certificates/fullchain.pem
+      - SSL_KEY_FILE=/usr/src/certificates/privkey.pem
     volumes: # For webpack dev server to use our local files
       - ./cracker-client:/usr/src/app
+      - ./certificates:/usr/src/certificates
     ports:
       - 443:3000 # For docker to now where to redirect HMR queries
     command: npm start
