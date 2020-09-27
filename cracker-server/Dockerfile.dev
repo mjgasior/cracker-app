@@ -1,7 +1,0 @@
-FROM node:lts-alpine
-
-WORKDIR /usr/src/api
-
-EXPOSE 4000
-
-CMD ["npm", "start"]

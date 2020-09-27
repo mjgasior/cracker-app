@@ -2,12 +2,13 @@ version: "3"
 services:
   cracker-proxy:
     container_name: cracker-proxy-dev
-    build:
-      context: ./cracker-proxy
-    volumes: # For webpack dev server to use our local files
+    image: nginx:1.19-alpine
+    volumes:
       - ./cracker-proxy/nginx:/etc/nginx/conf.d
+      - ./certificates:/etc/nginx/certificates
     ports:
       - 5000:5000
+    command: ["nginx", "-g", "daemon off;"]
 
   cracker-db:
     image: mongo:4.4.0
@@ -19,26 +20,25 @@ services:
 
   cracker-client:
     container_name: cracker-client-dev
-    build:
-      context: ./cracker-client
-      dockerfile: Dockerfile.dev
+    image: node:lts-alpine
     stdin_open: true # Without this React webserver exits immediately after setup
     environment:
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true # Webpack uses Chokidar for watching changes - this forces the use of polling in a virtual machine
       - HTTPS=true
-      - SSL_CRT_FILE=nginx/crackerssl.crt
-      - SSL_KEY_FILE=nginx/crackerssl.key
+      - SSL_CRT_FILE=/usr/src/certificates/fullchain.pem
+      - SSL_KEY_FILE=/usr/src/certificates/privkey.pem
     volumes: # For webpack dev server to use our local files
       - ./cracker-client:/usr/src/app
+      - ./certificates:/usr/src/certificates
     ports:
       - 443:3000 # For docker to now where to redirect HMR queries
+    command: npm start
+    working_dir: /usr/src/app
 
   cracker-server:
     container_name: cracker-server-dev
-    build:
-      context: ./cracker-server
-      dockerfile: Dockerfile.dev
+    image: node:lts-alpine
     environment:
       - MONGODB_ADDRESS=cracker-db:27017
       - CHOKIDAR_USEPOLLING=true
@@ -46,6 +46,8 @@ services:
       - ./cracker-server:/usr/src/api
     ports:
       - 4000:4000
+    command: npm start
+    working_dir: /usr/src/api
     depends_on:
       - "cracker-db"
 
