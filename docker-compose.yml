@@ -2,12 +2,12 @@ version: "3"
 services:
   cracker-proxy:
     container_name: cracker-proxy-dev
-    build:
-      context: ./cracker-proxy
-    volumes: # For webpack dev server to use our local files
+    image: nginx:1.19-alpine
+    volumes:
       - ./cracker-proxy/nginx:/etc/nginx/conf.d
     ports:
       - 5000:5000
+    command: ["nginx", "-g", "daemon off;"]
 
   cracker-db:
     image: mongo:4.4.0
