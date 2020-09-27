@@ -2,7 +2,7 @@ echo -e "\e[93;104mCracker app scripts\e[0m\n"
 
 aws lightsail get-static-ip --static-ip-name Cracker-app-ip
 
-read -p "Enter allocated static IP: " static_ip
+read -p "Enter allocated static IP (if you have a domain, write it here): " static_ip
 
 echo "Static IP: $static_ip"
 

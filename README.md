@@ -72,9 +72,9 @@ A problem emerges in local development mode where we would want to utilize all t
 
 The proxy listens on `:5000` port with HTTPS and proxies the traffic with HTTP to port `:4000` of Apollo API. The API and the Apollo GQL playground are still available with a direct `:4000` call.
 
-1. Use [this](https://medium.com/the-new-control-plane/generating-self-signed-certificates-on-windows-7812a600c2d8) instruction to generate SSL certificates (I have used Windows OpenSSL alternative which is available [here](https://slproweb.com/products/Win32OpenSSL.html) - everything is described in the instruction provided previously). Keep the name of the certificate `crackerssl.key` and `crackerssl.crt`, for example, using OpenSSL:
+1. Use [this](https://medium.com/the-new-control-plane/generating-self-signed-certificates-on-windows-7812a600c2d8) instruction to generate SSL certificates (I have used Windows OpenSSL alternative which is available [here](https://slproweb.com/products/Win32OpenSSL.html) - everything is described in the instruction provided previously). Keep the name of the certificate `fullchain.pem` and `privkey.pem` for the private key, for example, using OpenSSL:
 
-   openssl req -x509 -newkey rsa:4096 -nodes -keyout crackerssl.key -out crackerssl.crt -subj “/C=PL/L=Kraków/CN=cracker.red” -days 600
+   openssl req -x509 -newkey rsa:4096 -nodes -keyout fullchain.pem -out privkey.pem -subj “/C=PL/L=Kraków/CN=cracker.red” -days 600
 
 - `req` - request a certificate
 - `-x509` - a standard defining the format of public key certificates
@@ -85,7 +85,9 @@ The proxy listens on `:5000` port with HTTPS and proxies the traffic with HTTP t
 - `-subj` - subject - this can have parameters like country (`C=PL`), location (`L=Poland`), organisation (`O=Cracker Ltd`), company name (`CN=www.cracker.red`)
 - `-days` - how long should the certificate be valid
 
-2. After you have generated the SSL certificate, you should have two files with `.crt` and `.key` extensions. Copy them to `./cracker-client/nginx` and `./cracker-proxy/nginx` directories.
+2. After you have generated the SSL certificate, you should have two files with `.pem` extensions. Copy them to `./certificates` directory for local development and `./cracker-client/nginx` for production builds.
+
+This method is only for local development. To have a proper cerificate for production you would need to refer to [this repository](https://github.com/mjgasior/nginx-certbot). Remember that invalid self signed certificates might be blocked by some browsers and page might not be reachable at all - there will be an information that the page is unsafe to connect with tho.
 
 ### Local development configuration setup:
 
@@ -142,7 +144,7 @@ Please remember that Lightsail has a firewall that doesn't have HTTPS port 443 o
 You can use the `setup.sh` script to setup a new instance on Lightsail autmatically. Please keep this directory as current work directory (invoke the script as `./scripts/setup.sh`). Remember to have the `aws cli` installed and logged to your account. Also, you will need to be logged to Docker Hub (images in the script are tagged for my repository - you need to change this manually, for example `mjgasior/cracker-server:0.0.1` to `youraccount/cracker-server:0.0.1`)
 
 0. Remember to set up proper Auth0 (client ID and the domain) values in `cracker-client` and `cracker-server`.
-1. Put the SSL certificates for HTTPS next to `nginx` configuration in `cracker-client/nginx` directory. The names should be `crackerssl.crt` and `crackerssl.key`.
+1. Put the SSL certificates for HTTPS next to `nginx` configuration in `cracker-client/nginx` directory. The names should be `fullchain.pem` and `privkey.pem` for private key.
 2. Set proper IP address of the API in `.env` file in `cracker-client` for new Lightsail instance (for example `REACT_APP_API_URL=https://18.196.197.102/api` and `REACT_APP_AUTH0_REDIRECT=https://18.196.197.102`).
 3. Run `docker-compose -f docker-compose.prod.yml build`
 4. Run `docker-compose -f docker-compose.prod.yml up`
@@ -155,6 +157,16 @@ You can use the `setup.sh` script to setup a new instance on Lightsail autmatica
 3. Push them `docker push mjgasior/cracker-client:0.0.3`.
 4. Use them. :)
 
+### Release from branch:
+
+If you want to release from branch, you can use the `./scripts/release.sh` script:
+
+1. Run `.\scripts\release.sh` (Windows slash notation here).
+2. Connect through SSH to Lightsail instance.
+3. Run `sudo curl -o /srv/docker/docker-compose.yml https://raw.githubusercontent.com/mjgasior/cracker-app/BRANCH_NAME/deploy/docker-compose.yml`.
+4. Go to `/srv/docker` with `cd /srv/docker`.
+5. Run `docker-compose down` and then `docker-compose up`.
+
 ## Snippets:
 
 - `cat filename` - [display the contents of a text file in the command line](https://unix.stackexchange.com/questions/86321/how-can-i-display-the-contents-of-a-text-file-on-the-command-line "StackExchange answer")
@@ -165,6 +177,7 @@ You can use the `setup.sh` script to setup a new instance on Lightsail autmatica
 - `docker run -it -p 3000:3000 -e CHOKIDAR_USEPOLLING=true -v $(pwd):/var/www -w "/var/www" node:12.0-alpine yarn start`
 - `git branch | %{ $_.Trim() } | ?{ $_ -ne 'master' } | %{ git branch -D $_ }` - [delete all branches except master](https://dev.to/koscheyscrag/git-how-to-delete-all-branches-except-master-2pi0)
 - `exit` - to exit out of the docker container bash shell just run this
+- `stat --format '%a' <file>` - Get the chmod numerical value for a file
 
 ## Visual Studio Code extensions:
 
