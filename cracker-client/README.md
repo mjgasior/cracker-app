@@ -63,4 +63,4 @@ The `HTTPS=true` setting forces [Create React App](https://create-react-app.dev/
 - [Readme.md markdown cheatsheet](https://github.com/tchapi/markdown-cheatsheet/blob/master/README.md)
 
 https://www.youtube.com/watch?v=-Zx-9BKgTAs
-https://github.com/apollographql/apollo-feature-requests/issues/51
+https://dev.to/dnature/file-uploads-with-react-and-apollo-part-2-3fja
