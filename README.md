@@ -74,7 +74,7 @@ The proxy listens on `:5000` port with HTTPS and proxies the traffic with HTTP t
 
 1. Use [this](https://medium.com/the-new-control-plane/generating-self-signed-certificates-on-windows-7812a600c2d8) instruction to generate SSL certificates (I have used Windows OpenSSL alternative which is available [here](https://slproweb.com/products/Win32OpenSSL.html) - everything is described in the instruction provided previously). Keep the name of the certificate `fullchain.pem` and `privkey.pem` for the private key, for example, using OpenSSL:
 
-   openssl req -x509 -newkey rsa:4096 -nodes -keyout crackerssl.key -out crackerssl.crt -subj “/C=PL/L=Kraków/CN=cracker.red” -days 600
+   openssl req -x509 -newkey rsa:4096 -nodes -keyout fullchain.pem -out privkey.pem -subj “/C=PL/L=Kraków/CN=cracker.red” -days 600
 
 - `req` - request a certificate
 - `-x509` - a standard defining the format of public key certificates
@@ -85,9 +85,9 @@ The proxy listens on `:5000` port with HTTPS and proxies the traffic with HTTP t
 - `-subj` - subject - this can have parameters like country (`C=PL`), location (`L=Poland`), organisation (`O=Cracker Ltd`), company name (`CN=www.cracker.red`)
 - `-days` - how long should the certificate be valid
 
-2. After you have generated the SSL certificate, you should have two files with `.crt` and `.key` extensions. Copy them to `./cracker-client/nginx` and `./cracker-proxy/nginx` directories.
+2. After you have generated the SSL certificate, you should have two files with `.pem` extensions. Copy them to `./certificates` directory for local development and `./cracker-client/nginx` for production builds.
 
-This method is only for local development. To have a proper cerificate for production you would need to refer to [this repository](https://github.com/mjgasior/nginx-certbot).
+This method is only for local development. To have a proper cerificate for production you would need to refer to [this repository](https://github.com/mjgasior/nginx-certbot). Remember that invalid self signed certificates might be blocked by some browsers and page might not be reachable at all - there will be an information that the page is unsafe to connect with tho.
 
 ### Local development configuration setup:
 

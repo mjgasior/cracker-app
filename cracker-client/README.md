@@ -1,6 +1,6 @@
 # Cracker client
 
-In `nginx` directory there is the `cracker.conf` Nginx configuration file which allows to reach the backend server.
+`nginx` directory has the production `cracker.conf` Nginx configuration file which sets up the production entry point and should have SSL certificates for HTTPS. The files should be named `fullchain.pem` for the certificate and `privkey.pem` for the private key.
 
 ## Configuration
 
@@ -34,18 +34,6 @@ The `HTTPS=true` setting forces [Create React App](https://create-react-app.dev/
 - `set "REACT_APP_NOT_SECRET_CODE=abcdef" && npm start` - add temporary enviroment variable in Windows cmd.exe
 - `($env:REACT_APP_NOT_SECRET_CODE = "abcdef") -and (npm start)` - add temporary enviroment variable in Windows Powershell
 - `yarn add <package> -D` to add development dependency
-
-## Run production build with Docker Compose:
-
-For Docker Compose instructions refer to `cracker-product` repository.
-
-## Run production build with Docker:
-
-1. `docker build -t cracker-client:v1 .` - build the client image
-2. `docker network create --driver bridge crackernet` - create the isolated network for Cracker app
-3. `docker run -d --net=crackernet --name crackback cracker-server:v1` - run the server image in the isolated network
-4. `docker run -d --net=crackernet -p 80:80 cracker-client:v1` - run the client image with Nginx proxy in the isolated network, but with exposed port 80
-5. `docker-machine ip default` - the website should be available at this IP
 
 ## Packages:
 
