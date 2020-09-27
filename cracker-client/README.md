@@ -12,8 +12,8 @@ Before starting the app please pepare a `.env` file which will include these val
     REACT_APP_AUTH0_CLIENT_ID="Auth0 user client ID"
     REACT_APP_AUDIENCE="http://your.api.identifier"
     HTTPS=true
-    SSL_CRT_FILE=crackerssl.crt
-    SSL_KEY_FILE=crackerssl.key
+    SSL_CRT_FILE=fullchain.pem
+    SSL_KEY_FILE=privkey.pem
 
 Example:
 
@@ -23,8 +23,8 @@ Example:
     REACT_APP_AUTH0_CLIENT_ID=i6mdgjdsjs45asdmfdg3453TADasdkaa
     REACT_APP_AUDIENCE=https://cracker.app
     HTTPS=true
-    SSL_CRT_FILE=crackerssl.crt
-    SSL_KEY_FILE=crackerssl.key
+    SSL_CRT_FILE=fullchain.pem
+    SSL_KEY_FILE=privkey.pem
 
 The `HTTPS=true` setting forces [Create React App](https://create-react-app.dev/docs/using-https-in-development/) to work in https.
 

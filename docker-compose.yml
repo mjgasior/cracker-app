@@ -27,8 +27,8 @@ services:
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true # Webpack uses Chokidar for watching changes - this forces the use of polling in a virtual machine
       - HTTPS=true
-      - SSL_CRT_FILE=nginx/crackerssl.crt
-      - SSL_KEY_FILE=nginx/crackerssl.key
+      - SSL_CRT_FILE=nginx/fullchain.pem
+      - SSL_KEY_FILE=nginx/privkey.pem
     volumes: # For webpack dev server to use our local files
       - ./cracker-client:/usr/src/app
     ports:
