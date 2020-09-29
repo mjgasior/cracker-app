@@ -5,6 +5,7 @@ import { verifyToken } from "./+setup/auth";
 import { schema } from "./schema";
 
 const server = new ApolloServer({
+  schema,
   cors: {
     credentials: true,
     origin: (origin, callback) => {
@@ -18,7 +19,6 @@ const server = new ApolloServer({
       }
     },
   },
-  schema,
   context: async ({ req, ...rest }) => {
     let isAuthenticated = false;
     try {

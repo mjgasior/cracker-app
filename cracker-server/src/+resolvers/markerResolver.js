@@ -1,15 +1,13 @@
 import { markerConnector } from "./+connectors/markerConnector";
-import { AuthenticationError } from "apollo-server";
+import { AuthenticationError, GraphQLUpload } from "apollo-server";
 import withAuth from "graphql-auth";
 
 export const MarkerResolver = {
+  Upload: GraphQLUpload,
   Query: {
     markers: markerConnector.getAll,
     getMarkers: async (_, { language }) => {
       return await markerConnector.get(language);
-    },
-    uploads: () => {
-      return null;
     },
   },
   Mutation: {
@@ -24,8 +22,7 @@ export const MarkerResolver = {
 
     singleUpload: withAuth(async (_, { file }) => {
       try {
-        console.log(JSON.stringify(file));
-        const { stream, filename, mimetype, encoding } = await file;
+        console.log("We got something");
 
         // 1. Validate file metadata.
 
@@ -34,9 +31,7 @@ export const MarkerResolver = {
 
         // 3. Record the file upload in your DB.
         // const id = await recordFile( … )
-        console.log(filename);
-
-        return { filename, mimetype, encoding };
+        return true;
       } catch (e) {
         console.error(e);
         throw new AuthenticationError("You must be logged in to do this");

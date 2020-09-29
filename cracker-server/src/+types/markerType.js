@@ -1,6 +1,8 @@
 import { gql } from "apollo-server";
 
 export const Marker = gql`
+  scalar Upload
+
   type Marker {
     _id: ID!
     latitude: Float
@@ -14,15 +16,9 @@ export const Marker = gql`
     description: String
   }
 
-  type File {
-    name: String!
-    type: String!
-  }
-
   extend type Query {
     markers: [Marker]
     getMarkers(language: String): [Marker]
-    uploads: [File]
   }
 
   input MarkerInput {
@@ -38,7 +34,7 @@ export const Marker = gql`
   }
 
   extend type Mutation {
-    singleUpload(file: Upload!): File!
+    singleUpload(file: Upload!): Boolean
     addMarker(marker: MarkerInput): Marker!
     removeMarker(id: ID): Marker!
     updateMarker(id: ID, marker: MarkerInput): Marker!
