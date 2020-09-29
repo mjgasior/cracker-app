@@ -1,6 +1,8 @@
 import { markerConnector } from "./+connectors/markerConnector";
 import { AuthenticationError, GraphQLUpload } from "apollo-server";
 import withAuth from "graphql-auth";
+import { createWriteStream, existsSync, mkdirSync } from "fs";
+import path from "path";
 
 export const MarkerResolver = {
   Upload: GraphQLUpload,
@@ -22,15 +24,15 @@ export const MarkerResolver = {
 
     singleUpload: withAuth(async (_, { file }) => {
       try {
-        console.log("We got something");
+        console.log("Recieved a file");
+        const { createReadStream, filename } = await file;
 
-        // 1. Validate file metadata.
+        await new Promise((res) =>
+          createReadStream()
+            .pipe(createWriteStream(path.join(__dirname, "./", filename)))
+            .on("close", res)
+        );
 
-        // 2. Stream file contents into cloud storage:
-        // https://nodejs.org/api/stream.html
-
-        // 3. Record the file upload in your DB.
-        // const id = await recordFile( … )
         return true;
       } catch (e) {
         console.error(e);
