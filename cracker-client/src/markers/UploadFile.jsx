@@ -1,5 +1,5 @@
 import React from "react";
-import { useApolloClient, useMutation } from "@apollo/react-hooks";
+import { useApolloClient, useMutation } from "@apollo/client";
 import gql from "graphql-tag";
 
 const SINGLE_UPLOAD_MUTATION = gql`
@@ -20,6 +20,7 @@ export const UploadFile = () => {
       files: [file],
     },
   }) => {
+    console.log("A new file");
     console.log(file);
     return (
       validity.valid &&

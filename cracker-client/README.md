@@ -44,6 +44,7 @@ The `HTTPS=true` setting forces [Create React App](https://create-react-app.dev/
 - `graphql` - the JavaScript reference implementation for GraphQL, a query language for APIs created by Facebook (provides logic for parsing GraphQL queries)
 - `leaflet` - open-source JavaScript library for mobile-friendly interactive maps based on OpenStreetMap
 - `leaflet-contextmenu` - just a context menu for Leaflet
+- `react-dropzone` - simple React hook to create a HTML5-compliant drag'n'drop zone for files
 - `react-leaflet` - this package provides an abstraction of 🍃 [Leaflet](https://leafletjs.com/reference-1.6.0.html) as ⚛️ React components.
 - `react-router-dom` - the standard routing library for React, keeps your UI in sync with the URL - it has a simple API with powerful features like lazy code loading, dynamic route matching, and location transition handling built right in (these are Document Object Model bindings for React Router)
 - `styled-components` - allows to write plain CSS in components without worrying about class name collisions, it helps to write CSS that's scoped to a single component and does not leak to any other element in the page

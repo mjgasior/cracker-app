@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from "react";
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  HttpLink,
-} from "@apollo/client";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { useAuth0 } from "@auth0/auth0-react";
+import { createUploadLink } from "apollo-upload-client";
 
 export const ApolloWrapper = ({ children }) => {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
@@ -20,7 +16,7 @@ export const ApolloWrapper = ({ children }) => {
     getToken();
   }, [isAuthenticated, setAccessToken, getAccessTokenSilently]);
 
-  const httpLink = new HttpLink({
+  const httpLink = createUploadLink({
     uri: process.env.REACT_APP_API_URL,
   });
 
