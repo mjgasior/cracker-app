@@ -29,6 +29,7 @@ export const ApolloWrapper = ({ children }) => {
       headers: {
         ...headers,
         authorization: `Bearer ${accessToken}`,
+        "Access-Control-Allow-Origin": "https://192.168.99.100:5000",
       },
     };
   });
