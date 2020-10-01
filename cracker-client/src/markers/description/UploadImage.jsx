@@ -9,7 +9,7 @@ const SINGLE_UPLOAD_MUTATION = gql`
   }
 `;
 
-export const UploadFile = () => {
+export const UploadImage = () => {
   const [uploadFile] = useMutation(SINGLE_UPLOAD_MUTATION);
 
   const onDrop = useCallback(

@@ -3,7 +3,6 @@ import { Row, Col } from "antd";
 import { MapView } from "./map/MapView";
 import { Description } from "./description/Description";
 import { MarkerContext } from "./+context/MarkerContext";
-import { UploadFile } from "./UploadFile";
 import { useUser } from "../+hooks/useUser";
 
 export const MarkersView = () => {
@@ -18,9 +17,6 @@ export const MarkersView = () => {
         </Col>
         <Col span={12}>
           <Description />
-        </Col>
-        <Col span={12}>
-          <UploadFile />
         </Col>
       </Row>
     </MarkerContext.Provider>
