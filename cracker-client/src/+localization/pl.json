@@ -28,6 +28,8 @@
     "saved_marker": "Nowy znacznik został zapisany pomyślnie.",
     "update": "Zaktualizuj",
     "updated": "Zaktualizowano",
-    "updated_marker": "Dane znacznika zostały zaktualizowane."
+    "updated_marker": "Dane znacznika zostały zaktualizowane.",
+    "upload_dragger": "Kliknij lub przeciągnij zdjęcie na ten obszar by wysłać",
+    "upload_dragger_hint": "Proszę przekazywać tutaj jedynie pojedyczne zdjęcia."
   }
 }

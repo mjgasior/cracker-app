@@ -27,10 +27,10 @@ export const MarkerResolver = {
         console.log("Recieved a file");
         const { createReadStream, filename } = await file;
 
+        const savePath = path.join(__dirname, "../../images", filename);
+
         await new Promise((res) =>
-          createReadStream()
-            .pipe(createWriteStream(path.join(__dirname, "./", filename)))
-            .on("close", res)
+          createReadStream().pipe(createWriteStream(savePath)).on("close", res)
         );
 
         return true;
