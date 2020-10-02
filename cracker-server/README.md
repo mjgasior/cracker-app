@@ -21,6 +21,8 @@ MONGODB_ADDRESS=192.168.99.100:27017
 CORS_WHITELIST="https://192.168.99.100"
 ```
 
+You can also define `IMAGE_DIRECTORY` variable to select the directory where the images should be saved. This path needs to be absolute. The default directory, which is used if this variable is not defined, is the `images` folder in `./cracker-server` directory.
+
 ## Snippets:
 
 - `docker exec -it container_id_or_name ash` - starting shell in the Docker Alpine container (Alpine doesn't have bash by default)

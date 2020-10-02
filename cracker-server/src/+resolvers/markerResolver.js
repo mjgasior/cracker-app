@@ -1,7 +1,7 @@
 import { markerConnector } from "./+connectors/markerConnector";
 import { AuthenticationError, GraphQLUpload } from "apollo-server";
 import withAuth from "graphql-auth";
-import { createWriteStream, existsSync, mkdirSync } from "fs";
+import { createWriteStream } from "fs";
 import path from "path";
 
 export const MarkerResolver = {
@@ -26,9 +26,15 @@ export const MarkerResolver = {
       try {
         console.log(`Recieved a file for ${id}`);
         const { createReadStream, filename } = await file;
-        console.log(`Current file filename: ${filename}`);
+        console.log(`Current file filename: ${JSON.stringify(filename)}`);
 
-        const savePath = path.join(__dirname, "../../images", filename);
+        const newFilename = `${id}${path.extname(filename)}`;
+
+        const imageSaveDirectory = process.env.IMAGE_DIRECTORY;
+        let savePath = path.join(__dirname, "../../images", newFilename);
+        if (imageSaveDirectory) {
+          savePath = path.join(imageSaveDirectory, newFilename);
+        }
 
         await new Promise((res) =>
           createReadStream().pipe(createWriteStream(savePath)).on("close", res)
