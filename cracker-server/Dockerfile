@@ -17,6 +17,8 @@ RUN npm install
 
 COPY . /src/app
 
+RUN mkdir -p /src/app/images
+
 EXPOSE 4000
 
 CMD ["npm", "start"]

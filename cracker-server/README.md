@@ -21,6 +21,8 @@ MONGODB_ADDRESS=192.168.99.100:27017
 CORS_WHITELIST="https://192.168.99.100"
 ```
 
+You can also define `IMAGE_DIRECTORY` variable to select the directory where the images should be saved. This path needs to be absolute. The default directory, which is used if this variable is not defined, is the `images` folder in `./cracker-server` directory (there is a `.gitignore` file which makes the `.jpg`, `.gif` and `.png` files not being sent to the repository). Files are renamed to selected marker id.
+
 ## Snippets:
 
 - `docker exec -it container_id_or_name ash` - starting shell in the Docker Alpine container (Alpine doesn't have bash by default)
@@ -60,5 +62,6 @@ CORS_WHITELIST="https://192.168.99.100"
 - [Create a GraphQL API with graphql-compose-mongoose](https://getstream.io/blog/tutorial-create-a-graphql-api-with-node-mongoose-and-express/)
 - [Dockerizing Node.js applications (online exercise)](https://www.katacoda.com/courses/docker/3# "Katacoda course")
 - [Enable ES6 (and beyond) syntax with Node and Express](https://www.freecodecamp.org/news/how-to-enable-es6-and-beyond-syntax-with-node-and-express-68d3e11fe1ab/)
+- [File Uploads with Apollo Server 2.0](https://www.apollographql.com/blog/file-uploads-with-apollo-server-2-0-5db2f3f60675/#File-upload-with-schema-param) (there is a bug that requires [scalar Upload](https://github.com/apollographql/apollo-server/issues/1317#issuecomment-403648624) to be defined for uploads to work properly)
 - [Modularizing GraphQL schema code](https://www.apollographql.com/blog/modularizing-your-graphql-schema-code-d7f71d5ed5f2)
 - [The Beginner’s Guide to using GraphQL with Node and Mongo](https://medium.com/@williamyang93/graphql-apollo-mongodb-mongoose-part-i-a727bb22f1f6)

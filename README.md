@@ -186,15 +186,6 @@ If you want to release from branch, you can use the `./scripts/release.sh` scrip
 - **Docker** - extension makes it easy to build, manage and deploy containerized applications from Visual Studio Code
 - **GitLens - Git supercharged** - adds the Git capabilities into Visual Studio Code, helps to visualize code authorship, navigate and explore Git repositories
 
-## Errors:
-
-You might get an error regarding the bash and curl packages for Alpine, something like this:
-
-    fetch http://dl-cdn.alpinelinux.org/alpine/v3.4/main/x86_64/APKINDEX.tar.gz
-    ERROR: http://dl-cdn.alpinelinux.org/alpine/v3.4/main: temporary error (try again later)
-
-As I found, this might be a [faulty DNS](https://github.com/gliderlabs/docker-alpine/issues/386 "GitHub issues") and a Docker machine restart might work (it fixed the problem for me).
-
 ## Resources:
 
 - [Adding custom claims in Auth0](https://auth0.com/docs/api-auth/tutorials/adoption/scope-custom-claims)

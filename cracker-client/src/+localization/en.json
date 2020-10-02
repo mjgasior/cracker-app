@@ -28,6 +28,8 @@
     "saved_marker": "The new marker was saved successfully.",
     "update": "Update",
     "updated": "Updated",
-    "updated_marker": "The marker was updated successfully."
+    "updated_marker": "The marker was updated successfully.",
+    "upload_dragger": "Click or drag image to this area to upload",
+    "upload_dragger_hint": "Please drag here only single image files."
   }
 }
