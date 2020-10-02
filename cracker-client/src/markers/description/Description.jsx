@@ -10,7 +10,7 @@ export const Description = () => {
     return (
       <>
         <MarkerForm marker={currentMarker} reset={reset} />
-        <UploadImage />
+        <UploadImage marker={currentMarker} />
       </>
     );
   }

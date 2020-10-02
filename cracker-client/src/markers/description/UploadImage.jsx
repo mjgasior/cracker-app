@@ -8,18 +8,18 @@ import { InboxOutlined } from "@ant-design/icons";
 const { Dragger } = Upload;
 
 const SINGLE_UPLOAD_MUTATION = gql`
-  mutation singleUpload($file: Upload!) {
-    singleUpload(file: $file)
+  mutation singleUpload($id: ID, $file: Upload!) {
+    singleUpload(id: $id, file: $file)
   }
 `;
 
-export const UploadImage = () => {
+export const UploadImage = ({ marker }) => {
   const { t } = useTranslation();
   const [uploadFile] = useMutation(SINGLE_UPLOAD_MUTATION);
 
   const onDrop = useCallback(
-    ({ file }) => uploadFile({ variables: { file } }),
-    [uploadFile]
+    ({ file }) => uploadFile({ variables: { file, id: marker._id } }),
+    [uploadFile, marker]
   );
 
   return (

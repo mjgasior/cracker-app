@@ -22,10 +22,11 @@ export const MarkerResolver = {
       }
     }),
 
-    singleUpload: withAuth(async (_, { file }) => {
+    singleUpload: withAuth(async (_, { id, file }) => {
       try {
-        console.log("Recieved a file");
+        console.log(`Recieved a file for ${id}`);
         const { createReadStream, filename } = await file;
+        console.log(`Current file filename: ${filename}`);
 
         const savePath = path.join(__dirname, "../../images", filename);
 
