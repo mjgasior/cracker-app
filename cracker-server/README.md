@@ -21,7 +21,7 @@ MONGODB_ADDRESS=192.168.99.100:27017
 CORS_WHITELIST="https://192.168.99.100"
 ```
 
-You can also define `IMAGE_DIRECTORY` variable to select the directory where the images should be saved. This path needs to be absolute. The default directory, which is used if this variable is not defined, is the `images` folder in `./cracker-server` directory.
+You can also define `IMAGE_DIRECTORY` variable to select the directory where the images should be saved. This path needs to be absolute. The default directory, which is used if this variable is not defined, is the `images` folder in `./cracker-server` directory (there is a `.gitignore` file which makes the `.jpg`, `.gif` and `.png` files not being sent to the repository). Files are renamed to selected marker id.
 
 ## Snippets:
 

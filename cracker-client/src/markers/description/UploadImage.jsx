@@ -18,17 +18,24 @@ export const UploadImage = ({ marker }) => {
   const [uploadFile] = useMutation(SINGLE_UPLOAD_MUTATION);
 
   const onDrop = useCallback(
-    ({ file }) => uploadFile({ variables: { file, id: marker._id } }),
+    async ({ file, onSuccess }) => {
+      const isDone = await uploadFile({ variables: { file, id: marker._id } });
+      if (isDone) {
+        onSuccess("Ok");
+      }
+    },
     [uploadFile, marker]
   );
 
   return (
-    <Dragger accept={"image/*"} multiple={false} customRequest={onDrop}>
-      <p className="ant-upload-drag-icon">
-        <InboxOutlined />
-      </p>
-      <p className="ant-upload-text">{t("upload_dragger")}</p>
-      <p className="ant-upload-hint">{t("upload_dragger_hint")}</p>
-    </Dragger>
+    <div>
+      <Dragger accept={"image/*"} multiple={false} customRequest={onDrop}>
+        <p className="ant-upload-drag-icon">
+          <InboxOutlined />
+        </p>
+        <p className="ant-upload-text">{t("upload_dragger")}</p>
+        <p className="ant-upload-hint">{t("upload_dragger_hint")}</p>
+      </Dragger>
+    </div>
   );
 };
