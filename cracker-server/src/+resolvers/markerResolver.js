@@ -1,5 +1,5 @@
 import { markerConnector } from "./+connectors/markerConnector";
-import { AuthenticationError, GraphQLUpload } from "apollo-server";
+import { AuthenticationError, GraphQLUpload } from "apollo-server-express";
 import withAuth from "graphql-auth";
 import { createWriteStream } from "fs";
 import path from "path";
