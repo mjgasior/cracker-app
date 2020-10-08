@@ -7,7 +7,6 @@
 Before starting the app please pepare a `.env` file which will include these values:
 
     REACT_APP_API_URL="address of Apollo GQL backend"
-    REACT_APP_AUTH0_REDIRECT="address of the app seen from Auth0 perspective"
     REACT_APP_AUTH0_DOMAIN="Auth0 user domain"
     REACT_APP_AUTH0_CLIENT_ID="Auth0 user client ID"
     REACT_APP_AUDIENCE="http://your.api.identifier"
@@ -18,7 +17,6 @@ Before starting the app please pepare a `.env` file which will include these val
 Example:
 
     REACT_APP_API_URL=http://192.168.99.100/api
-    REACT_APP_AUTH0_REDIRECT=http://192.168.99.100
     REACT_APP_AUTH0_DOMAIN=domain.region.auth0.com
     REACT_APP_AUTH0_CLIENT_ID=i6mdgjdsjs45asdmfdg3453TADasdkaa
     REACT_APP_AUDIENCE=https://cracker.app

@@ -3,7 +3,6 @@
     "admin_rights": "You have admin rights. You can add markers.",
     "admin_rights_lack": "You don't have admin rights. Please ask for admin rights to add markers.",
     "current_api_url": "Current API URL",
-    "current_auth0": "Current Auth0 origin",
     "current_build": "Current build",
     "delete": "Delete",
     "deleted": "Deleted",
