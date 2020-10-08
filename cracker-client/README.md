@@ -24,7 +24,7 @@ Example:
     SSL_CRT_FILE=fullchain.pem
     SSL_KEY_FILE=privkey.pem
 
-The `HTTPS=true` setting forces [Create React App](https://create-react-app.dev/docs/using-https-in-development/) to work in https.
+The `HTTPS=true` setting forces [Create React App](https://create-react-app.dev/docs/using-https-in-development/) to work in https. If you are using `cracker-proxy`, this setting should be deleted, because the SSL/HTTPS termination is being done there.
 
 ## Snippets:
 
