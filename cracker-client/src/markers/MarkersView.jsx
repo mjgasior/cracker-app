@@ -19,6 +19,11 @@ export const MarkersView = () => {
           <Description />
         </Col>
       </Row>
+      {currentMarker && <Row>
+        <Col span={12}>
+          <img src={`/images/${currentMarker._id}.jpg`}/>
+        </Col>
+      </Row>}
     </MarkerContext.Provider>
   );
 };
