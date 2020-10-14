@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { getLanguage } from "./../../+localization/i18n";
+import { getLanguage } from "../+localization/i18n";
 
 export const useCurrentLanguage = () => {
   const { i18n } = useTranslation();

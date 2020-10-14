@@ -20,11 +20,13 @@ export const MarkersView = () => {
           <Description />
         </Col>
       </Row>
-      {currentMarker && <Row>
-        <Col span={12}>
-          <Image filename={currentMarker.imageFilename} description="Bbb" />
-        </Col>
-      </Row>}
+      {currentMarker && (
+        <Row>
+          <Col span={12}>
+            <Image marker={currentMarker} />
+          </Col>
+        </Row>
+      )}
     </MarkerContext.Provider>
   );
 };

@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { List, Avatar, Skeleton } from "antd";
 import { useMarkers } from "./+hooks/useMarkers";
-import { useCurrentLanguage } from "./+hooks/useCurrentLanguage";
 import { useHistory } from "react-router-dom";
+import { useCurrentLanguage } from "../+hooks/useCurrentLanguage";
 
 const StyledAvatar = styled(Avatar)`
   color: #bbb;
