@@ -40,6 +40,7 @@ export const MARKERS = gql`
       _id
       latitude
       longitude
+      imageFilename
       polish {
         name
         description

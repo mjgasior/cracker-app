@@ -9,6 +9,7 @@ export const Marker = gql`
     longitude: Float
     english: Description
     polish: Description
+    imageFilename: String
   }
 
   type Description {
