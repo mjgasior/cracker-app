@@ -1,4 +1,4 @@
-import { gql } from "apollo-server";
+import { gql } from "apollo-server-express";
 
 export const Marker = gql`
   scalar Upload
@@ -9,6 +9,7 @@ export const Marker = gql`
     longitude: Float
     english: Description
     polish: Description
+    imageFilename: String
   }
 
   type Description {

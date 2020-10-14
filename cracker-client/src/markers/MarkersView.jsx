@@ -4,6 +4,7 @@ import { MapView } from "./map/MapView";
 import { Description } from "./description/Description";
 import { MarkerContext } from "./+context/MarkerContext";
 import { useUser } from "../+hooks/useUser";
+import { Image } from "./+components/Image";
 
 export const MarkersView = () => {
   const { isAdmin } = useUser();
@@ -19,6 +20,11 @@ export const MarkersView = () => {
           <Description />
         </Col>
       </Row>
+      {currentMarker && <Row>
+        <Col span={12}>
+          <Image filename={currentMarker.imageFilename} description="Bbb" />
+        </Col>
+      </Row>}
     </MarkerContext.Provider>
   );
 };

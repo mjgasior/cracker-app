@@ -1,4 +1,4 @@
-import { gql } from "apollo-server";
+import { gql } from "apollo-server-express";
 import { makeExecutableSchema } from "graphql-tools";
 
 import { Marker } from "./+types/markerType";

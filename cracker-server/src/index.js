@@ -1,6 +1,7 @@
 import "./+setup/config";
 import "./+setup/db";
-import { ApolloServer } from "apollo-server";
+import { ApolloServer } from "apollo-server-express";
+import express from 'express';
 import { verifyToken } from "./+setup/auth";
 import { schema } from "./schema";
 
@@ -35,10 +36,6 @@ const server = new ApolloServer({
   },
 });
 
-server.listen().then(({ url }) => {
-  console.log(`🚀 Server ready at ${url}`);
-});
-
 const getTokenWithouthBearer = (authorizationHeader) => {
   return authorizationHeader.split(" ")[1];
 };
@@ -46,3 +43,12 @@ const getTokenWithouthBearer = (authorizationHeader) => {
 const isPayloadValid = (payload) => {
   return payload && payload.sub;
 };
+
+const app = express();
+server.applyMiddleware({ app });
+
+app.use('/images', express.static("images"));
+
+app.listen({ port: 4000 }, () =>
+  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
+);

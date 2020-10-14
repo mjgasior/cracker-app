@@ -1,5 +1,5 @@
 import { markerConnector } from "./+connectors/markerConnector";
-import { AuthenticationError, GraphQLUpload } from "apollo-server";
+import { AuthenticationError, GraphQLUpload } from "apollo-server-express";
 import withAuth from "graphql-auth";
 import { createWriteStream } from "fs";
 import path from "path";
@@ -9,7 +9,7 @@ export const MarkerResolver = {
   Query: {
     markers: markerConnector.getAll,
     getMarkers: async (_, { language }) => {
-      return await markerConnector.get(language);
+      return await markerConnector.getAllByLanguage(language);
     },
   },
   Mutation: {
@@ -37,8 +37,17 @@ export const MarkerResolver = {
         }
 
         await new Promise((res) =>
-          createReadStream().pipe(createWriteStream(savePath)).on("close", res)
+          createReadStream()
+            .pipe(createWriteStream(savePath))
+            .on("close", res)
         );
+
+        console.log(`File ${newFilename} saved, updating the filename in database.`);
+        const marker = await markerConnector.get(id);
+        console.log(JSON.stringify(marker));
+        marker.imageFilename = newFilename;
+        markerConnector.update(id, marker);
+        console.log(`Saving and updating of ${newFilename} completed.`);
 
         return true;
       } catch (e) {

@@ -23,7 +23,14 @@ export const markerConnector = {
       return e.message;
     }
   },
-  get: async (language) => {
+  get: async (markerId) => {
+    return await Marker.findById(markerId);
+  },
+  getAll: async () => {
+    const markers = await Marker.find({}).exec();
+    return markers;
+  },
+  getAllByLanguage: async (language) => {
     const sortObject = {};
     sortObject[`${language}.name`] = 1;
 
@@ -32,10 +39,6 @@ export const markerConnector = {
       .sort(sortObject)
       .exec();
 
-    return markers;
-  },
-  getAll: async () => {
-    const markers = await Marker.find({}).exec();
     return markers;
   },
 };

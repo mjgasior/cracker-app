@@ -5,6 +5,7 @@ const { Schema } = mongoose;
 const markerSchema = new Schema({
   latitude: Number,
   longitude: Number,
+  imageFilename: String,
   english: { name: String, description: String },
   polish: { name: String, description: String },
 });

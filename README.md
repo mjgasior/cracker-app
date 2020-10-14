@@ -70,7 +70,7 @@ In production mode, Cracker app uses Nginx to serve the React static files and r
 
 A problem emerges in local development mode where we would want to utilize all the benefits of Webpack hosting React files and providing HTTPS. Because Apollo backend API doesn't have HTTPS defined, the direct calls from React client to Apollo backend would be blocked by the browser due to [mixed content](https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content/How_to_fix_website_with_mixed_content) (one can't call HTTP endpoint while being hosted with HTTPS). That is why we have an additional container - `cracker-proxy` which handles the HTTPS termination for communication with the backend.
 
-The proxy listens on `:5000` port with HTTPS and proxies the traffic with HTTP to port `:4000` of Apollo API. The API and the Apollo GQL playground are still available with a direct `:4000` call.
+The proxy listens on `/api` with HTTPS and proxies the traffic with HTTP to port `:4000` of Apollo API. The API and the Apollo GQL playground are still available with a direct `:4000` call.
 
 1. Use [this](https://medium.com/the-new-control-plane/generating-self-signed-certificates-on-windows-7812a600c2d8) instruction to generate SSL certificates (I have used Windows OpenSSL alternative which is available [here](https://slproweb.com/products/Win32OpenSSL.html) - everything is described in the instruction provided previously). Keep the name of the certificate `fullchain.pem` and `privkey.pem` for the private key, for example, using OpenSSL:
 
@@ -113,7 +113,6 @@ CORS_WHITELIST="https://example.com https://192.168.99.100"
 
 ```
 REACT_APP_API_URL="address of Apollo GQL backend"
-REACT_APP_AUTH0_REDIRECT="address of the app seen from Auth0 perspective"
 REACT_APP_AUTH0_DOMAIN="Auth0 user domain"
 REACT_APP_AUTH0_CLIENT_ID="Auth0 user client ID"
 REACT_APP_AUDIENCE="http://your.api.identifier"
@@ -121,13 +120,12 @@ REACT_APP_AUDIENCE="http://your.api.identifier"
 
 Remember that while setting `REACT_APP_API_URL` in local development, the client container does not have `nginx` - that means that `cracker-server` is available as `:4000` HTTP and not `/api` HTTPS. Apollo GQL Playground should be available after start at `:4000` (if you use `VirtualBox`, the address can be `http://192.168.99.100:4000/` and for regular `Docker` development either `http://127.0.0.1:4000/` or `http://localhost:4000/`).
 
-On the other hand, the `:3000` port for Webpack React development is mapped in `docker-compose.yml` to standard HTTP `:443` HTTPS port, so the app is visible for Auth0 as (for example) `https://127.0.0.1/` - keep that in mind while setting the `REACT_APP_AUTH0_REDIRECT` value (go to [cracker-client](https://github.com/mjgasior/cracker-app/tree/master/cracker-client) to read more on how to configure custom SSL certificates for HTTPS local development if necessary).
+On the other hand, the `:3000` port for Webpack React development is mapped in `docker-compose.yml` to standard HTTP `:443` HTTPS port, so the app is visible for Auth0 as (for example) `https://127.0.0.1/` (go to [cracker-client](https://github.com/mjgasior/cracker-app/tree/master/cracker-client) to read more on how to configure custom SSL certificates for HTTPS local development if necessary).
 
 Example of local development `.env` for `cracker-client`:
 
 ```
 REACT_APP_API_URL=http://127.0.0.1:4000
-REACT_APP_AUTH0_REDIRECT=https://127.0.0.1
 REACT_APP_AUTH0_DOMAIN=domain.region.auth0.com
 REACT_APP_AUTH0_CLIENT_ID=i6mdgjdsjs45asdmfdg3453TADasdkaa
 REACT_APP_AUDIENCE=https://cracker.app
@@ -147,7 +145,7 @@ You can use the `setup.sh` script to setup a new instance on Lightsail autmatica
 
 0. Remember to set up proper Auth0 (client ID and the domain) values in `cracker-client` and `cracker-server`.
 1. Put the SSL certificates for HTTPS next to `nginx` configuration in `cracker-client/nginx` directory. The names should be `fullchain.pem` and `privkey.pem` for private key.
-2. Set proper IP address of the API in `.env` file in `cracker-client` for new Lightsail instance (for example `REACT_APP_API_URL=https://18.196.197.102/api` and `REACT_APP_AUTH0_REDIRECT=https://18.196.197.102`).
+2. Set proper IP address of the API in `.env` file in `cracker-client` for new Lightsail instance (for example `REACT_APP_API_URL=https://18.196.197.102/api`).
 3. Run `docker-compose -f docker-compose.prod.yml build`
 4. Run `docker-compose -f docker-compose.prod.yml up`
 
