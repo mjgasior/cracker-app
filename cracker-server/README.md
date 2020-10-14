@@ -42,7 +42,7 @@ You can also define `IMAGE_DIRECTORY` variable to select the directory where the
 - `@babel/core` - toolchain that is mainly used to convert ECMAScript 2015+ (ES6) code into a backwards compatible version of JavaScript in current and older browsers or environments
 - `@babel/node` - Command Line Interface (CLI) that works exactly the same as the Node.js CLI, with the added benefit of compiling with Babel presets and plugins before running it
 - `@babel/preset-env` - is a smart preset that allows you to use the latest JavaScript without needing to micromanage which syntax transforms (and optionally, browser polyfills) are needed by your target environment
-- `apollo-server` - the core library for Apollo Server itself, which helps you define the shape of your data and how to fetch it
+- `apollo-server-express` - this is the Express and Connect integration of Apollo GraphQL Server
 - `dotenv` - a zero-dependency module that loads environment variables from a `.env` file into `process.env`
 - `graphql` - the library used to build a GraphQL schema and execute queries against it
 - `graphql-auth` - a very simple middleware that easily integrates with any GraphQL server that follows the GraphQL API for resolvers
