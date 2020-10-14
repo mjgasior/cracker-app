@@ -27,15 +27,18 @@ export const UploadImage = ({ marker }) => {
     [uploadFile, marker]
   );
 
-  return (
-    <div>
-      <Dragger accept={"image/*"} multiple={false} customRequest={onDrop}>
-        <p className="ant-upload-drag-icon">
-          <InboxOutlined />
-        </p>
-        <p className="ant-upload-text">{t("upload_dragger")}</p>
-        <p className="ant-upload-hint">{t("upload_dragger_hint")}</p>
-      </Dragger>
-    </div>
-  );
+  if (marker._id) {
+    return (
+      <div>
+        <Dragger accept={"image/*"} multiple={false} customRequest={onDrop}>
+          <p className="ant-upload-drag-icon">
+            <InboxOutlined />
+          </p>
+          <p className="ant-upload-text">{t("upload_dragger")}</p>
+          <p className="ant-upload-hint">{t("upload_dragger_hint")}</p>
+        </Dragger>
+      </div>
+    );
+  }
+  return null;
 };

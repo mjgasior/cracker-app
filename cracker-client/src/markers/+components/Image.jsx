@@ -3,7 +3,11 @@ import { useCurrentLanguage } from "../../+hooks/useCurrentLanguage";
 
 export const Image = ({ marker }) => {
   const currentLanguage = useCurrentLanguage();
-  const { name } = marker[currentLanguage];
   const { imageFilename } = marker;
-  return imageFilename && <img src={`/images/${imageFilename}`} alt={name} />;
+  if (imageFilename) {
+    const { name } = marker[currentLanguage];
+    const { imageFilename } = marker;
+    return <img src={`/images/${imageFilename}`} alt={name} />;
+  }
+  return null;
 };
