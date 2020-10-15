@@ -7,7 +7,7 @@ export const Image = ({ marker }) => {
   if (imageFilename) {
     const { name } = marker[currentLanguage];
     const { imageFilename } = marker;
-    return <img src={`/images/${imageFilename}`} alt={name} />;
+    return <img src={`/images/${imageFilename}?w=300&h=200`} alt={name} />;
   }
   return null;
 };
