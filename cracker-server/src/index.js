@@ -4,6 +4,7 @@ import { ApolloServer } from "apollo-server-express";
 import express from "express";
 import { verifyToken } from "./+setup/auth";
 import { schema } from "./schema";
+import { resizeImage } from "./+services/imageService";
 
 const server = new ApolloServer({
   schema,
@@ -52,7 +53,9 @@ app.use("/images", (req, res, next) => {
   console.log(JSON.stringify(req.query.w));
   console.log(JSON.stringify(req.query.h));
   if (req.query.w && req.query.h) {
-    express.static("images")(req, res, next);
+    console.log(JSON.stringify(req.originalUrl));
+    console.log(JSON.stringify(req.path));
+    resizeImage(req, res, next);
   } else {
     express.static("images")(req, res, next);
   }
