@@ -2,9 +2,12 @@ import "./+setup/config";
 import "./+setup/db";
 import { ApolloServer } from "apollo-server-express";
 import express from "express";
-import { verifyToken } from "./+setup/auth";
 import { schema } from "./schema";
 import { resizeImage } from "./+services/imageService";
+import {
+  getIsAuthenticated,
+  hasAuthCookie,
+} from "./+services/authorizationService";
 
 const server = new ApolloServer({
   schema,
@@ -22,36 +25,23 @@ const server = new ApolloServer({
     },
   },
   context: async ({ req, ...rest }) => {
-    let isAuthenticated = false;
-    try {
-      const authorizationHeader = req.headers.authorization || "";
-      if (authorizationHeader) {
-        const token = getTokenWithouthBearer(authorizationHeader);
-        const payload = await verifyToken(token);
-        isAuthenticated = isPayloadValid(payload) ? true : false;
-      }
-    } catch (error) {
-      console.error(error);
-    }
+    const isAuthenticated = await getIsAuthenticated(req);
     return { ...rest, req, auth: { isAuthenticated } };
   },
 });
-
-const getTokenWithouthBearer = (authorizationHeader) => {
-  return authorizationHeader.split(" ")[1];
-};
-
-const isPayloadValid = (payload) => {
-  return payload && payload.sub;
-};
 
 const app = express();
 server.applyMiddleware({ app });
 
 app.use("/images", async (req, res, next) => {
+  const isAuthenticated = hasAuthCookie(req);
+
+  if (!isAuthenticated) {
+    res.status(403).end();
+    return;
+  }
+
   if (req.query.w && req.query.h) {
-    console.log(JSON.stringify(req.originalUrl));
-    console.log(JSON.stringify(req.path));
     await resizeImage(req, res, next);
   } else {
     express.static("images")(req, res, next);
