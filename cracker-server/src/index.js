@@ -48,14 +48,11 @@ const isPayloadValid = (payload) => {
 const app = express();
 server.applyMiddleware({ app });
 
-app.use("/images", (req, res, next) => {
-  console.log(JSON.stringify(req.query));
-  console.log(JSON.stringify(req.query.w));
-  console.log(JSON.stringify(req.query.h));
+app.use("/images", async (req, res, next) => {
   if (req.query.w && req.query.h) {
     console.log(JSON.stringify(req.originalUrl));
     console.log(JSON.stringify(req.path));
-    resizeImage(req, res, next);
+    await resizeImage(req, res, next);
   } else {
     express.static("images")(req, res, next);
   }
