@@ -132,8 +132,8 @@ REACT_APP_AUDIENCE=https://cracker.app
 
 ```
 
-3. Run `yarn` in `cracker-client`.
-4. Run `yarn` in `cracker-server`.
+3. Run `npm install` in `cracker-client`.
+4. Run `npm install` in `cracker-server` (if you are running this on Windows, there might be a conflict of environments for `Sharp` package - please read the error section README for `cracker-server`).
 5. Run `docker-compose build`.
 6. Run `docker-compose up`.
 
