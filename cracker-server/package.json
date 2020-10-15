@@ -17,6 +17,7 @@
   "dependencies": {
     "apollo-server-express": "^2.18.2",
     "dotenv": "^8.2.0",
+    "gm": "^1.23.1",
     "graphql": "^15.3.0",
     "graphql-auth": "^1.0.0",
     "jsonwebtoken": "^8.5.1",

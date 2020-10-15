@@ -1,7 +1,7 @@
 import "./+setup/config";
 import "./+setup/db";
 import { ApolloServer } from "apollo-server-express";
-import express from 'express';
+import express from "express";
 import { verifyToken } from "./+setup/auth";
 import { schema } from "./schema";
 
@@ -47,7 +47,16 @@ const isPayloadValid = (payload) => {
 const app = express();
 server.applyMiddleware({ app });
 
-app.use('/images', express.static("images"));
+app.use("/images", (req, res, next) => {
+  console.log(JSON.stringify(req.query));
+  console.log(JSON.stringify(req.query.w));
+  console.log(JSON.stringify(req.query.h));
+  if (req.query.w && req.query.h) {
+    express.static("images")(req, res, next);
+  } else {
+    express.static("images")(req, res, next);
+  }
+});
 
 app.listen({ port: 4000 }, () =>
   console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
