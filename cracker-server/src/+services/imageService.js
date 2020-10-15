@@ -1,5 +1,5 @@
 import express from "express";
-// import sharp from "sharp";
+import sharp from "sharp";
 import path from "path";
 
 export const resizeImage = (req, res, next) => {
@@ -8,13 +8,11 @@ export const resizeImage = (req, res, next) => {
   const filepath = path.join(__dirname, `../../images${req.path}`);
   console.log(filepath);
 
-  /*
-  sharp(inputBuffer)
+  sharp(filepath)
     .resize(320, 240)
     .toFile("output.webp", (err, info) => {
       console.log("DONE");
     });
-    */
 
   express.static("images")(req, res, next);
 };

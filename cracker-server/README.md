@@ -50,10 +50,23 @@ You can also define `IMAGE_DIRECTORY` variable to select the directory where the
 - `jwks-rsa` - a library to retrieve RSA public keys from a JWKS (JSON Web Key Set) endpoint to verify the token with the public key
 - `nodemon` - a utility that will monitor for any changes in your source and automatically restart your server
 - `mongoose` - mongodb object modeling for node.js
+- `sharp` - high speed Node.js module to convert large images in common formats to smaller, web-friendly JPEG, PNG and WebP images of varying dimensions
 
 ## Visual Studio Code extensions:
 
 - **Apollo GraphQL** - rich editor support for GraphQL client and server development that seamlessly integrates with the Apollo platform
+
+## Errors:
+
+```
+cracker-server-dev | Error: 'linux-x64' binaries cannot be used on the 'linuxmusl-x64' platform. Please remove the 'node_modules/sharp' directory and run 'npm install' on the 'linuxmusl-x64' platform.
+```
+
+There might be a [mismatch between environments](https://github.com/lovell/sharp/issues/1459#issuecomment-439352107) because of running `npm install` on Windows and then, running the app in Docker on Linux. If such error occurs, after `npm install` on Windows you need to run:
+
+```
+npm install --arch=x64 --platform=linuxmusl --target=8.10.0 sharp
+```
 
 ## Resources:
 
