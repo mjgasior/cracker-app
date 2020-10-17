@@ -5,9 +5,11 @@ import { Description } from "./description/Description";
 import { MarkerContext } from "./+context/MarkerContext";
 import { useUser } from "../+hooks/useUser";
 import { Image } from "./+components/Image";
-import { useParams } from "react-router-dom";
+import { Route, Switch, useParams, useRouteMatch } from "react-router-dom";
+import { Foo } from "./Foo";
 
 export const MarkersView = () => {
+  let { path } = useRouteMatch();
   const items = useParams();
   const { isAdmin } = useUser();
   const [currentMarker, setCurrentMarker] = useState(null);
@@ -27,6 +29,11 @@ export const MarkersView = () => {
         <Row>
           <Col span={12}>
             <Image marker={currentMarker} width={300} height={200} />
+          </Col>
+          <Col span={12}>
+            <Switch>
+              <Route path={`${path}/:markerid`} component={Foo} />
+            </Switch>
           </Col>
         </Row>
       )}
