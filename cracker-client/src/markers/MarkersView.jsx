@@ -5,10 +5,13 @@ import { Description } from "./description/Description";
 import { MarkerContext } from "./+context/MarkerContext";
 import { useUser } from "../+hooks/useUser";
 import { Image } from "./+components/Image";
+import { useParams } from "react-router-dom";
 
 export const MarkersView = () => {
+  const items = useParams();
   const { isAdmin } = useUser();
   const [currentMarker, setCurrentMarker] = useState(null);
+  console.log(items);
 
   return (
     <MarkerContext.Provider value={{ currentMarker, setCurrentMarker }}>

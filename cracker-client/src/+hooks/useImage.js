@@ -23,7 +23,7 @@ export const useImage = (imageFilename, width, height) => {
     if (accessToken && imageFilename) {
       fetchImage();
     }
-  }, [accessToken, setImage, imageFilename]);
+  }, [accessToken, setImage, imageFilename, width, height]);
 
   return image;
 };
