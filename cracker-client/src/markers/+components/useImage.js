@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { useAccessToken } from "../../+hooks/useAccessToken";
 
-export const useImage = (imageFilename) => {
+export const useImage = (imageFilename, width, height) => {
   const [image, setImage] = useState();
   const accessToken = useAccessToken();
 
   useEffect(() => {
     const fetchImage = async () => {
-      fetch(`/images/${imageFilename}?w=300&h=200`, {
+      fetch(`/images/${imageFilename}?w=${width}&h=${height}`, {
         headers: { authorization: `Bearer ${accessToken}` },
       })
         .then(validateResponse)
