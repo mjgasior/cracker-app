@@ -1,14 +1,10 @@
 import React from "react";
-import styled from "styled-components";
 import { Avatar } from "antd";
 import { useImage } from "../+hooks/useImage";
 
-const StyledAvatar = styled(Avatar)`
-  color: #bbb;
-  background-color: #ffd42a;
-`;
+const AVATAR_SIZE = 32;
 
 export const ImageAvatar = ({ imageFilename }) => {
-  const image = useImage(imageFilename, 32, 32);
+  const image = useImage(imageFilename, AVATAR_SIZE, AVATAR_SIZE);
   return <Avatar src={image} />;
 };
