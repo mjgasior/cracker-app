@@ -21,6 +21,7 @@
     "graphql-auth": "^1.0.0",
     "jsonwebtoken": "^8.5.1",
     "jwks-rsa": "^1.10.1",
-    "mongoose": "^5.10.7"
+    "mongoose": "^5.10.7",
+    "sharp": "^0.26.2"
   }
 }
