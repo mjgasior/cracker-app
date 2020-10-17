@@ -2,11 +2,11 @@ import React from "react";
 import { useCurrentLanguage } from "../../+hooks/useCurrentLanguage";
 import { useImage } from "./useImage";
 
-export const Image = ({ marker }) => {
+export const Image = ({ marker, width, height }) => {
   const { imageFilename } = marker;
 
   const currentLanguage = useCurrentLanguage();
-  const image = useImage(imageFilename, 300, 200);
+  const image = useImage(imageFilename, width, height);
 
   if (image) {
     const { name } = marker[currentLanguage];
