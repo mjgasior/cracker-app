@@ -1,6 +1,6 @@
 import React from "react";
 import { useCurrentLanguage } from "../../+hooks/useCurrentLanguage";
-import { useImage } from "./useImage";
+import { useImage } from "../../+hooks/useImage";
 
 export const Image = ({ marker, width, height }) => {
   const { imageFilename } = marker;

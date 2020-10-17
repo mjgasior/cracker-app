@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useAccessToken } from "../../+hooks/useAccessToken";
+import { useAccessToken } from "./useAccessToken";
 
 export const useImage = (imageFilename, width, height) => {
   const [image, setImage] = useState();
@@ -7,7 +7,12 @@ export const useImage = (imageFilename, width, height) => {
 
   useEffect(() => {
     const fetchImage = async () => {
-      fetch(`/images/${imageFilename}?w=${width}&h=${height}`, {
+      let url = `/images/${imageFilename}`;
+      if (width && height) {
+        url = `/images/${imageFilename}?w=${width}&h=${height}`;
+      }
+
+      fetch(url, {
         headers: { authorization: `Bearer ${accessToken}` },
       })
         .then(validateResponse)
