@@ -23,7 +23,7 @@ export const MarkersView = () => {
       {currentMarker && (
         <Row>
           <Col span={12}>
-            <Image marker={currentMarker} />
+            <Image marker={currentMarker} width={300} height={200} />
           </Col>
         </Row>
       )}

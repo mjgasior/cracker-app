@@ -1,14 +1,9 @@
 import React from "react";
-import styled from "styled-components";
-import { List, Avatar, Skeleton } from "antd";
+import { List, Skeleton } from "antd";
 import { useMarkers } from "./+hooks/useMarkers";
 import { useHistory } from "react-router-dom";
 import { useCurrentLanguage } from "../+hooks/useCurrentLanguage";
-
-const StyledAvatar = styled(Avatar)`
-  color: #bbb;
-  background-color: #ffd42a;
-`;
+import { MarkerAvatar } from "./MarkerAvatar";
 
 export const MarkersListView = () => {
   const history = useHistory();
@@ -23,9 +18,10 @@ export const MarkersListView = () => {
           <List.Item>
             <List.Item.Meta
               avatar={
-                <StyledAvatar>
-                  {item[currentLanguage].name[0].toUpperCase()}
-                </StyledAvatar>
+                <MarkerAvatar
+                  name={item[currentLanguage].name[0]}
+                  imageFilename={item.imageFilename}
+                />
               }
               title={
                 <button onClick={() => history.push(`markers/${item._id}`)}>
