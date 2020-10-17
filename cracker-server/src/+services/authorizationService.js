@@ -22,10 +22,3 @@ export const getIsAuthenticated = async (req) => {
   }
   return isAuthenticated;
 };
-
-export const hasAuthCookie = (req) => {
-  return (
-    req.headers.cookie &&
-    req.headers.cookie.includes("auth0.is.authenticated=true")
-  );
-};

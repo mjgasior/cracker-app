@@ -4,10 +4,7 @@ import { ApolloServer } from "apollo-server-express";
 import express from "express";
 import { schema } from "./schema";
 import { resizeImage } from "./+services/imageService";
-import {
-  getIsAuthenticated,
-  hasAuthCookie,
-} from "./+services/authorizationService";
+import { getIsAuthenticated } from "./+services/authorizationService";
 
 const server = new ApolloServer({
   schema,
@@ -34,7 +31,7 @@ const app = express();
 server.applyMiddleware({ app });
 
 app.use("/images", async (req, res, next) => {
-  const isAuthenticated = hasAuthCookie(req);
+  const isAuthenticated = await getIsAuthenticated(req);
 
   if (!isAuthenticated) {
     res.status(403).end();
