@@ -2,8 +2,6 @@ import React, { useCallback } from "react";
 import { Map, Marker, TileLayer } from "react-leaflet";
 import { Icon } from "leaflet";
 import { MapContainer } from "./+components/MapContainer";
-import { useMarkers } from "../+hooks/useMarkers";
-import { useMarkerContext } from "../+hooks/useMarkerContext";
 import { useHistory, useRouteMatch } from "react-router-dom";
 
 const icon = new Icon({
@@ -22,11 +20,14 @@ const centerToFirstOrDefault = (selectedMarker, data) => {
     : KRAKOW_JORDAN_PARK_COORDS;
 };
 
-export const MapView = ({ isAllowed, data }) => {
+export const MapView = ({
+  isAllowed,
+  data,
+  currentMarker,
+  setCurrentMarker,
+}) => {
   const history = useHistory();
   const match = useRouteMatch("/markers/:markerid");
-
-  const { currentMarker, setCurrentMarker } = useMarkerContext();
 
   const canMark = isAllowed && currentMarker;
 
