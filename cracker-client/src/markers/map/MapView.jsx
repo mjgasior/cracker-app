@@ -1,23 +1,7 @@
 import React, { useCallback } from "react";
 import { Map, Marker, TileLayer } from "react-leaflet";
-import { Icon } from "leaflet";
 import { MapContainer } from "./+components/MapContainer";
-
-const icon = new Icon({
-  iconUrl: "/marker.svg",
-  iconSize: [25, 25],
-});
-
-const centerToFirstOrDefault = (selectedMarker, data) => {
-  if (selectedMarker) {
-    return [selectedMarker.latitude, selectedMarker.longitude];
-  }
-
-  const KRAKOW_JORDAN_PARK_COORDS = [50.061252, 19.915738];
-  return data && data.markers.length > 0
-    ? [data.markers[0].latitude, data.markers[0].longitude]
-    : KRAKOW_JORDAN_PARK_COORDS;
-};
+import { MarkerIcon } from "./+components/MarkerIcon";
 
 export const MapView = ({
   isAllowed,
@@ -72,7 +56,7 @@ export const MapView = ({
         {canMark && (
           <Marker
             position={[currentMarker.latitude, currentMarker.longitude]}
-            icon={icon}
+            icon={MarkerIcon}
           />
         )}
 
@@ -83,7 +67,7 @@ export const MapView = ({
               <Marker
                 key={_id}
                 position={[latitude, longitude]}
-                icon={icon}
+                icon={MarkerIcon}
                 onClick={() => handleMarkerClick(marker)}
                 title={name}
               />
@@ -92,4 +76,15 @@ export const MapView = ({
       </Map>
     </MapContainer>
   );
+};
+
+const centerToFirstOrDefault = (selectedMarker, data) => {
+  if (selectedMarker) {
+    return [selectedMarker.latitude, selectedMarker.longitude];
+  }
+
+  const KRAKOW_JORDAN_PARK_COORDS = [50.061252, 19.915738];
+  return data && data.markers.length > 0
+    ? [data.markers[0].latitude, data.markers[0].longitude]
+    : KRAKOW_JORDAN_PARK_COORDS;
 };
