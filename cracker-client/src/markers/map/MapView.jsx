@@ -2,7 +2,6 @@ import React, { useCallback } from "react";
 import { Map, Marker, TileLayer } from "react-leaflet";
 import { Icon } from "leaflet";
 import { MapContainer } from "./+components/MapContainer";
-import { useHistory } from "react-router-dom";
 
 const icon = new Icon({
   iconUrl: "/marker.svg",
@@ -25,10 +24,8 @@ export const MapView = ({
   data,
   currentMarker,
   setCurrentMarker,
-  hasMarkerId,
+  onSelectedMarker,
 }) => {
-  const history = useHistory();
-
   const canMark = isAllowed && currentMarker;
 
   const handleOnContextMenu = useCallback(
@@ -53,14 +50,10 @@ export const MapView = ({
     (selectedMarker) => {
       if (isAllowed) {
         setCurrentMarker(selectedMarker);
-        if (hasMarkerId) {
-          history.replace(selectedMarker._id);
-        } else {
-          history.push(`/markers/${selectedMarker._id}`);
-        }
+        onSelectedMarker();
       }
     },
-    [isAllowed, setCurrentMarker, history, hasMarkerId]
+    [isAllowed, setCurrentMarker, onSelectedMarker]
   );
 
   return (
