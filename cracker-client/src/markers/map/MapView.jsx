@@ -4,14 +4,18 @@ import { Icon } from "leaflet";
 import { MapContainer } from "./+components/MapContainer";
 import { useMarkers } from "../+hooks/useMarkers";
 import { useMarkerContext } from "../+hooks/useMarkerContext";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory, useRouteMatch } from "react-router-dom";
 
 const icon = new Icon({
   iconUrl: "/marker.svg",
   iconSize: [25, 25],
 });
 
-const centerToFirstOrDefault = (data) => {
+const centerToFirstOrDefault = (selectedMarker, data) => {
+  if (selectedMarker) {
+    return [selectedMarker.latitude, selectedMarker.longitude];
+  }
+
   const KRAKOW_JORDAN_PARK_COORDS = [50.061252, 19.915738];
   return data && data.markers.length > 0
     ? [data.markers[0].latitude, data.markers[0].longitude]
@@ -20,7 +24,7 @@ const centerToFirstOrDefault = (data) => {
 
 export const MapView = ({ isAllowed }) => {
   const history = useHistory();
-  const location = useLocation();
+  const match = useRouteMatch("/markers/:markerid");
 
   const { data } = useMarkers();
   const { currentMarker, setCurrentMarker } = useMarkerContext();
@@ -49,16 +53,20 @@ export const MapView = ({ isAllowed }) => {
     (selectedMarker) => {
       if (isAllowed) {
         setCurrentMarker(selectedMarker);
-        history.replace(selectedMarker._id);
+        if (match && match.isExact) {
+          history.replace(selectedMarker._id);
+        } else {
+          history.push(`/markers/${selectedMarker._id}`);
+        }
       }
     },
-    [isAllowed, setCurrentMarker, history]
+    [isAllowed, setCurrentMarker, history, match]
   );
 
   return (
     <MapContainer>
       <Map
-        center={centerToFirstOrDefault(data)}
+        center={centerToFirstOrDefault(currentMarker, data)}
         zoom={15}
         oncontextmenu={handleOnContextMenu}
         onclick={handleOnClick}
