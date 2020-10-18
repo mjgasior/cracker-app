@@ -4,7 +4,7 @@ import { MapView } from "./map/MapView";
 import { Description } from "./description/Description";
 import { MarkerContext } from "./+context/MarkerContext";
 import { useUser } from "../+hooks/useUser";
-import { Image } from "./+components/Image";
+import { Image } from "./description/+components/Image";
 import { useMarkers } from "./+hooks/useMarkers";
 
 export const MarkersView = () => {

@@ -1,7 +1,7 @@
 import React from "react";
 import { MarkerForm } from "./+components/MarkerForm";
 import { useMarkerContext } from "../+hooks/useMarkerContext";
-import { UploadImage } from "./UploadImage";
+import { UploadImage } from "./+components/UploadImage";
 
 export const Description = () => {
   const { currentMarker, setCurrentMarker } = useMarkerContext();
