@@ -4,6 +4,7 @@ import { Icon } from "leaflet";
 import { MapContainer } from "./+components/MapContainer";
 import { useMarkers } from "../+hooks/useMarkers";
 import { useMarkerContext } from "../+hooks/useMarkerContext";
+import { useHistory, useLocation } from "react-router-dom";
 
 const icon = new Icon({
   iconUrl: "/marker.svg",
@@ -18,6 +19,9 @@ const centerToFirstOrDefault = (data) => {
 };
 
 export const MapView = ({ isAllowed }) => {
+  const history = useHistory();
+  const location = useLocation();
+
   const { data } = useMarkers();
   const { currentMarker, setCurrentMarker } = useMarkerContext();
 
@@ -45,9 +49,10 @@ export const MapView = ({ isAllowed }) => {
     (selectedMarker) => {
       if (isAllowed) {
         setCurrentMarker(selectedMarker);
+        history.replace(selectedMarker._id);
       }
     },
-    [isAllowed, setCurrentMarker]
+    [isAllowed, setCurrentMarker, history]
   );
 
   return (
