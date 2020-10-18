@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { Row, Col } from "antd";
 import { MapView } from "./map/MapView";
 import { Description } from "./description/Description";
@@ -14,10 +14,12 @@ export const MarkersView = () => {
   const history = useHistory();
   const match = useRouteMatch("/markers/:markerid");
 
-  if (match && data && currentMarker === null) {
-    const marker = data.markers.find((x) => x._id === match.params.markerid);
-    setCurrentMarker(marker);
-  }
+  useEffect(() => {
+    if (match && data && currentMarker === null) {
+      const marker = data.markers.find((x) => x._id === match.params.markerid);
+      setCurrentMarker(marker);
+    }
+  }, [match, data, currentMarker]);
 
   const routeHandler = useCallback(() => {
     if (match && match.isExact && currentMarker) {
