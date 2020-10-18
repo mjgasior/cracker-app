@@ -22,11 +22,10 @@ const centerToFirstOrDefault = (selectedMarker, data) => {
     : KRAKOW_JORDAN_PARK_COORDS;
 };
 
-export const MapView = ({ isAllowed }) => {
+export const MapView = ({ isAllowed, data }) => {
   const history = useHistory();
   const match = useRouteMatch("/markers/:markerid");
 
-  const { data } = useMarkers();
   const { currentMarker, setCurrentMarker } = useMarkerContext();
 
   const canMark = isAllowed && currentMarker;
