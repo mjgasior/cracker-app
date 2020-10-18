@@ -1,32 +1,51 @@
-import React, { useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { Row, Col } from "antd";
 import { MapView } from "./map/MapView";
 import { Description } from "./description/Description";
-import { MarkerContext } from "./+context/MarkerContext";
 import { useUser } from "../+hooks/useUser";
-import { Image } from "./+components/Image";
+import { useMarkers } from "./+hooks/useMarkers";
+import { useRouteMatch, useHistory } from "react-router-dom";
 
 export const MarkersView = () => {
+  const { data } = useMarkers();
   const { isAdmin } = useUser();
   const [currentMarker, setCurrentMarker] = useState(null);
 
+  const history = useHistory();
+  const match = useRouteMatch("/markers/:markerid");
+
+  useEffect(() => {
+    if (match && data && currentMarker === null) {
+      const marker = data.markers.find((x) => x._id === match.params.markerid);
+      setCurrentMarker(marker);
+    }
+  }, [match, data, currentMarker]);
+
+  const routeHandler = useCallback(() => {
+    if (match && match.isExact && currentMarker) {
+      history.replace(currentMarker._id);
+    } else {
+      history.push(`/markers/${currentMarker._id}`);
+    }
+  }, [history, currentMarker, match]);
+
   return (
-    <MarkerContext.Provider value={{ currentMarker, setCurrentMarker }}>
-      <Row>
-        <Col span={12}>
-          <MapView isAllowed={isAdmin} />
-        </Col>
-        <Col span={12}>
-          <Description />
-        </Col>
-      </Row>
-      {currentMarker && (
-        <Row>
-          <Col span={12}>
-            <Image marker={currentMarker} width={300} height={200} />
-          </Col>
-        </Row>
-      )}
-    </MarkerContext.Provider>
+    <Row>
+      <Col span={12}>
+        <MapView
+          isAllowed={isAdmin}
+          data={data}
+          currentMarker={currentMarker}
+          setCurrentMarker={setCurrentMarker}
+          onSelectedMarker={routeHandler}
+        />
+      </Col>
+      <Col span={12}>
+        <Description
+          currentMarker={currentMarker}
+          reset={() => setCurrentMarker(null)}
+        />
+      </Col>
+    </Row>
   );
 };

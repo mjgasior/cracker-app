@@ -1,26 +1,15 @@
 import React, { useCallback } from "react";
 import { Map, Marker, TileLayer } from "react-leaflet";
-import { Icon } from "leaflet";
 import { MapContainer } from "./+components/MapContainer";
-import { useMarkers } from "../+hooks/useMarkers";
-import { useMarkerContext } from "../+hooks/useMarkerContext";
+import { MarkerIcon } from "./+components/MarkerIcon";
 
-const icon = new Icon({
-  iconUrl: "/marker.svg",
-  iconSize: [25, 25],
-});
-
-const centerToFirstOrDefault = (data) => {
-  const KRAKOW_JORDAN_PARK_COORDS = [50.061252, 19.915738];
-  return data && data.markers.length > 0
-    ? [data.markers[0].latitude, data.markers[0].longitude]
-    : KRAKOW_JORDAN_PARK_COORDS;
-};
-
-export const MapView = ({ isAllowed }) => {
-  const { data } = useMarkers();
-  const { currentMarker, setCurrentMarker } = useMarkerContext();
-
+export const MapView = ({
+  isAllowed,
+  data,
+  currentMarker,
+  setCurrentMarker,
+  onSelectedMarker,
+}) => {
   const canMark = isAllowed && currentMarker;
 
   const handleOnContextMenu = useCallback(
@@ -45,15 +34,16 @@ export const MapView = ({ isAllowed }) => {
     (selectedMarker) => {
       if (isAllowed) {
         setCurrentMarker(selectedMarker);
+        onSelectedMarker();
       }
     },
-    [isAllowed, setCurrentMarker]
+    [isAllowed, setCurrentMarker, onSelectedMarker]
   );
 
   return (
     <MapContainer>
       <Map
-        center={centerToFirstOrDefault(data)}
+        center={centerToFirstOrDefault(currentMarker, data)}
         zoom={15}
         oncontextmenu={handleOnContextMenu}
         onclick={handleOnClick}
@@ -66,7 +56,7 @@ export const MapView = ({ isAllowed }) => {
         {canMark && (
           <Marker
             position={[currentMarker.latitude, currentMarker.longitude]}
-            icon={icon}
+            icon={MarkerIcon}
           />
         )}
 
@@ -77,7 +67,7 @@ export const MapView = ({ isAllowed }) => {
               <Marker
                 key={_id}
                 position={[latitude, longitude]}
-                icon={icon}
+                icon={MarkerIcon}
                 onClick={() => handleMarkerClick(marker)}
                 title={name}
               />
@@ -86,4 +76,15 @@ export const MapView = ({ isAllowed }) => {
       </Map>
     </MapContainer>
   );
+};
+
+const centerToFirstOrDefault = (selectedMarker, data) => {
+  if (selectedMarker) {
+    return [selectedMarker.latitude, selectedMarker.longitude];
+  }
+
+  const KRAKOW_JORDAN_PARK_COORDS = [50.061252, 19.915738];
+  return data && data.markers.length > 0
+    ? [data.markers[0].latitude, data.markers[0].longitude]
+    : KRAKOW_JORDAN_PARK_COORDS;
 };
