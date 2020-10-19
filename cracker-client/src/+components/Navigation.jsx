@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Menu } from "antd";
@@ -25,7 +25,7 @@ export const Navigation = () => {
       defaultSelectedKeys={[location.pathname]}
     >
       <Menu.Item key={ROUTES.HOME}>
-        <Link to={ROUTES.HOME}>{t("home")}</Link>
+        <NavLink to={ROUTES.HOME}>{t("home")}</NavLink>
       </Menu.Item>
       <Menu.Item key={ROUTES.MARKERS}>
         <Link to={ROUTES.MARKERS}>{t("markers")}</Link>
