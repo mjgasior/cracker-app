@@ -1,5 +1,5 @@
-import React, { useCallback } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import React, { useCallback, useEffect } from "react";
+import { Link, useLocation, useRouteMatch } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Menu } from "antd";
@@ -9,6 +9,12 @@ export const Navigation = () => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
   const { t } = useTranslation();
   const location = useLocation();
+  const match = useRouteMatch("/markers/:markerid");
+
+  let currentMenuItem = location.pathname;
+  if (match && match.isExact) {
+    currentMenuItem = match.url.slice(0, 8);
+  }
 
   const handleAuthentication = useCallback(() => {
     if (isAuthenticated) {
@@ -19,11 +25,7 @@ export const Navigation = () => {
   }, [isAuthenticated, logout, loginWithRedirect]);
 
   return (
-    <Menu
-      theme="dark"
-      mode="horizontal"
-      defaultSelectedKeys={[location.pathname]}
-    >
+    <Menu theme="dark" mode="horizontal" selectedKeys={[currentMenuItem]}>
       <Menu.Item key={ROUTES.HOME}>
         <Link to={ROUTES.HOME}>{t("home")}</Link>
       </Menu.Item>
