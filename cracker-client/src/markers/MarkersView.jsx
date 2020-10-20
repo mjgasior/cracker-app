@@ -22,10 +22,12 @@ export const MarkersView = () => {
   }, [match, data, currentMarker]);
 
   const routeHandler = useCallback(() => {
-    if (match && match.isExact && currentMarker) {
-      history.replace(currentMarker._id);
-    } else {
-      history.push(`/markers/${currentMarker._id}`);
+    if (currentMarker) {
+      if (match && match.isExact) {
+        history.replace(currentMarker._id);
+      } else {
+        history.push(`/markers/${currentMarker._id}`);
+      }
     }
   }, [history, currentMarker, match]);
 

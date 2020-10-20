@@ -25,7 +25,7 @@ export const Navigation = () => {
       defaultSelectedKeys={[location.pathname]}
     >
       <Menu.Item key={ROUTES.HOME}>
-        <NavLink to={ROUTES.HOME}>{t("home")}</NavLink>
+        <Link to={ROUTES.HOME}>{t("home")}</Link>
       </Menu.Item>
       <Menu.Item key={ROUTES.MARKERS}>
         <Link to={ROUTES.MARKERS}>{t("markers")}</Link>
