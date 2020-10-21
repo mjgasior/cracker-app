@@ -5,23 +5,6 @@ import { useAddMarker } from "./../../+hooks/useAddMarker";
 import { useRemoveMarker } from "./../../+hooks/useRemoveMarker";
 import { useUpdateMarker } from "../../+hooks/useUpdateMarker";
 
-const openNotification = (message, description) => {
-  notification.info({
-    message,
-    description,
-    placement: "bottomRight",
-  });
-};
-
-const setTitle = (marker, i18n, actionLabel) => {
-  let name = marker.polish.name;
-  if (i18n.language === "en") {
-    name = marker.english.name;
-  }
-
-  return `${actionLabel} ${name}`;
-};
-
 export const MarkerForm = ({ marker, reset }) => {
   const { t, i18n } = useTranslation();
   const { english, polish, latitude, longitude, _id } = marker;
@@ -119,4 +102,21 @@ export const MarkerForm = ({ marker, reset }) => {
       </Form.Item>
     </Form>
   );
+};
+
+const openNotification = (message, description) => {
+  notification.info({
+    message,
+    description,
+    placement: "bottomRight",
+  });
+};
+
+const setTitle = (marker, i18n, actionLabel) => {
+  let name = marker.polish.name;
+  if (i18n.language === "en") {
+    name = marker.english.name;
+  }
+
+  return `${actionLabel} ${name}`;
 };

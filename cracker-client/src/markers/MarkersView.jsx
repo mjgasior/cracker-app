@@ -21,15 +21,16 @@ export const MarkersView = () => {
     }
   }, [match, data, currentMarker]);
 
-  const routeHandler = useCallback(() => {
-    if (currentMarker) {
+  const routeHandler = useCallback(
+    (selectedMarkerId) => {
       if (match && match.isExact) {
-        history.replace(currentMarker._id);
+        history.replace(selectedMarkerId);
       } else {
-        history.push(`/markers/${currentMarker._id}`);
+        history.push(`/markers/${selectedMarkerId}`);
       }
-    }
-  }, [history, currentMarker, match]);
+    },
+    [history, match]
+  );
 
   return (
     <Row>
