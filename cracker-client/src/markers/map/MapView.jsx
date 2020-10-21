@@ -34,7 +34,7 @@ export const MapView = ({
     (selectedMarker) => {
       if (isAllowed) {
         setCurrentMarker(selectedMarker);
-        onSelectedMarker();
+        onSelectedMarker(selectedMarker._id);
       }
     },
     [isAllowed, setCurrentMarker, onSelectedMarker]
