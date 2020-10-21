@@ -1,18 +1,17 @@
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col } from "antd";
 import { MapView } from "./map/MapView";
 import { Description } from "./description/Description";
 import { useUser } from "../+hooks/useUser";
 import { useMarkers } from "./+hooks/useMarkers";
-import { useRouteMatch, useHistory } from "react-router-dom";
+import { useMarkerRouteHandler } from "./+hooks/useMarkerRouteHandler";
 
 export const MarkersView = () => {
   const { data } = useMarkers();
   const { isAdmin } = useUser();
   const [currentMarker, setCurrentMarker] = useState(null);
 
-  const history = useHistory();
-  const match = useRouteMatch("/markers/:markerid");
+  const routeHandler = useMarkerRouteHandler();
 
   useEffect(() => {
     if (match && data && currentMarker === null) {
@@ -20,17 +19,6 @@ export const MarkersView = () => {
       setCurrentMarker(marker);
     }
   }, [match, data, currentMarker]);
-
-  const routeHandler = useCallback(
-    (selectedMarkerId) => {
-      if (match && match.isExact) {
-        history.replace(selectedMarkerId);
-      } else {
-        history.push(`/markers/${selectedMarkerId}`);
-      }
-    },
-    [history, match]
-  );
 
   return (
     <Row>
