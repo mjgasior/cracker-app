@@ -13,7 +13,7 @@ export const Navigation = () => {
 
   let currentMenuItem = location.pathname;
   if (match && match.isExact) {
-    currentMenuItem = match.url.slice(0, 8);
+    currentMenuItem = ROUTES.MARKERS;
   }
 
   const handleAuthentication = useCallback(() => {
