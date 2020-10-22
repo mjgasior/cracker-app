@@ -46,7 +46,10 @@ export const MarkersView = () => {
       <Col span={12}>
         <Description
           currentMarker={currentMarker}
-          reset={() => setCurrentMarker(null)}
+          reset={() => {
+            history.push(`/markers`);
+            setCurrentMarker(null);
+          }}
         />
       </Col>
     </Row>
