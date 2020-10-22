@@ -50,6 +50,7 @@ export const MarkersView = () => {
             history.push(`/markers`);
             setCurrentMarker(null);
           }}
+          onNewMarker={routeHandler}
         />
       </Col>
     </Row>
