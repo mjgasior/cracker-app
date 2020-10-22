@@ -3,15 +3,19 @@ import { MarkerForm } from "./+components/MarkerForm";
 import { UploadImage } from "./+components/UploadImage";
 import { Image } from "./+components/Image";
 
-export const Description = ({ currentMarker, reset, onNewMarker }) => {
+export const Description = ({
+  currentMarker,
+  onDeletedMarker,
+  onCreatedMarker,
+}) => {
   if (currentMarker) {
     const { imageFilename } = currentMarker;
     return (
       <>
         <MarkerForm
           marker={currentMarker}
-          reset={reset}
-          onNewMarker={onNewMarker}
+          onDeletedMarker={onDeletedMarker}
+          onCreatedMarker={onCreatedMarker}
         />
         <UploadImage marker={currentMarker} />
         {imageFilename && (

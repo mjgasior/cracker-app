@@ -21,7 +21,7 @@ export const MarkersView = () => {
     }
   }, [match, data, currentMarker, setCurrentMarker]);
 
-  const routeHandler = useCallback(
+  const routeSwitchHandler = useCallback(
     (selectedMarkerId) => {
       if (match && match.isExact) {
         history.replace(selectedMarkerId);
@@ -32,6 +32,11 @@ export const MarkersView = () => {
     [history, match]
   );
 
+  const onDeletedMarkerHandler = useCallback(() => {
+    history.push(`/markers`);
+    setCurrentMarker(null);
+  }, [history, setCurrentMarker]);
+
   return (
     <Row>
       <Col span={12}>
@@ -40,17 +45,14 @@ export const MarkersView = () => {
           data={data}
           currentMarker={currentMarker}
           setCurrentMarker={setCurrentMarker}
-          onSelectedMarker={routeHandler}
+          onSelectedMarker={routeSwitchHandler}
         />
       </Col>
       <Col span={12}>
         <Description
           currentMarker={currentMarker}
-          reset={() => {
-            history.push(`/markers`);
-            setCurrentMarker(null);
-          }}
-          onNewMarker={routeHandler}
+          onDeletedMarker={onDeletedMarkerHandler}
+          onCreatedMarker={routeSwitchHandler}
         />
       </Col>
     </Row>

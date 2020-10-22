@@ -5,7 +5,7 @@ import { useAddMarker } from "./../../+hooks/useAddMarker";
 import { useRemoveMarker } from "./../../+hooks/useRemoveMarker";
 import { useUpdateMarker } from "../../+hooks/useUpdateMarker";
 
-export const MarkerForm = ({ marker, reset, onNewMarker }) => {
+export const MarkerForm = ({ marker, onDeletedMarker, onCreatedMarker }) => {
   const { t, i18n } = useTranslation();
   const { english, polish, latitude, longitude, _id } = marker;
   const isSavedMarker = _id !== undefined;
@@ -24,9 +24,9 @@ export const MarkerForm = ({ marker, reset, onNewMarker }) => {
       const title = setTitle(newMarker, i18n, t("saved"));
       openNotification(title, t("saved_marker"));
 
-      onNewMarker(response.data.addMarker._id);
+      onCreatedMarker(response.data.addMarker._id);
     },
-    [addMarker, i18n, t, onNewMarker]
+    [addMarker, i18n, t, onCreatedMarker]
   );
 
   const handleDeleteMarker = useCallback(() => {
@@ -36,8 +36,8 @@ export const MarkerForm = ({ marker, reset, onNewMarker }) => {
     const title = setTitle(marker, i18n, t("deleted"));
     openNotification(title, t("deleted_marker"));
 
-    reset();
-  }, [removeMarker, t, i18n, form, reset, _id]);
+    onDeletedMarker();
+  }, [removeMarker, t, i18n, form, onDeletedMarker, _id]);
 
   const handleUpdateMarker = useCallback(() => {
     const marker = form.getFieldsValue();
