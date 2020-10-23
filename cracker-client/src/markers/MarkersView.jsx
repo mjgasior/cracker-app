@@ -15,6 +15,7 @@ export const MarkersView = () => {
   const match = useRouteMatch("/markers/:markerid");
 
   useEffect(() => {
+    console.log(currentMarker);
     if (match && data && currentMarker === null) {
       const marker = data.markers.find((x) => x._id === match.params.markerid);
       setCurrentMarker(marker);
@@ -30,6 +31,16 @@ export const MarkersView = () => {
       }
     },
     [history, match]
+  );
+
+  const onCreatedMarkerHandler = useCallback(
+    (selectedMarkerId) => {
+      const marker = data.markers.find((x) => x._id === selectedMarkerId);
+      console.log(selectedMarkerId);
+      setCurrentMarker(marker);
+      routeSwitchHandler(selectedMarkerId);
+    },
+    [routeSwitchHandler, setCurrentMarker, data]
   );
 
   const onDeletedMarkerHandler = useCallback(() => {
@@ -52,7 +63,7 @@ export const MarkersView = () => {
         <Description
           currentMarker={currentMarker}
           onDeletedMarker={onDeletedMarkerHandler}
-          onCreatedMarker={routeSwitchHandler}
+          onCreatedMarker={onCreatedMarkerHandler}
         />
       </Col>
     </Row>
