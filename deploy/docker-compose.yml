@@ -27,6 +27,8 @@ services:
       - MONGODB_ADDRESS=cracker-db:27017
     networks:
       - cracknet
+    volumes:
+      - ./../images:/src/app/images
 
 networks:
   cracknet:

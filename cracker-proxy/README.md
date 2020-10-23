@@ -6,4 +6,6 @@ If there are too many logs, one can delete them by entering the container:
 
 1. Run `docker exec -it cracker-proxy-dev sh`.
 2. Go to logs location `cd /var/log/nginx`.
-3. Remove files present there.
+3. List the contents with `ls`.
+4. Remove files present there with `rm access.log error.log`.
+5. Leave container with `exit`.
