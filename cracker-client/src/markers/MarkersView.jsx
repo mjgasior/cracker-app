@@ -1,68 +1,27 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React from "react";
 import { Row, Col } from "antd";
 import { MapView } from "./map/MapView";
 import { Description } from "./description/Description";
-import { useUser } from "../+hooks/useUser";
 import { useMarkers } from "./+hooks/useMarkers";
-import { useHistory, useRouteMatch } from "react-router-dom";
+import { useMarkerRoute } from "./+hooks/useMarkerRoute";
+import { useSelectedMarker } from "./+hooks/useSelectedMarker";
 
 export const MarkersView = () => {
   const { data } = useMarkers();
-  const { isAdmin } = useUser();
-  const [currentMarker, setCurrentMarker] = useState(null);
-
-  const history = useHistory();
-  const match = useRouteMatch("/markers/:markerid");
-
-  useEffect(() => {
-    if (match && data && currentMarker === null) {
-      const marker = data.markers.find((x) => x._id === match.params.markerid);
-      setCurrentMarker(marker);
-    }
-  }, [match, data, currentMarker, setCurrentMarker]);
-
-  const routeSwitchHandler = useCallback(
-    (selectedMarkerId) => {
-      if (match && match.isExact) {
-        history.replace(selectedMarkerId);
-      } else {
-        history.push(`/markers/${selectedMarkerId}`);
-      }
-    },
-    [history, match]
-  );
-
-  const onCreatedMarkerHandler = useCallback(
-    (selectedMarkerId) => {
-      const marker = data.markers.find((x) => x._id === selectedMarkerId);
-      setCurrentMarker(marker);
-      routeSwitchHandler(selectedMarkerId);
-    },
-    [routeSwitchHandler, setCurrentMarker, data]
-  );
-
-  const onDeletedMarkerHandler = useCallback(() => {
-    history.push(`/markers`);
-    setCurrentMarker(null);
-  }, [history, setCurrentMarker]);
+  const selectedMarkerHandler = useMarkerRoute();
+  const selectedMarker = useSelectedMarker(data);
 
   return (
     <Row>
       <Col span={12}>
         <MapView
-          isAllowed={isAdmin}
-          data={data}
-          currentMarker={currentMarker}
-          setCurrentMarker={setCurrentMarker}
-          onSelectedMarker={routeSwitchHandler}
+          markersList={data}
+          onSelectedMarker={selectedMarkerHandler}
+          selectedMarker={selectedMarker}
         />
       </Col>
       <Col span={12}>
-        <Description
-          currentMarker={currentMarker}
-          onDeletedMarker={onDeletedMarkerHandler}
-          onCreatedMarker={onCreatedMarkerHandler}
-        />
+        <Description selectedMarker={selectedMarker} />
       </Col>
     </Row>
   );

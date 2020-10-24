@@ -4,22 +4,22 @@ import { UploadImage } from "./+components/UploadImage";
 import { Image } from "./+components/Image";
 
 export const Description = ({
-  currentMarker,
+  selectedMarker,
   onDeletedMarker,
   onCreatedMarker,
 }) => {
-  if (currentMarker) {
-    const { imageFilename } = currentMarker;
+  if (selectedMarker) {
+    const { imageFilename } = selectedMarker;
     return (
       <>
         <MarkerForm
-          marker={currentMarker}
+          marker={selectedMarker}
           onDeletedMarker={onDeletedMarker}
           onCreatedMarker={onCreatedMarker}
         />
-        <UploadImage marker={currentMarker} />
+        <UploadImage marker={selectedMarker} />
         {imageFilename && (
-          <Image marker={currentMarker} width={300} height={200} />
+          <Image marker={selectedMarker} width={300} height={200} />
         )}
       </>
     );
