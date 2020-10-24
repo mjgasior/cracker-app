@@ -5,6 +5,13 @@ export const useSelectedMarker = (data) => {
   const [selectedMarker, setSelectedMarker] = useState();
   const matchDetails = useRouteMatch("/markers/:markerid");
   const matchAdd = useRouteMatch("/markers/add/:latitude/:longitude");
+  const matchNone = useRouteMatch("/markers");
+
+  useEffect(() => {
+    if (matchNone && matchNone.isExact) {
+      setSelectedMarker(null);
+    }
+  }, [matchNone, setSelectedMarker]);
 
   useEffect(() => {
     if (data && matchDetails && matchDetails.isExact) {

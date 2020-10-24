@@ -6,12 +6,14 @@ import { useMarkers } from "./+hooks/useMarkers";
 import { useMarkerRoute } from "./+hooks/useMarkerRoute";
 import { useAddMarkerRoute } from "./+hooks/useAddMarkerRoute";
 import { useSelectedMarker } from "./+hooks/useSelectedMarker";
+import { useDeleteMarkerRoute } from "./+hooks/useDeleteMarkerRoute";
 
 export const MarkersView = () => {
   const { data } = useMarkers();
   const selectedMarker = useSelectedMarker(data);
   const selectedMarkerHandler = useMarkerRoute();
   const addMarkerHandler = useAddMarkerRoute();
+  const deleteMarkerHandler = useDeleteMarkerRoute();
 
   return (
     <Row>
@@ -26,7 +28,7 @@ export const MarkersView = () => {
       <Col span={12}>
         <Description
           selectedMarker={selectedMarker}
-          onDeletedMarker={() => null}
+          onDeletedMarker={deleteMarkerHandler}
           onCreatedMarker={selectedMarkerHandler}
         />
       </Col>
