@@ -3,7 +3,7 @@ import "./+setup/db";
 import { ApolloServer } from "apollo-server-express";
 import express from "express";
 import { schema } from "./schema";
-import { resizeImage } from "./+services/imageService";
+import { resizeImage, forcedResizeImage } from "./+services/imageService";
 import { getIsAuthenticated } from "./+services/authorizationService";
 
 const server = new ApolloServer({
@@ -40,8 +40,7 @@ app.use("/images", async (req, res, next) => {
         express.static("images")(req, res, next);
       }
     } else {
-      res.status(403).end();
-      return;
+      await forcedResizeImage(req, res, next);
     }
   } catch (error) {
     console.error(error);

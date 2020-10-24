@@ -3,12 +3,22 @@ import path from "path";
 
 const MIN_SIZE_OF_IMAGE = 10;
 const MAX_SIZE_OF_IMAGE = 1000;
+const SIZE_OF_UNAUTHORIZED_IMAGE = 30;
 
 export const resizeImage = async (req, res, next) => {
-  let width = getShapedNumber(req.query.w);
-  let height = getShapedNumber(req.query.h);
+  const width = getShapedNumber(req.query.w);
+  const height = getShapedNumber(req.query.h);
+  await respondWithImage(width, height, req.path, res, next);
+};
 
-  const filepath = path.join(__dirname, `../../images${req.path}`);
+export const forcedResizeImage = async (req, res, next) => {
+  const width = SIZE_OF_UNAUTHORIZED_IMAGE;
+  const height = SIZE_OF_UNAUTHORIZED_IMAGE;
+  await respondWithImage(width, height, req.path, res, next);
+};
+
+const respondWithImage = async (width, height, requestPath, res, next) => {
+  const filepath = path.join(__dirname, `../../images${requestPath}`);
   const streamImage = await sharp(filepath)
     .resize(width, height)
     .jpeg()
