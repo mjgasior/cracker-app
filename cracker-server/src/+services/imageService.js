@@ -1,5 +1,6 @@
 import sharp from "sharp";
 import path from "path";
+import fs from "fs";
 
 const MIN_SIZE_OF_IMAGE = 10;
 const MAX_SIZE_OF_IMAGE = 1000;
@@ -19,15 +20,31 @@ export const forcedResizeImage = async (req, res, next) => {
 
 const respondWithImage = async (width, height, requestPath, res, next) => {
   const filepath = path.join(__dirname, `../../images${requestPath}`);
-  const streamImage = await sharp(filepath)
-    .resize(width, height)
-    .jpeg()
-    .toBuffer();
 
-  res.write(streamImage);
+  const isExists = await checkFileExists(filepath);
+  if (isExists) {
+    const streamImage = await sharp(filepath)
+      .resize(width, height)
+      .jpeg()
+      .toBuffer();
+
+    res.write(streamImage);
+  } else {
+    console.log(`Error: ${filepath} does not exist`);
+    res.send(500, "File not found");
+  }
+
   res.end();
   next();
 };
+
+function checkFileExists(filepath) {
+  return new Promise((resolve, reject) => {
+    fs.access(filepath, fs.constants.F_OK, (error) => {
+      resolve(!error);
+    });
+  });
+}
 
 const getShapedNumber = (stringNumber) => {
   let parsedNumber = parseInt(stringNumber);
