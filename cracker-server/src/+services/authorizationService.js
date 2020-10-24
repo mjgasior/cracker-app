@@ -14,8 +14,10 @@ export const getIsAuthenticated = async (req) => {
     const authorizationHeader = req.headers.authorization || "";
     if (authorizationHeader) {
       const token = getTokenWithouthBearer(authorizationHeader);
-      const payload = await verifyToken(token);
-      isAuthenticated = isPayloadValid(payload) ? true : false;
+      if (token) {
+        const payload = await verifyToken(token);
+        isAuthenticated = isPayloadValid(payload) ? true : false;
+      }
     }
   } catch (error) {
     console.error(error);

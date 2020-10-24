@@ -21,7 +21,7 @@ export const useImage = (imageFilename, width, height) => {
         .catch((err) => console.error(err));
     };
 
-    if (accessToken && imageFilename) {
+    if (imageFilename) {
       fetchImage();
     }
   }, [accessToken, setImage, imageFilename, width, height]);
