@@ -37,12 +37,12 @@ export const MarkerResolver = {
         }
 
         await new Promise((res) =>
-          createReadStream()
-            .pipe(createWriteStream(savePath))
-            .on("close", res)
+          createReadStream().pipe(createWriteStream(savePath)).on("close", res)
         );
 
-        console.log(`File ${newFilename} saved, updating the filename in database.`);
+        console.log(
+          `File ${newFilename} saved, updating the filename in database.`
+        );
         const marker = await markerConnector.get(id);
         console.log(JSON.stringify(marker));
         marker.imageFilename = newFilename;
@@ -58,6 +58,11 @@ export const MarkerResolver = {
 
     removeMarker: withAuth(async (_, { id }) => {
       try {
+        const marker = await markerConnector.get(id);
+        if (marker.imageFilename) {
+          console.log("File to delete");
+        }
+
         return await markerConnector.remove(id);
       } catch (e) {
         console.error(e);
