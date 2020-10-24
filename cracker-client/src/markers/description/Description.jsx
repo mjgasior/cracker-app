@@ -4,6 +4,7 @@ import { UploadImage } from "./+components/UploadImage";
 import { Image } from "./+components/Image";
 
 export const Description = ({
+  isAllowed,
   selectedMarker,
   onDeletedMarker,
   onCreatedMarker,
@@ -13,11 +14,12 @@ export const Description = ({
     return (
       <>
         <MarkerForm
+          isAllowed={isAllowed}
           marker={selectedMarker}
           onDeletedMarker={onDeletedMarker}
           onCreatedMarker={onCreatedMarker}
         />
-        <UploadImage marker={selectedMarker} />
+        {isAllowed && <UploadImage marker={selectedMarker} />}
         {imageFilename && (
           <Image marker={selectedMarker} width={300} height={200} />
         )}
