@@ -20,13 +20,20 @@ export const useSelectedMarker = (data) => {
       setSelectedMarker((prev) => {
         const { latitude, longitude } = matchAdd.params;
 
-        if (prev.latitude === latitude && prev.longitude === longitude) {
+        const numericLatitude = Number(latitude);
+        const numericLongitude = Number(longitude);
+
+        if (
+          prev &&
+          prev.latitude === numericLatitude &&
+          prev.longitude === numericLongitude
+        ) {
           return prev;
         }
 
         return {
-          latitude: matchAdd.params.latitude,
-          longitude: matchAdd.params.longitude,
+          latitude: numericLatitude,
+          longitude: numericLongitude,
         };
       });
     }

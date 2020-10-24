@@ -17,6 +17,7 @@ export const MarkerForm = ({ marker, onDeletedMarker, onCreatedMarker }) => {
 
   const handleAddMarker = useCallback(
     async (newMarker) => {
+      console.log(newMarker);
       const response = await addMarker({
         variables: { marker: newMarker },
       });
