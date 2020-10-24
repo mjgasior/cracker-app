@@ -31,16 +31,21 @@ const app = express();
 server.applyMiddleware({ app });
 
 app.use("/images", async (req, res, next) => {
-  const isAuthenticated = await getIsAuthenticated(req);
-
-  if (isAuthenticated) {
-    if (req.query.w && req.query.h) {
-      await resizeImage(req, res, next);
+  try {
+    const isAuthenticated = await getIsAuthenticated(req);
+    if (isAuthenticated) {
+      if (req.query.w && req.query.h) {
+        await resizeImage(req, res, next);
+      } else {
+        express.static("images")(req, res, next);
+      }
     } else {
-      express.static("images")(req, res, next);
+      res.status(403).end();
+      return;
     }
-  } else {
-    res.status(403).end();
+  } catch (error) {
+    console.error(error);
+    res.status(500).end();
     return;
   }
 });

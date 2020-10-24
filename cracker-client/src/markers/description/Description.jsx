@@ -1,7 +1,6 @@
 import React from "react";
 import { MarkerForm } from "./+components/MarkerForm";
-import { UploadImage } from "./+components/UploadImage";
-import { Image } from "./+components/Image";
+import { MarkerImage } from "./+components/MarkerImage";
 
 export const Description = ({
   isAllowed,
@@ -10,7 +9,6 @@ export const Description = ({
   onCreatedMarker,
 }) => {
   if (selectedMarker) {
-    const { imageFilename } = selectedMarker;
     return (
       <>
         <MarkerForm
@@ -19,10 +17,7 @@ export const Description = ({
           onDeletedMarker={onDeletedMarker}
           onCreatedMarker={onCreatedMarker}
         />
-        {isAllowed && <UploadImage marker={selectedMarker} />}
-        {imageFilename && (
-          <Image marker={selectedMarker} width={300} height={200} />
-        )}
+        <MarkerImage isAllowed={isAllowed} marker={selectedMarker} />
       </>
     );
   }

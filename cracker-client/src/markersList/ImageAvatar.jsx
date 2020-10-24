@@ -6,5 +6,8 @@ const AVATAR_SIZE = 32;
 
 export const ImageAvatar = ({ imageFilename }) => {
   const image = useImage(imageFilename, AVATAR_SIZE, AVATAR_SIZE);
-  return <Avatar src={image} />;
+  if (image) {
+    return <Avatar src={image} />;
+  }
+  return <Avatar>?</Avatar>;
 };
