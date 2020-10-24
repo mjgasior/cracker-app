@@ -1,7 +1,7 @@
 import { markerConnector } from "./+connectors/markerConnector";
 import { AuthenticationError, GraphQLUpload } from "apollo-server-express";
 import withAuth from "graphql-auth";
-import { createWriteStream } from "fs";
+import { createWriteStream, unlinkSync, existsSync } from "fs";
 import path from "path";
 
 export const MarkerResolver = {
@@ -58,11 +58,23 @@ export const MarkerResolver = {
 
     removeMarker: withAuth(async (_, { id }) => {
       try {
-        const marker = await markerConnector.get(id);
-        if (marker.imageFilename) {
-          console.log("File to delete");
+        const { imageFilename } = await markerConnector.get(id);
+        if (imageFilename) {
+          const imageSaveDirectory = process.env.IMAGE_DIRECTORY;
+          let deletePath = path.join(__dirname, "../../images", imageFilename);
+          if (imageSaveDirectory) {
+            deletePath = path.join(imageSaveDirectory, imageFilename);
+          }
+
+          if (existsSync(deletePath)) {
+            console.log(`File deletion of: ${deletePath}`);
+            unlinkSync(deletePath);
+          } else {
+            console.log(`Tried to delete but does not exist: ${deletePath}`);
+          }
         }
 
+        console.log(`Removing marker ${id}`);
         return await markerConnector.remove(id);
       } catch (e) {
         console.error(e);
