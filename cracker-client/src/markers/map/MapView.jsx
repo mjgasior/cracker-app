@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Map, Marker, TileLayer } from "react-leaflet";
 import { MapContainer } from "./+components/MapContainer";
 import { MarkerIcon } from "./+components/MarkerIcon";
@@ -9,12 +9,22 @@ export const MapView = ({
   onAddNewMarker,
   onSelectedMarker,
 }) => {
+  const handleOnContextMenu = useCallback(
+    (event) => {
+      onAddNewMarker({
+        latitude: event.latlng.lat,
+        longitude: event.latlng.lng,
+      });
+    },
+    [onAddNewMarker]
+  );
+
   return (
     <MapContainer>
       <Map
         center={centerToFirstOrDefault(selectedMarker, markersList)}
         zoom={15}
-        oncontextmenu={onAddNewMarker}
+        oncontextmenu={handleOnContextMenu}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

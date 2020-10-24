@@ -4,12 +4,14 @@ import { MapView } from "./map/MapView";
 import { Description } from "./description/Description";
 import { useMarkers } from "./+hooks/useMarkers";
 import { useMarkerRoute } from "./+hooks/useMarkerRoute";
+import { useAddMarkerRoute } from "./+hooks/useAddMarkerRoute";
 import { useSelectedMarker } from "./+hooks/useSelectedMarker";
 
 export const MarkersView = () => {
   const { data } = useMarkers();
   const selectedMarkerHandler = useMarkerRoute();
   const selectedMarker = useSelectedMarker(data);
+  const addMarkerHandler = useAddMarkerRoute();
 
   return (
     <Row>
@@ -18,6 +20,7 @@ export const MarkersView = () => {
           markersList={data}
           onSelectedMarker={selectedMarkerHandler}
           selectedMarker={selectedMarker}
+          onAddNewMarker={addMarkerHandler}
         />
       </Col>
       <Col span={12}>
