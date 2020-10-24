@@ -43,8 +43,8 @@ export const MarkerResolver = {
         console.log(
           `File ${newFilename} saved, updating the filename in database.`
         );
+
         const marker = await markerConnector.get(id);
-        console.log(JSON.stringify(marker));
         marker.imageFilename = newFilename;
         markerConnector.update(id, marker);
         console.log(`Saving and updating of ${newFilename} completed.`);
