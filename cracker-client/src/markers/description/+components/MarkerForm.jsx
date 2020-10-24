@@ -5,7 +5,12 @@ import { useAddMarker } from "./../../+hooks/useAddMarker";
 import { useRemoveMarker } from "./../../+hooks/useRemoveMarker";
 import { useUpdateMarker } from "../../+hooks/useUpdateMarker";
 
-export const MarkerForm = ({ marker, onDeletedMarker, onCreatedMarker }) => {
+export const MarkerForm = ({
+  isAllowed,
+  marker,
+  onDeletedMarker,
+  onCreatedMarker,
+}) => {
   const { t, i18n } = useTranslation();
   const { english, polish, latitude, longitude, _id } = marker;
   const isSavedMarker = _id !== undefined;
@@ -82,26 +87,28 @@ export const MarkerForm = ({ marker, onDeletedMarker, onCreatedMarker }) => {
       >
         <Input.TextArea />
       </Form.Item>
-      <Form.Item>
-        {isSavedMarker ? (
-          <>
-            <Button htmlType="button" onClick={handleDeleteMarker}>
-              {t("delete")}
+      {isAllowed && (
+        <Form.Item>
+          {isSavedMarker ? (
+            <>
+              <Button htmlType="button" onClick={handleDeleteMarker}>
+                {t("delete")}
+              </Button>
+              <Button
+                htmlType="button"
+                type="primary"
+                onClick={handleUpdateMarker}
+              >
+                {t("update")}
+              </Button>
+            </>
+          ) : (
+            <Button type="primary" htmlType="submit">
+              {t("save")}
             </Button>
-            <Button
-              htmlType="button"
-              type="primary"
-              onClick={handleUpdateMarker}
-            >
-              {t("update")}
-            </Button>
-          </>
-        ) : (
-          <Button type="primary" htmlType="submit">
-            {t("save")}
-          </Button>
-        )}
-      </Form.Item>
+          )}
+        </Form.Item>
+      )}
     </Form>
   );
 };

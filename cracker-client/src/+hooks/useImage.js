@@ -17,7 +17,8 @@ export const useImage = (imageFilename, width, height) => {
       })
         .then(validateResponse)
         .then((response) => response.blob())
-        .then((blob) => setImage(URL.createObjectURL(blob)));
+        .then((blob) => setImage(URL.createObjectURL(blob)))
+        .catch((err) => console.error(err));
     };
 
     if (accessToken && imageFilename) {
@@ -28,9 +29,9 @@ export const useImage = (imageFilename, width, height) => {
   return image;
 };
 
-function validateResponse(response) {
+const validateResponse = (response) => {
   if (!response.ok) {
     throw Error(response.statusText);
   }
   return response;
-}
+};
