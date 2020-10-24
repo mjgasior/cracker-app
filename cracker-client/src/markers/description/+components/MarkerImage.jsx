@@ -7,8 +7,8 @@ export const MarkerImage = ({ isAllowed, marker }) => {
   if (isAllowed) {
     return (
       <>
-        <UploadImage marker={marker} />
         {imageFilename && <Image marker={marker} width={300} height={200} />}
+        <UploadImage marker={marker} />
       </>
     );
   }
