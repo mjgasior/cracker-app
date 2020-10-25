@@ -73,36 +73,6 @@ You can try to define other scopes. No other user roles other than `admin` are c
 
 You can also do this using the `Roles` section in the `Users & Roles` main menu submenu.
 
-#### Token generation rules setup:
-
-1. Go to `Auth0` and select `Rules` from the menu and click `+ Create rule`.
-2. Pick an `</> Empty rule` template.
-3. Change the name to `Add Cracker roles to token` and fill the `Script` part with:
-
-```
-function (user, context, callback) {
-  user.app_metadata = user.app_metadata || {};
-  context.idToken['https://www.crackerapp.com/roles'] = user.app_metadata.roles;
-  return callback(null, user, context);
-}
-```
-
-The `https://` namespaced convention is necessary in Auth0 to [avoid overriding default fields](https://auth0.com/docs/tokens/guides/create-namespaced-custom-claims).
-
-4. Save changes and go to `Users & Roles`. After that select `Users` section.
-5. Pick the user that you want to assign the `admin` role and `View details` of the account.
-6. Go to `app_metadata` of `Metadata` section and paste this:
-
-```
-{
-  "roles": [
-    "admin"
-  ]
-}
-```
-
-7. After you save, the user access token should have the role property. To verify this try to invoke a request in the browser which will have the `authorization` header with jwt token. Copy the token and verify it on [jwt.io](https://jwt.io/).
-
 ### SSL setup:
 
 In production mode, Cracker app uses Nginx to serve the React static files and route traffic to the backend API. This way the HTTPS can be handled in a quite easy way by Nginx itself and that is the point of [SSL termination](https://avinetworks.com/glossary/ssl-termination/) (going from encrypted HTTPS to unecrypted HTTP).
