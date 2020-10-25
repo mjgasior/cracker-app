@@ -20,11 +20,25 @@ export const useUser = () => {
   return useMemo(() => {
     if (idToken && idToken[CRACKER_DATA]) {
       const { permissions } = idToken[CRACKER_DATA];
+
+      let canUpdate = false,
+        canDelete = false,
+        canCreate = false;
+
+      if (permissions) {
+        canUpdate = permissions.includes("create:markers");
+        canDelete = permissions.includes("delete:markers");
+        canCreate = permissions.includes("update:markers");
+      }
+
+      const isAdmin = canCreate && canDelete && canUpdate;
+
       return {
         email: idToken.email,
-        canUpdate: permissions && permissions.includes("create:markers"),
-        canDelete: permissions && permissions.includes("delete:markers"),
-        canCreate: permissions && permissions.includes("update:markers"),
+        canUpdate,
+        canDelete,
+        canCreate,
+        isAdmin,
         isEmailVerified: Boolean(idToken.email_verified),
       };
     }

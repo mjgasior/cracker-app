@@ -6,8 +6,7 @@ import { useUser } from "../+hooks/useUser";
 
 export const ProfileView = () => {
   const { t, i18n } = useTranslation();
-  const { email, canCreate, canDelete, canUpdate, isEmailVerified } = useUser();
-  const isAdmin = canCreate && canDelete && canUpdate;
+  const { email, isAdmin, isEmailVerified } = useUser();
 
   const handleLanguageChange = useCallback(
     (isChecked) => {

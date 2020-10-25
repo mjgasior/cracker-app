@@ -93,7 +93,6 @@ function (user, context, callback) {
   var params = { id: user.user_id, page: 0, per_page: 50, include_totals: true };
   management.getUserPermissions(params, function (err, permissions) {
     if (err) {
-      // Handle error.
       console.log('err: ', err);
       callback(err);
     } else {
