@@ -7,6 +7,7 @@ export const Description = ({
   selectedMarker,
   onDeleteMarker,
   onCreateMarker,
+  onUpdateMarker,
 }) => {
   if (selectedMarker) {
     return (
@@ -16,6 +17,7 @@ export const Description = ({
           marker={selectedMarker}
           onDeleteMarker={onDeleteMarker}
           onCreateMarker={onCreateMarker}
+          onUpdateMarker={onUpdateMarker}
         />
         <MarkerImage isAllowed={isAllowed} marker={selectedMarker} />
       </>

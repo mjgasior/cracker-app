@@ -1,20 +1,19 @@
 import React, { useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Form, Input, Button, notification } from "antd";
-import { useUpdateMarker } from "../../+hooks/useUpdateMarker";
 
 export const MarkerForm = ({
   isAllowed,
   marker,
   onDeleteMarker,
   onCreateMarker,
+  onUpdateMarker,
 }) => {
   const { t, i18n } = useTranslation();
   const { english, polish, latitude, longitude, _id } = marker;
   const isSavedMarker = _id !== undefined;
 
   const [form] = Form.useForm();
-  const [updateMarker] = useUpdateMarker();
 
   const handleAddMarker = useCallback(
     async (newMarker) => {
@@ -23,7 +22,7 @@ export const MarkerForm = ({
       const title = setTitle(newMarker, i18n, t("saved"));
       openNotification(title, t("saved_marker"));
     },
-    [i18n, t, onCreateMarker]
+    [onCreateMarker, i18n, t]
   );
 
   const handleDeleteMarker = useCallback(async () => {
@@ -33,15 +32,16 @@ export const MarkerForm = ({
 
     const title = setTitle(fieldsValues, i18n, t("deleted"));
     openNotification(title, t("deleted_marker"));
-  }, [t, i18n, form, onDeleteMarker, _id]);
+  }, [onDeleteMarker, t, i18n, form, _id]);
 
-  const handleUpdateMarker = useCallback(() => {
-    const marker = form.getFieldsValue();
-    updateMarker({ variables: { id: _id, marker } });
+  const handleUpdateMarker = useCallback(async () => {
+    const fieldsValues = form.getFieldsValue();
 
-    const title = setTitle(marker, i18n, t("updated"));
+    await onUpdateMarker(_id, fieldsValues);
+
+    const title = setTitle(fieldsValues, i18n, t("updated"));
     openNotification(title, t("updated_marker"));
-  }, [updateMarker, t, i18n, form, _id]);
+  }, [onUpdateMarker, t, i18n, form, _id]);
 
   useEffect(() => form.resetFields(), [marker, form]);
 
