@@ -33,8 +33,8 @@ export const MarkersView = () => {
         <Description
           isAllowed={isAdmin}
           selectedMarker={selectedMarker}
-          onDeletedMarker={deleteMarkerHandler}
-          onCreatedMarker={createMarkerHandler}
+          onDeleteMarker={deleteMarkerHandler}
+          onCreateMarker={createMarkerHandler}
         />
       </Col>
     </Row>

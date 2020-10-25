@@ -6,8 +6,8 @@ import { useUpdateMarker } from "../../+hooks/useUpdateMarker";
 export const MarkerForm = ({
   isAllowed,
   marker,
-  onDeletedMarker,
-  onCreatedMarker,
+  onDeleteMarker,
+  onCreateMarker,
 }) => {
   const { t, i18n } = useTranslation();
   const { english, polish, latitude, longitude, _id } = marker;
@@ -18,22 +18,22 @@ export const MarkerForm = ({
 
   const handleAddMarker = useCallback(
     async (newMarker) => {
-      await onCreatedMarker(newMarker);
+      await onCreateMarker(newMarker);
 
       const title = setTitle(newMarker, i18n, t("saved"));
       openNotification(title, t("saved_marker"));
     },
-    [i18n, t, onCreatedMarker]
+    [i18n, t, onCreateMarker]
   );
 
   const handleDeleteMarker = useCallback(async () => {
     const fieldsValues = form.getFieldsValue();
 
-    await onDeletedMarker(_id);
+    await onDeleteMarker(_id);
 
     const title = setTitle(fieldsValues, i18n, t("deleted"));
     openNotification(title, t("deleted_marker"));
-  }, [t, i18n, form, onDeletedMarker, _id]);
+  }, [t, i18n, form, onDeleteMarker, _id]);
 
   const handleUpdateMarker = useCallback(() => {
     const marker = form.getFieldsValue();
