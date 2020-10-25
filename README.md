@@ -167,6 +167,12 @@ If you want to release from branch, you can use the `./scripts/release.sh` scrip
 4. Go to `/srv/docker` with `cd /srv/docker`.
 5. Run `docker-compose down` and then `docker-compose up`.
 
+It might be necessary to run a manual installation of `sharp` after a release to run a local development again:
+
+```
+npm install --arch=x64 --platform=linuxmusl --target=8.10.0 sharp
+```
+
 ## Snippets:
 
 - `cat filename` - [display the contents of a text file in the command line](https://unix.stackexchange.com/questions/86321/how-can-i-display-the-contents-of-a-text-file-on-the-command-line "StackExchange answer")

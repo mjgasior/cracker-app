@@ -1,25 +1,19 @@
 import React, { useCallback } from "react";
-import { useMutation } from "@apollo/client";
+
 import { useTranslation } from "react-i18next";
-import gql from "graphql-tag";
 import { Upload } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
+import { useUploadImage } from "./+hooks/useUploadImage";
 
 const { Dragger } = Upload;
 
-const SINGLE_UPLOAD_MUTATION = gql`
-  mutation singleUpload($id: ID, $file: Upload!) {
-    singleUpload(id: $id, file: $file)
-  }
-`;
-
 export const UploadImage = ({ marker }) => {
   const { t } = useTranslation();
-  const [uploadFile] = useMutation(SINGLE_UPLOAD_MUTATION);
+  const uploadFile = useUploadImage();
 
   const onDrop = useCallback(
     async ({ file, onSuccess }) => {
-      const isDone = await uploadFile({ variables: { file, id: marker._id } });
+      const isDone = await uploadFile(marker._id, file);
       if (isDone) {
         onSuccess("Ok");
       }

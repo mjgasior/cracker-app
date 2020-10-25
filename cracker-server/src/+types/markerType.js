@@ -35,7 +35,7 @@ export const Marker = gql`
   }
 
   extend type Mutation {
-    singleUpload(id: ID, file: Upload!): Boolean
+    singleUpload(id: ID, file: Upload!): String
     addMarker(marker: MarkerInput): Marker!
     removeMarker(id: ID): Marker!
     updateMarker(id: ID, marker: MarkerInput): Marker!

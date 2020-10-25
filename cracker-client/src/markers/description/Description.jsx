@@ -5,8 +5,9 @@ import { MarkerImage } from "./+components/MarkerImage";
 export const Description = ({
   isAllowed,
   selectedMarker,
-  onDeletedMarker,
-  onCreatedMarker,
+  onDeleteMarker,
+  onCreateMarker,
+  onUpdateMarker,
 }) => {
   if (selectedMarker) {
     return (
@@ -14,8 +15,9 @@ export const Description = ({
         <MarkerForm
           isAllowed={isAllowed}
           marker={selectedMarker}
-          onDeletedMarker={onDeletedMarker}
-          onCreatedMarker={onCreatedMarker}
+          onDeleteMarker={onDeleteMarker}
+          onCreateMarker={onCreateMarker}
+          onUpdateMarker={onUpdateMarker}
         />
         <MarkerImage isAllowed={isAllowed} marker={selectedMarker} />
       </>

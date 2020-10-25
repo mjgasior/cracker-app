@@ -1,56 +1,47 @@
 import React, { useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Form, Input, Button, notification } from "antd";
-import { useAddMarker } from "./../../+hooks/useAddMarker";
-import { useRemoveMarker } from "./../../+hooks/useRemoveMarker";
-import { useUpdateMarker } from "../../+hooks/useUpdateMarker";
 
 export const MarkerForm = ({
   isAllowed,
   marker,
-  onDeletedMarker,
-  onCreatedMarker,
+  onDeleteMarker,
+  onCreateMarker,
+  onUpdateMarker,
 }) => {
   const { t, i18n } = useTranslation();
   const { english, polish, latitude, longitude, _id } = marker;
   const isSavedMarker = _id !== undefined;
 
   const [form] = Form.useForm();
-  const [addMarker] = useAddMarker();
-  const [removeMarker] = useRemoveMarker();
-  const [updateMarker] = useUpdateMarker();
 
   const handleAddMarker = useCallback(
     async (newMarker) => {
-      const response = await addMarker({
-        variables: { marker: newMarker },
-      });
+      await onCreateMarker(newMarker);
 
       const title = setTitle(newMarker, i18n, t("saved"));
       openNotification(title, t("saved_marker"));
-
-      onCreatedMarker(response.data.addMarker._id);
     },
-    [addMarker, i18n, t, onCreatedMarker]
+    [onCreateMarker, i18n, t]
   );
 
-  const handleDeleteMarker = useCallback(() => {
-    const marker = form.getFieldsValue();
-    removeMarker({ variables: { id: _id } });
+  const handleDeleteMarker = useCallback(async () => {
+    const fieldsValues = form.getFieldsValue();
 
-    const title = setTitle(marker, i18n, t("deleted"));
+    await onDeleteMarker(_id);
+
+    const title = setTitle(fieldsValues, i18n, t("deleted"));
     openNotification(title, t("deleted_marker"));
+  }, [onDeleteMarker, t, i18n, form, _id]);
 
-    onDeletedMarker();
-  }, [removeMarker, t, i18n, form, onDeletedMarker, _id]);
+  const handleUpdateMarker = useCallback(async () => {
+    const fieldsValues = form.getFieldsValue();
 
-  const handleUpdateMarker = useCallback(() => {
-    const marker = form.getFieldsValue();
-    updateMarker({ variables: { id: _id, marker } });
+    await onUpdateMarker(_id, fieldsValues);
 
-    const title = setTitle(marker, i18n, t("updated"));
+    const title = setTitle(fieldsValues, i18n, t("updated"));
     openNotification(title, t("updated_marker"));
-  }, [updateMarker, t, i18n, form, _id]);
+  }, [onUpdateMarker, t, i18n, form, _id]);
 
   useEffect(() => form.resetFields(), [marker, form]);
 
