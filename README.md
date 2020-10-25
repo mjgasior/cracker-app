@@ -83,27 +83,35 @@ Because there is no easy way to deal with getting the user role or permissions f
 
 ```
 function (user, context, callback) {
-  user.app_metadata = user.app_metadata || {};
-  context.idToken['https://www.crackerapp.com/roles'] = user.app_metadata.roles;
-  return callback(null, user, context);
+  var map = require('array-map');
+  var ManagementClient = require('auth0@2.17.0').ManagementClient;
+  var management = new ManagementClient({
+    token: auth0.accessToken,
+    domain: auth0.domain
+  });
+
+  var params = { id: user.user_id, page: 0, per_page: 50, include_totals: true };
+  management.getUserPermissions(params, function (err, permissions) {
+    if (err) {
+      // Handle error.
+      console.log('err: ', err);
+      callback(err);
+    } else {
+      var permissionsArr = map(permissions.permissions, function (permission) {
+        return permission.permission_name;
+      });
+      context.idToken['https://www.crackerapp.com'] = {
+        permissions: permissionsArr
+      };
+    }
+    callback(null, user, context);
+  });
 }
 ```
 
 The `https://` namespaced convention is necessary in Auth0 to [avoid overriding default fields](https://auth0.com/docs/tokens/guides/create-namespaced-custom-claims).
 
-4. Save changes and go to `Users & Roles`. After that select `Users` section.
-5. Pick the user that you want to assign the `admin` role and `View details` of the account.
-6. Go to `app_metadata` of `Metadata` section and paste this:
-
-```
-{
-  "roles": [
-    "admin"
-  ]
-}
-```
-
-7. After you save, the user access token should have the role property. To verify this try to invoke a request in the browser which will have the `authorization` header with jwt token. Copy the token and verify it on [jwt.io](https://jwt.io/).
+5. After you save, the user access token should have the role property. To verify this try to invoke a request in the browser which will have the `authorization` header with jwt token. Copy the token and verify it on [jwt.io](https://jwt.io/).
 
 ### SSL setup:
 
