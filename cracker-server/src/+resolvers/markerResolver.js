@@ -13,7 +13,7 @@ export const MarkerResolver = {
     },
   },
   Mutation: {
-    addMarker: withAuth(async (_, { marker }) => {
+    addMarker: withAuth(["create:markers"], async (_, { marker }) => {
       try {
         return await markerConnector.add(marker);
       } catch (e) {
@@ -22,7 +22,7 @@ export const MarkerResolver = {
       }
     }),
 
-    singleUpload: withAuth(async (_, { id, file }) => {
+    singleUpload: withAuth(["update:markers"], async (_, { id, file }) => {
       try {
         console.log(`Recieved a file for ${id}`);
         const { createReadStream, filename } = await file;
@@ -56,7 +56,7 @@ export const MarkerResolver = {
       }
     }),
 
-    removeMarker: withAuth(async (_, { id }) => {
+    removeMarker: withAuth(["delete:markers"], async (_, { id }) => {
       try {
         const { imageFilename } = await markerConnector.get(id);
         if (imageFilename) {
@@ -82,7 +82,7 @@ export const MarkerResolver = {
       }
     }),
 
-    updateMarker: withAuth(async (_, { id, marker }) => {
+    updateMarker: withAuth(["update:markers"], async (_, { id, marker }) => {
       try {
         return await markerConnector.update(id, marker);
       } catch (e) {

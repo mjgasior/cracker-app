@@ -46,10 +46,11 @@ Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barli
 
 | Permission (Scope) |    Description |
 | ------------------ | -------------: |
-| `read:markers`     |   Read markers |
 | `update:markers`   | Update markers |
 | `delete:markers`   | Delete markers |
 | `create:markers`   | Create markers |
+
+Read option is by available for everyone by default.
 
 #### Roles setup:
 
