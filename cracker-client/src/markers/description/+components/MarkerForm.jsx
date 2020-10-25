@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Form, Input, Button, notification } from "antd";
-import { useAddMarker } from "./../../+hooks/useAddMarker";
 import { useUpdateMarker } from "../../+hooks/useUpdateMarker";
 
 export const MarkerForm = ({
@@ -15,21 +14,16 @@ export const MarkerForm = ({
   const isSavedMarker = _id !== undefined;
 
   const [form] = Form.useForm();
-  const [addMarker] = useAddMarker();
   const [updateMarker] = useUpdateMarker();
 
   const handleAddMarker = useCallback(
     async (newMarker) => {
-      const response = await addMarker({
-        variables: { marker: newMarker },
-      });
+      await onCreatedMarker(newMarker);
 
       const title = setTitle(newMarker, i18n, t("saved"));
       openNotification(title, t("saved_marker"));
-
-      onCreatedMarker(response.data.addMarker._id);
     },
-    [addMarker, i18n, t, onCreatedMarker]
+    [i18n, t, onCreatedMarker]
   );
 
   const handleDeleteMarker = useCallback(async () => {
