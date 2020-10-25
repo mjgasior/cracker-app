@@ -6,7 +6,7 @@ import { useMarkers } from "./+hooks/useMarkers";
 import { useMarkerRoute } from "./+hooks/useMarkerRoute";
 import { useAddMarkerRoute } from "./+hooks/useAddMarkerRoute";
 import { useSelectedMarker } from "./+hooks/useSelectedMarker";
-import { useDeleteMarkerRoute } from "./+hooks/useDeleteMarkerRoute";
+import { useDeleteMarkerHandler } from "./+hooks/useDeleteMarkerHandler";
 import { useUser } from "../+hooks/useUser";
 
 export const MarkersView = () => {
@@ -15,7 +15,7 @@ export const MarkersView = () => {
   const selectedMarker = useSelectedMarker(data);
   const selectedMarkerHandler = useMarkerRoute();
   const addMarkerHandler = useAddMarkerRoute(isAdmin);
-  const deleteMarkerHandler = useDeleteMarkerRoute();
+  const deleteMarkerHandler = useDeleteMarkerHandler();
 
   return (
     <Row>

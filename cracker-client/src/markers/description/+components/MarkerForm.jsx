@@ -2,7 +2,6 @@ import React, { useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Form, Input, Button, notification } from "antd";
 import { useAddMarker } from "./../../+hooks/useAddMarker";
-import { useRemoveMarker } from "./../../+hooks/useRemoveMarker";
 import { useUpdateMarker } from "../../+hooks/useUpdateMarker";
 
 export const MarkerForm = ({
@@ -17,7 +16,6 @@ export const MarkerForm = ({
 
   const [form] = Form.useForm();
   const [addMarker] = useAddMarker();
-  const [removeMarker] = useRemoveMarker();
   const [updateMarker] = useUpdateMarker();
 
   const handleAddMarker = useCallback(
@@ -34,15 +32,14 @@ export const MarkerForm = ({
     [addMarker, i18n, t, onCreatedMarker]
   );
 
-  const handleDeleteMarker = useCallback(() => {
-    const marker = form.getFieldsValue();
-    removeMarker({ variables: { id: _id } });
+  const handleDeleteMarker = useCallback(async () => {
+    const fieldsValues = form.getFieldsValue();
 
-    const title = setTitle(marker, i18n, t("deleted"));
+    await onDeletedMarker(_id);
+
+    const title = setTitle(fieldsValues, i18n, t("deleted"));
     openNotification(title, t("deleted_marker"));
-
-    onDeletedMarker();
-  }, [removeMarker, t, i18n, form, onDeletedMarker, _id]);
+  }, [t, i18n, form, onDeletedMarker, _id]);
 
   const handleUpdateMarker = useCallback(() => {
     const marker = form.getFieldsValue();
