@@ -16,6 +16,8 @@ Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barli
 
 ### Authorization setup:
 
+#### Auth0 account setup:
+
 1. [Log in](https://auth0.auth0.com/login "Auth0 login page") or [create new account](https://auth0.com/signup "Auth0 signup page") on Auth0 website.
 2. Go to `Applications` and click `Create application`.
 3. Name it `Cracker`, select `Single Page Web Applications` and click `Create`.
@@ -29,12 +31,49 @@ Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barli
    - Allowed Logout URLs, Allowed Web Origins and Allowed Origins (CORS):
      - `https://localhost:3000/` - running app fully locally
      - `https://the.ip.of.docker.machine/` - running app as Docker production build
-6. Go to `APIs` and click `Create API`.
-7. Write `Cracker API` in the `Name` field.
-8. Write `https://cracker.app` in the `Identifier` field (it has to be in the HTTP format) and click `Create`.
-9. The `Identifier` value should be set in `.env` files under `AUDIENCE` for `cracker-server` and `REACT_APP_AUDIENCE` for `cracker-client`.
 
-### Roles setup:
+#### Auth0 API setup:
+
+1. Go to `APIs` and click `Create API`.
+2. Write `Cracker API` in the `Name` field.
+3. Write `https://cracker.app` in the `Identifier` field (it has to be in the HTTP format) and click `Create`.
+4. The `Identifier` value should be set in `.env` files under `AUDIENCE` for `cracker-server` and `REACT_APP_AUDIENCE` for `cracker-client`.
+5. Go to `Settings` section of the newly created API and scroll to `RBAC Settings` paragraph.
+6. Make the `Enable RBAC` switch enabled and after that also enable the `Add Permissions in the Access Token` switch.
+7. Scroll to the bottom and click `Save`.
+8. Go to `Permissions` and find the `Add a Permission (Scope)` section.
+9. Add these permissions (scopes):
+
+| Permission (Scope) |    Description |
+| ------------------ | -------------: |
+| `update:markers`   | Update markers |
+| `delete:markers`   | Delete markers |
+| `create:markers`   | Create markers |
+
+Read option is by available for everyone by default.
+
+#### Roles setup for backend side:
+
+1. Open `Users & Roles` section in the main menu and got to `Roles`.
+2. Click `+ Create roles` fill the `Name` as `admin`, `Description` as `Cracker app administrator` and click `Create`.
+3. The new role should be visible in the table - go to its details/settings by clicking the role `admin` name.
+4. Go to `Permissions` section and click `Add permissions`.
+5. Select the `Cracker API` (`https://cracker.red` API defined earlier) and either click `All` next to `Select all:` sign, or manually check all the available scopes.
+6. Click `Add permissions`.
+
+You can try to define other scopes. No other user roles other than `admin` are currently used. You select the account and then navigate to `Permissions` part.
+
+#### Assign role to a user:
+
+1. Open `Users & Roles` section in the main menu and got to `Roles`.
+2. Go to details/settings of `admin` role by clicking its name.
+3. Go to `Users` section and click `Add users`.
+4. In the `Select users` dropdown start typing the email address of the account you want to assign admin role.
+5. After selecting the account, click `Assign`.
+
+You can also do this using the `Roles` section in the `Users & Roles` main menu submenu.
+
+#### Roles setup for client side:
 
 1. Go to `Auth0` and select `Rules` from the menu and click `+ Create rule`.
 2. Pick an `</> Empty rule` template.

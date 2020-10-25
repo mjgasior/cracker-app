@@ -4,7 +4,7 @@ import { ApolloServer } from "apollo-server-express";
 import express from "express";
 import { schema } from "./schema";
 import { resizeImage, forcedResizeImage } from "./+services/imageService";
-import { getIsAuthenticated } from "./+services/authorizationService";
+import { getTokenPayload } from "./+services/authorizationService";
 
 const server = new ApolloServer({
   schema,
@@ -22,8 +22,8 @@ const server = new ApolloServer({
     },
   },
   context: async ({ req, ...rest }) => {
-    const isAuthenticated = await getIsAuthenticated(req);
-    return { ...rest, req, auth: { isAuthenticated } };
+    const tokenPayload = await getTokenPayload(req);
+    return { ...rest, req, auth: tokenPayload };
   },
 });
 
@@ -32,8 +32,8 @@ server.applyMiddleware({ app });
 
 app.use("/images", async (req, res, next) => {
   try {
-    const isAuthenticated = await getIsAuthenticated(req);
-    if (isAuthenticated) {
+    const tokenPayload = await getTokenPayload(req);
+    if (tokenPayload.isAuthenticated) {
       if (req.query.w && req.query.h) {
         await resizeImage(req, res, next);
       } else {
