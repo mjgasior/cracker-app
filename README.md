@@ -75,33 +75,42 @@ You can also do this using the `Roles` section in the `Users & Roles` main menu 
 
 #### Roles setup for client side:
 
+Because there is no easy way to deal with getting the user role or permissions from id token provided by Auth0, we need to write a custom rule which will automatically attach that information to the token. [Parsing access tokens on client side](https://github.com/auth0/auth0-spa-js/issues/23#issuecomment-507794605) for any reason is strongly discouraged due to its backend character, that is why we can't get permissions by just reading them from a decoded access token.
+
 1. Go to `Auth0` and select `Rules` from the menu and click `+ Create rule`.
 2. Pick an `</> Empty rule` template.
-3. Change the name to `Add Cracker roles to token` and fill the `Script` part with:
+3. Change the name to `Add Cracker roles to token` and fill the `Script` part with [code from below](https://community.auth0.com/t/accessing-the-permissions-array-in-the-access-token/27559/10):
 
 ```
 function (user, context, callback) {
-  user.app_metadata = user.app_metadata || {};
-  context.idToken['https://www.crackerapp.com/roles'] = user.app_metadata.roles;
-  return callback(null, user, context);
+  var map = require('array-map');
+  var ManagementClient = require('auth0@2.17.0').ManagementClient;
+  var management = new ManagementClient({
+    token: auth0.accessToken,
+    domain: auth0.domain
+  });
+
+  var params = { id: user.user_id, page: 0, per_page: 50, include_totals: true };
+  management.getUserPermissions(params, function (err, permissions) {
+    if (err) {
+      console.log('err: ', err);
+      callback(err);
+    } else {
+      var permissionsArr = map(permissions.permissions, function (permission) {
+        return permission.permission_name;
+      });
+      context.idToken['https://www.crackerapp.com'] = {
+        permissions: permissionsArr
+      };
+    }
+    callback(null, user, context);
+  });
 }
 ```
 
 The `https://` namespaced convention is necessary in Auth0 to [avoid overriding default fields](https://auth0.com/docs/tokens/guides/create-namespaced-custom-claims).
 
-4. Save changes and go to `Users & Roles`. After that select `Users` section.
-5. Pick the user that you want to assign the `admin` role and `View details` of the account.
-6. Go to `app_metadata` of `Metadata` section and paste this:
-
-```
-{
-  "roles": [
-    "admin"
-  ]
-}
-```
-
-7. After you save, the user access token should have the role property. To verify this try to invoke a request in the browser which will have the `authorization` header with jwt token. Copy the token and verify it on [jwt.io](https://jwt.io/).
+5. After you save, the user access token should have the role property. To verify this try to invoke a request in the browser which will have the `authorization` header with jwt token. Copy the token and verify it on [jwt.io](https://jwt.io/).
 
 ### SSL setup:
 

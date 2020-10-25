@@ -1,7 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { useMemo, useEffect, useState } from "react";
 
-const CRACKER_DATA = "https://www.crackerapp.com/roles";
+const CRACKER_DATA = "https://www.crackerapp.com";
 
 export const useUser = () => {
   const { isAuthenticated, getIdTokenClaims } = useAuth0();
@@ -18,11 +18,27 @@ export const useUser = () => {
   }, [isAuthenticated, setIdToken, getIdTokenClaims]);
 
   return useMemo(() => {
-    if (idToken) {
-      const roles = idToken[CRACKER_DATA];
+    if (idToken && idToken[CRACKER_DATA]) {
+      const { permissions } = idToken[CRACKER_DATA];
+
+      let canUpdate = false,
+        canDelete = false,
+        canCreate = false;
+
+      if (permissions) {
+        canUpdate = permissions.includes("create:markers");
+        canDelete = permissions.includes("delete:markers");
+        canCreate = permissions.includes("update:markers");
+      }
+
+      const isAdmin = canCreate && canDelete && canUpdate;
+
       return {
         email: idToken.email,
-        isAdmin: roles && roles.includes("admin"),
+        canUpdate,
+        canDelete,
+        canCreate,
+        isAdmin,
         isEmailVerified: Boolean(idToken.email_verified),
       };
     }
