@@ -38,6 +38,15 @@ Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barli
 2. Write `Cracker API` in the `Name` field.
 3. Write `https://cracker.app` in the `Identifier` field (it has to be in the HTTP format) and click `Create`.
 4. The `Identifier` value should be set in `.env` files under `AUDIENCE` for `cracker-server` and `REACT_APP_AUDIENCE` for `cracker-client`.
+5. Go to `Permissions` and find the `Add a Permission (Scope)` section.
+6. Add these permissions (scopes):
+
+| Permission (Scope) |    Description |
+| ------------------ | -------------: |
+| read:markers       |   Read markers |
+| update:markers     | Update markers |
+| delete:markers     | Delete markers |
+| create:markers     | Create markers |
 
 #### Roles setup:
 
@@ -68,6 +77,10 @@ The `https://` namespaced convention is necessary in Auth0 to [avoid overriding 
 ```
 
 7. After you save, the user access token should have the role property. To verify this try to invoke a request in the browser which will have the `authorization` header with jwt token. Copy the token and verify it on [jwt.io](https://jwt.io/).
+
+#### Scopes setup:
+
+1. This
 
 ### SSL setup:
 
