@@ -49,7 +49,7 @@ export const MarkerResolver = {
         markerConnector.update(id, marker);
         console.log(`Saving and updating of ${newFilename} completed.`);
 
-        return true;
+        return newFilename;
       } catch (e) {
         console.error(e);
         throw new AuthenticationError("You must be logged in to do this");
