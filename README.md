@@ -16,6 +16,8 @@ Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barli
 
 ### Authorization setup:
 
+#### Auth0 account setup:
+
 1. [Log in](https://auth0.auth0.com/login "Auth0 login page") or [create new account](https://auth0.com/signup "Auth0 signup page") on Auth0 website.
 2. Go to `Applications` and click `Create application`.
 3. Name it `Cracker`, select `Single Page Web Applications` and click `Create`.
@@ -29,12 +31,15 @@ Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barli
    - Allowed Logout URLs, Allowed Web Origins and Allowed Origins (CORS):
      - `https://localhost:3000/` - running app fully locally
      - `https://the.ip.of.docker.machine/` - running app as Docker production build
-6. Go to `APIs` and click `Create API`.
-7. Write `Cracker API` in the `Name` field.
-8. Write `https://cracker.app` in the `Identifier` field (it has to be in the HTTP format) and click `Create`.
-9. The `Identifier` value should be set in `.env` files under `AUDIENCE` for `cracker-server` and `REACT_APP_AUDIENCE` for `cracker-client`.
 
-### Roles setup:
+#### Auth0 API setup:
+
+1. Go to `APIs` and click `Create API`.
+2. Write `Cracker API` in the `Name` field.
+3. Write `https://cracker.app` in the `Identifier` field (it has to be in the HTTP format) and click `Create`.
+4. The `Identifier` value should be set in `.env` files under `AUDIENCE` for `cracker-server` and `REACT_APP_AUDIENCE` for `cracker-client`.
+
+#### Roles setup:
 
 1. Go to `Auth0` and select `Rules` from the menu and click `+ Create rule`.
 2. Pick an `</> Empty rule` template.
