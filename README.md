@@ -75,6 +75,8 @@ You can also do this using the `Roles` section in the `Users & Roles` main menu 
 
 #### Roles setup for client side:
 
+Because there is no easy way to deal with getting the user role or permissions from id token provided by Auth0, we need to write a custom rule which will automatically attach that information to the token. [Parsing access tokens on client side](https://community.auth0.com/t/accessing-the-permissions-array-in-the-access-token/27559/2) for any reason is strongly discouraged due to its backend character, that is why we can't get permissions by just reading them from a decoded access token.
+
 1. Go to `Auth0` and select `Rules` from the menu and click `+ Create rule`.
 2. Pick an `</> Empty rule` template.
 3. Change the name to `Add Cracker roles to token` and fill the `Script` part with:
