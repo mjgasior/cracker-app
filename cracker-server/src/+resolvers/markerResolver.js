@@ -24,9 +24,8 @@ export const MarkerResolver = {
 
     singleUpload: withAuth(["update:markers"], async (_, { id, file }) => {
       try {
-        console.log(`Recieved a file for ${id}`);
         const { createReadStream, filename } = await file;
-        console.log(`Current file filename: ${JSON.stringify(filename)}`);
+        console.log(`${id}: recieved file: ${JSON.stringify(filename)}`);
 
         const currentDate = getFormattedCurrentDate();
         const newFilename = `${id}_${currentDate}${path.extname(filename)}`;
@@ -41,14 +40,19 @@ export const MarkerResolver = {
           createReadStream().pipe(createWriteStream(savePath)).on("close", res)
         );
 
-        console.log(
-          `File ${newFilename} saved, updating the filename in database.`
-        );
+        console.log(`${id}: file saved, updating database: ${newFilename}`);
 
         const marker = await markerConnector.get(id);
+
+        const currentImageFilename = marker.imageFilename;
+        if (currentImageFilename) {
+          console.log(`${id}: deleted old photo: ${currentImageFilename}`);
+          deleteImage(currentImageFilename);
+        }
+
         marker.imageFilename = newFilename;
         markerConnector.update(id, marker);
-        console.log(`Saving and updating of ${newFilename} completed.`);
+        console.log(`${id}: completed saving: ${newFilename}`);
 
         return newFilename;
       } catch (e) {
@@ -61,18 +65,7 @@ export const MarkerResolver = {
       try {
         const { imageFilename } = await markerConnector.get(id);
         if (imageFilename) {
-          const imageSaveDirectory = process.env.IMAGE_DIRECTORY;
-          let deletePath = path.join(__dirname, "../../images", imageFilename);
-          if (imageSaveDirectory) {
-            deletePath = path.join(imageSaveDirectory, imageFilename);
-          }
-
-          if (existsSync(deletePath)) {
-            console.log(`File deletion of: ${deletePath}`);
-            unlinkSync(deletePath);
-          } else {
-            console.log(`Tried to delete but does not exist: ${deletePath}`);
-          }
+          deleteImage(imageFilename);
         }
 
         console.log(`Removing marker ${id}`);
@@ -92,6 +85,21 @@ export const MarkerResolver = {
       }
     }),
   },
+};
+
+const deleteImage = (imageFilename) => {
+  const imageSaveDirectory = process.env.IMAGE_DIRECTORY;
+  let deletePath = path.join(__dirname, "../../images", imageFilename);
+  if (imageSaveDirectory) {
+    deletePath = path.join(imageSaveDirectory, imageFilename);
+  }
+
+  if (existsSync(deletePath)) {
+    console.log(`File deletion of: ${deletePath}`);
+    unlinkSync(deletePath);
+  } else {
+    console.log(`Tried to delete but does not exist: ${deletePath}`);
+  }
 };
 
 const getFormattedCurrentDate = () => {
