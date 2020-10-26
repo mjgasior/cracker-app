@@ -28,7 +28,8 @@ export const MarkerResolver = {
         const { createReadStream, filename } = await file;
         console.log(`Current file filename: ${JSON.stringify(filename)}`);
 
-        const newFilename = `${id}${path.extname(filename)}`;
+        const currentDate = getFormattedCurrentDate();
+        const newFilename = `${id}_${currentDate}${path.extname(filename)}`;
 
         const imageSaveDirectory = process.env.IMAGE_DIRECTORY;
         let savePath = path.join(__dirname, "../../images", newFilename);
@@ -91,4 +92,13 @@ export const MarkerResolver = {
       }
     }),
   },
+};
+
+const getFormattedCurrentDate = () => {
+  const currentDateTime = new Date();
+  const year = currentDateTime.getFullYear();
+  const month = currentDateTime.getMonth() + 1;
+  const days = currentDateTime.getDate();
+  const utcMiliseconds = currentDateTime.getUTCMilliseconds();
+  return `${year}${month}${days}_${utcMiliseconds}`;
 };
