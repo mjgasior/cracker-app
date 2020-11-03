@@ -29,8 +29,13 @@ export const App = () => {
       </div>
     );
   }
+
   if (error) {
-    return <div>Oops... {error.message}</div>;
+    return (
+      <div>
+        <p>Oops... {error.message}</p>
+      </div>
+    );
   }
 
   return (
