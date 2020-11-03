@@ -118,8 +118,6 @@ In production mode, Cracker app uses Nginx to serve the React static files and r
 
 A problem emerges in local development mode where we would want to utilize all the benefits of Webpack hosting React files and providing HTTPS. Because Apollo backend API doesn't have HTTPS defined, the direct calls from React client to Apollo backend would be blocked by the browser due to [mixed content](https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content/How_to_fix_website_with_mixed_content) (one can't call HTTP endpoint while being hosted with HTTPS). That is why we have an additional container - `cracker-proxy` which handles the HTTPS termination for communication with the backend.
 
-The proxy listens on `/api` with HTTPS and proxies the traffic with HTTP to port `:4000` of Apollo API. The API and the Apollo GQL playground are still available with a direct `:4000` call.
-
 1. Use [this](https://medium.com/the-new-control-plane/generating-self-signed-certificates-on-windows-7812a600c2d8) instruction to generate SSL certificates (I have used Windows OpenSSL alternative which is available [here](https://slproweb.com/products/Win32OpenSSL.html) - everything is described in the instruction provided previously). Keep the name of the certificate `fullchain.pem` and `privkey.pem` for the private key, for example, using OpenSSL:
 
 ```
@@ -138,6 +136,45 @@ openssl req -x509 -newkey rsa:4096 -nodes -keyout fullchain.pem -out privkey.pem
 2. After you have generated the SSL certificate, you should have two files with `.pem` extensions. Copy them to `./certificates` directory for local development and `./cracker-client/nginx` for production builds.
 
 This method is only for local development. To have a proper cerificate for production you would need to refer to [this repository](https://github.com/mjgasior/nginx-certbot). Remember that invalid self signed certificates might be blocked by some browsers and page might not be reachable at all - there will be an information that the page is unsafe to connect with tho.
+
+### Apollo GraphQL Playground:
+
+The development proxy listens on `/api` with HTTPS and proxies the traffic with HTTP to port `:4000` of Apollo API. The API and the Apollo GQL playground are still available also with a direct `:4000` call. For example, to try out the Apollo GraphQL Playground you would just use either `http://192.168.99.100:4000/graphql` or `https://192.168.99.100/api` (but here you would need to correct the address in the Playground UI to `https://192.168.99.100/api` instead of `https://192.168.99.100/graphql`).
+
+To try out a call with authorization do this (instruction for Chrome):
+
+1. Run the application.
+2. Log in to any account and go to `Markers` section.
+3. When in `Markers`, press `F12` to access `DevTools`.
+4. Go to `Network` tab and click on an `api` request.
+5. Navigate to `Headers` tab of that request and go to `Request Headers` section.
+6. You should find the `authorization` header there - copy the whole header with its value (`authorization: Bearer your.access.token`).
+7. Enter the Playground as described above.
+8. Open `HTTP HEADERS` section in the Playground, write curly braces and paste the authorization header as in the example below (remember about the quotation marks):
+
+```
+{
+  "authorization": "Bearer your.access.token"
+}
+```
+
+9. Paste the GraphQL request:
+
+```
+{
+  getVersion
+}
+```
+
+10. Click the run button. You should get a response with API version like below:
+
+```
+{
+  "data": {
+    "getVersion": "0.0.1"
+  }
+}
+```
 
 ### Local development configuration setup:
 
@@ -194,8 +231,9 @@ You can use the `setup.sh` script to setup a new instance on Lightsail autmatica
 0. Remember to set up proper Auth0 (client ID and the domain) values in `cracker-client` and `cracker-server`.
 1. Put the SSL certificates for HTTPS next to `nginx` configuration in `cracker-client/nginx` directory. The names should be `fullchain.pem` and `privkey.pem` for private key.
 2. Set proper IP address of the API in `.env` file in `cracker-client` for new Lightsail instance (for example `REACT_APP_API_URL=https://18.196.197.102/api`).
-3. Run `docker-compose -f docker-compose.prod.yml build`
-4. Run `docker-compose -f docker-compose.prod.yml up`
+3. Set `GENERATE_SOURCEMAP=false` in the `.env` file in `cracker-client` to avoid creating source maps for the generated code (the `release.sh` script adds this automatically, so if you need to investigate the source code, delete this value before creating a release - [source maps are downloaded only if the user has React DevTools](https://github.com/facebook/create-react-app/issues/2005#issuecomment-296390495)).
+4. Run `docker-compose -f docker-compose.prod.yml build`
+5. Run `docker-compose -f docker-compose.prod.yml up`
 
 ### Push image to Docker Hub:
 

@@ -25,6 +25,7 @@ services:
     image: mjgasior/cracker-server:0.0.1
     environment:
       - MONGODB_ADDRESS=cracker-db:27017
+      - NODE_ENV=production
     networks:
       - cracknet
     volumes:
