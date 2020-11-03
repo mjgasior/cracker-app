@@ -3,6 +3,8 @@ import { makeExecutableSchema } from "graphql-tools";
 
 import { Marker } from "./+types/markerType";
 import { MarkerResolver } from "./+resolvers/markerResolver";
+import { Version } from "./+types/versionType";
+import { VersionResolver } from "./+resolvers/versionResolver";
 
 const Base = gql`
   type Query {
@@ -15,6 +17,6 @@ const Base = gql`
 `;
 
 export const schema = makeExecutableSchema({
-  typeDefs: [Base, Marker],
-  resolvers: [MarkerResolver],
+  typeDefs: [Base, Marker, Version],
+  resolvers: [MarkerResolver, VersionResolver],
 });
