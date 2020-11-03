@@ -194,8 +194,9 @@ You can use the `setup.sh` script to setup a new instance on Lightsail autmatica
 0. Remember to set up proper Auth0 (client ID and the domain) values in `cracker-client` and `cracker-server`.
 1. Put the SSL certificates for HTTPS next to `nginx` configuration in `cracker-client/nginx` directory. The names should be `fullchain.pem` and `privkey.pem` for private key.
 2. Set proper IP address of the API in `.env` file in `cracker-client` for new Lightsail instance (for example `REACT_APP_API_URL=https://18.196.197.102/api`).
-3. Run `docker-compose -f docker-compose.prod.yml build`
-4. Run `docker-compose -f docker-compose.prod.yml up`
+3. Set `GENERATE_SOURCEMAP=false` in the `.env` file in `cracker-client` to avoid creating source maps for the generated code (the `release.sh` script adds this automatically, so if you need to investigate the source code, delete this value before creating a release - [source maps are downloaded only if the user has React DevTools](https://github.com/facebook/create-react-app/issues/2005#issuecomment-296390495)).
+4. Run `docker-compose -f docker-compose.prod.yml build`
+5. Run `docker-compose -f docker-compose.prod.yml up`
 
 ### Push image to Docker Hub:
 
