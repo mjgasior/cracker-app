@@ -23,7 +23,11 @@ const Container = styled(Content)`
 export const App = () => {
   const { isLoading, error } = useAuth0();
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <p>Loading...</p>
+      </div>
+    );
   }
   if (error) {
     return <div>Oops... {error.message}</div>;

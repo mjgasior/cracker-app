@@ -6,7 +6,8 @@ read -p "Enter allocated static IP (if you have a domain, write it here): " stat
 
 echo "Static IP: $static_ip"
 
-echo "REACT_APP_API_URL=https://$static_ip/api" >> ".env.production"
+echo "GENERATE_SOURCEMAP=false
+REACT_APP_API_URL=https://$static_ip/api" >> ".env.production"
 
 cp ".env.production" "./cracker-client/"
 
