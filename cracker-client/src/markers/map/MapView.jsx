@@ -2,6 +2,7 @@ import React, { useCallback } from "react";
 import { MapContainer, Marker, TileLayer } from "react-leaflet";
 import { StyledMapContainer } from "./+components/StyledMapContainer";
 import { MarkerIcon } from "./+components/MarkerIcon";
+import { MapController } from "./+components/MapController";
 
 export const MapView = ({
   markersList,
@@ -24,11 +25,8 @@ export const MapView = ({
 
   return (
     <StyledMapContainer>
-      <MapContainer
-        center={center}
-        zoom={15}
-        oncontextmenu={handleOnContextMenu}
-      >
+      <MapContainer center={center} zoom={15}>
+        <MapController onContextMenu={handleOnContextMenu} />
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
