@@ -19,10 +19,13 @@ export const MapView = ({
     [onAddNewMarker]
   );
 
+  const center = centerToFirstOrDefault(selectedMarker, markersList);
+  console.log(center);
+
   return (
     <StyledMapContainer>
       <MapContainer
-        center={centerToFirstOrDefault(selectedMarker, markersList)}
+        center={center}
         zoom={15}
         oncontextmenu={handleOnContextMenu}
       >
