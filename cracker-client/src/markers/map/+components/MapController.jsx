@@ -7,12 +7,6 @@ export const MapController = ({
   markersList,
 }) => {
   const map = useMapEvents({
-    click: () => {
-      map.locate();
-    },
-    locationfound: (location) => {
-      console.log("location found:", location);
-    },
     contextmenu: onContextMenu,
   });
 

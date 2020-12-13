@@ -20,12 +20,9 @@ export const MapView = ({
     [onAddNewMarker]
   );
 
-  const center = centerToFirstOrDefault(selectedMarker, markersList);
-  console.log(center);
-
   return (
     <StyledMapContainer>
-      <MapContainer center={center} zoom={15}>
+      <MapContainer>
         <MapController
           onContextMenu={handleOnContextMenu}
           selectedMarker={selectedMarker}
@@ -62,15 +59,4 @@ export const MapView = ({
       </MapContainer>
     </StyledMapContainer>
   );
-};
-
-const centerToFirstOrDefault = (selectedMarker, markersList) => {
-  if (selectedMarker) {
-    return [selectedMarker.latitude, selectedMarker.longitude];
-  }
-
-  const KRAKOW_JORDAN_PARK_COORDS = [50.061252, 19.915738];
-  return markersList && markersList.markers.length > 0
-    ? [markersList.markers[0].latitude, markersList.markers[0].longitude]
-    : KRAKOW_JORDAN_PARK_COORDS;
 };
