@@ -12,7 +12,7 @@ export const MapController = ({
 
   useEffect(() => {
     if (map) {
-      map.setView(centerToFirstOrDefault(selectedMarker, markersList), 15);
+      map.setView(centerToFirstOrDefault(selectedMarker, markersList));
     }
   }, [map, selectedMarker, markersList]);
 

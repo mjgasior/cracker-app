@@ -22,7 +22,7 @@ export const MapView = ({
 
   return (
     <StyledMapContainer>
-      <MapContainer>
+      <MapContainer zoom={15}>
         <MapController
           onContextMenu={handleOnContextMenu}
           selectedMarker={selectedMarker}
