@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const MapContainer = styled.div`
+export const StyledMapContainer = styled.div`
   width: 600px;
   height: 600px;
 

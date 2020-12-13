@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
-import { Map, Marker, TileLayer } from "react-leaflet";
-import { MapContainer } from "./+components/MapContainer";
+import { MapContainer, Marker, TileLayer } from "react-leaflet";
+import { StyledMapContainer } from "./+components/StyledMapContainer";
 import { MarkerIcon } from "./+components/MarkerIcon";
 
 export const MapView = ({
@@ -20,8 +20,8 @@ export const MapView = ({
   );
 
   return (
-    <MapContainer>
-      <Map
+    <StyledMapContainer>
+      <MapContainer
         center={centerToFirstOrDefault(selectedMarker, markersList)}
         zoom={15}
         oncontextmenu={handleOnContextMenu}
@@ -51,8 +51,8 @@ export const MapView = ({
               />
             );
           })}
-      </Map>
-    </MapContainer>
+      </MapContainer>
+    </StyledMapContainer>
   );
 };
 
