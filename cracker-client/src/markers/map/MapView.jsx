@@ -26,7 +26,12 @@ export const MapView = ({
   return (
     <StyledMapContainer>
       <MapContainer center={center} zoom={15}>
-        <MapController onContextMenu={handleOnContextMenu} />
+        <MapController
+          onContextMenu={handleOnContextMenu}
+          selectedMarker={selectedMarker}
+          markersList={selectedMarker}
+        />
+
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

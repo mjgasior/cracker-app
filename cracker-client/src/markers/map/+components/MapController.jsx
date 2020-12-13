@@ -1,6 +1,11 @@
+import { useEffect } from "react";
 import { useMapEvents } from "react-leaflet";
 
-export const MapController = ({ onContextMenu }) => {
+export const MapController = ({
+  onContextMenu,
+  selectedMarker,
+  markersList,
+}) => {
   const map = useMapEvents({
     click: () => {
       map.locate();
@@ -10,5 +15,23 @@ export const MapController = ({ onContextMenu }) => {
     },
     contextmenu: onContextMenu,
   });
+
+  useEffect(() => {
+    if (map) {
+      map.setView(centerToFirstOrDefault(selectedMarker, markersList), 15);
+    }
+  }, [map, selectedMarker, markersList]);
+
   return null;
+};
+
+const centerToFirstOrDefault = (selectedMarker, markersList) => {
+  if (selectedMarker) {
+    return [selectedMarker.latitude, selectedMarker.longitude];
+  }
+
+  const KRAKOW_JORDAN_PARK_COORDS = [50.061252, 19.915738];
+  return markersList && markersList.markers.length > 0
+    ? [markersList.markers[0].latitude, markersList.markers[0].longitude]
+    : KRAKOW_JORDAN_PARK_COORDS;
 };
