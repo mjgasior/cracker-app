@@ -46,7 +46,9 @@ export const MapView = ({
                 key={_id}
                 position={[latitude, longitude]}
                 icon={MarkerIcon}
-                onClick={() => onSelectedMarker(_id)}
+                eventHandlers={{
+                  click: () => onSelectedMarker(_id),
+                }}
                 title={name}
               />
             );
