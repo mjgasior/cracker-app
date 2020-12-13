@@ -222,6 +222,8 @@ REACT_APP_AUDIENCE=https://cracker.app
 5. Run `docker-compose build`.
 6. Run `docker-compose up`.
 
+Please remember that you might not have enough space on your virutal machine and get an `fallocate:: No space left on device` error from `cracker-db-dev`. Please run `docker image prune -a` to free disk space.
+
 ### Production build:
 
 Please remember that Lightsail has a firewall that doesn't have HTTPS port 443 open by default. This port is closed every time a new instance is being set up, so it is very important to open it to make the app reachable with `https://` address.

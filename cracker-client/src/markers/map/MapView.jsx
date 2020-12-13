@@ -1,7 +1,8 @@
 import React, { useCallback } from "react";
-import { Map, Marker, TileLayer } from "react-leaflet";
+import { MapContainer, Marker, TileLayer } from "react-leaflet";
 import { StyledMapContainer } from "./+components/StyledMapContainer";
 import { MarkerIcon } from "./+components/MarkerIcon";
+import { MapController } from "./+components/MapController";
 
 export const MapView = ({
   markersList,
@@ -21,11 +22,13 @@ export const MapView = ({
 
   return (
     <StyledMapContainer>
-      <Map
-        center={centerToFirstOrDefault(selectedMarker, markersList)}
-        zoom={15}
-        oncontextmenu={handleOnContextMenu}
-      >
+      <MapContainer zoom={15}>
+        <MapController
+          onContextMenu={handleOnContextMenu}
+          selectedMarker={selectedMarker}
+          markersList={selectedMarker}
+        />
+
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -46,23 +49,14 @@ export const MapView = ({
                 key={_id}
                 position={[latitude, longitude]}
                 icon={MarkerIcon}
-                onClick={() => onSelectedMarker(_id)}
+                eventHandlers={{
+                  click: () => onSelectedMarker(_id),
+                }}
                 title={name}
               />
             );
           })}
-      </Map>
+      </MapContainer>
     </StyledMapContainer>
   );
-};
-
-const centerToFirstOrDefault = (selectedMarker, markersList) => {
-  if (selectedMarker) {
-    return [selectedMarker.latitude, selectedMarker.longitude];
-  }
-
-  const KRAKOW_JORDAN_PARK_COORDS = [50.061252, 19.915738];
-  return markersList && markersList.markers.length > 0
-    ? [markersList.markers[0].latitude, markersList.markers[0].longitude]
-    : KRAKOW_JORDAN_PARK_COORDS;
 };
