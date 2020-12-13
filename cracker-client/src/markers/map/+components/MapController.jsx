@@ -24,8 +24,10 @@ const centerToFirstOrDefault = (selectedMarker, markersList) => {
     return [selectedMarker.latitude, selectedMarker.longitude];
   }
 
+  if (markersList && markersList.markers.length > 0) {
+    return [markersList.markers[0].latitude, markersList.markers[0].longitude];
+  }
+
   const KRAKOW_JORDAN_PARK_COORDS = [50.061252, 19.915738];
-  return markersList && markersList.markers.length > 0
-    ? [markersList.markers[0].latitude, markersList.markers[0].longitude]
-    : KRAKOW_JORDAN_PARK_COORDS;
+  return KRAKOW_JORDAN_PARK_COORDS;
 };
