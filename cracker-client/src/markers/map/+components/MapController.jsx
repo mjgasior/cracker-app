@@ -10,6 +10,10 @@ export const MapController = ({
 }) => {
   const map = useMapEvents({
     contextmenu: onContextMenu,
+    locationfound: (location) => {
+      console.log("location found:", location);
+      map.setView(getLocationArray(location));
+    },
   });
 
   useEffect(() => {
@@ -18,6 +22,7 @@ export const MapController = ({
 
       if (centerPoint === null) {
         centerPoint = KRAKOW_JORDAN_PARK_COORDS;
+        map.locate();
       }
 
       map.setView(centerPoint);
@@ -38,3 +43,8 @@ const tryToCenterToFirst = (selectedMarker, markersList) => {
 
   return null;
 };
+
+const getLocationArray = (location) => [
+  location.latlng.lat,
+  location.latlng.lng,
+];
