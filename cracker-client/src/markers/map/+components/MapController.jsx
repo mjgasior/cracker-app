@@ -10,10 +10,7 @@ export const MapController = ({
 }) => {
   const map = useMapEvents({
     contextmenu: onContextMenu,
-    locationfound: (location) => {
-      console.log("location found:", location);
-      map.setView(getLocationArray(location));
-    },
+    locationfound: (location) => map.setView(getLocationArray(location)),
   });
 
   useEffect(() => {
