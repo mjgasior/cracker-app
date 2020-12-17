@@ -26,7 +26,7 @@ export const MapView = ({
         <MapController
           onContextMenu={handleOnContextMenu}
           selectedMarker={selectedMarker}
-          markersList={selectedMarker}
+          markersList={markersList}
         />
 
         <TileLayer
