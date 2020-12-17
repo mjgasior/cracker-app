@@ -15,6 +15,7 @@ RUN apk add --no-cache curl
 
 COPY --from=build-dependencies /usr/src/app/build /usr/share/nginx/html
 COPY --from=build-dependencies /usr/src/app/nginx /etc/nginx/conf.d
+COPY --from=build-dependencies /usr/src/app/test /var/www/certbot
 
 RUN curl -s https://raw.githubusercontent.com/certbot/certbot/master/certbot-nginx/certbot_nginx/_internal/tls_configs/options-ssl-nginx.conf > "/etc/nginx/conf.d/options-ssl-nginx.conf"
 RUN curl -s https://raw.githubusercontent.com/certbot/certbot/master/certbot/certbot/ssl-dhparams.pem > "/etc/nginx/conf.d/ssl-dhparams.pem"

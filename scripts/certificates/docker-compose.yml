@@ -1,0 +1,9 @@
+version: "3"
+services:
+  cracker-cert:
+    container_name: cracker-cert-dev
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes: # For webpack dev server to use our local files
+      - ./config:/usr/src/app
