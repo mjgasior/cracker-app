@@ -137,6 +137,10 @@ openssl req -x509 -newkey rsa:4096 -nodes -keyout fullchain.pem -out privkey.pem
 
 This method is only for local development. To have a proper cerificate for production you would need to refer to [this repository](https://github.com/mjgasior/nginx-certbot). Remember that invalid self signed certificates might be blocked by some browsers and page might not be reachable at all - there will be an information that the page is unsafe to connect with tho.
 
+#### Renew certificate:
+
+1. Go to Lightsail instance and run `docker pull certbot/certbot`.
+
 ### Apollo GraphQL Playground:
 
 The development proxy listens on `/api` with HTTPS and proxies the traffic with HTTP to port `:4000` of Apollo API. The API and the Apollo GQL playground are still available also with a direct `:4000` call. For example, to try out the Apollo GraphQL Playground you would just use either `http://192.168.99.100:4000/graphql` or `https://192.168.99.100/api` (but here you would need to correct the address in the Playground UI to `https://192.168.99.100/api` instead of `https://192.168.99.100/graphql`).
