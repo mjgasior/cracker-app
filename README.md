@@ -141,6 +141,7 @@ This method is only for local development. To have a proper cerificate for produ
 
 1. Go to Lightsail instance and run `docker pull certbot/certbot`.
 2. Copy the certificate to the instance `scp -r ./certificates ubuntu@lightsail.instance.ip.number:./`
+3. Enter `certbot` with `docker run --entrypoint="/bin/sh" -it --name certbot certbot/certbot:latest`.
 
 ### Apollo GraphQL Playground:
 
