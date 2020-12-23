@@ -142,6 +142,14 @@ This method is only for local development. To have a proper cerificate for produ
 1. Go to Lightsail instance and run `docker pull certbot/certbot`.
 2. Copy the certificate to the instance `scp -r ./certificates ubuntu@lightsail.instance.ip.number:./`
 3. Enter `certbot` with `docker run --entrypoint="/bin/sh" -it --name certbot certbot/certbot:latest`.
+   `docker run --entrypoint="/bin/sh" -it --name certbot -v /home/ubuntu/certificates:/etc/letsencrypt/live/cracker.red certbot/certbot:latest`
+
+Try again:
+
+1. Add `/home/ubuntu/certbot/conf` and `/home/ubuntu/certbot/www` directories on Lightsail instance.
+2. In `/deploy/docker-compose.yml` we need to add these to `cracker-client` in `volumes` section:
+   - `/home/ubuntu/certbot/conf:/etc/letsencrypt`
+   - `/home/ubuntu/certbot/www:/var/www/certbot`
 
 ### Apollo GraphQL Playground:
 

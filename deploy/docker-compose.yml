@@ -19,6 +19,9 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    volumes:
+      - /home/ubuntu/certbot/conf:/etc/letsencrypt
+      - /home/ubuntu/certbot/www:/var/www/certbot
 
   cracker-server:
     container_name: cracker-server

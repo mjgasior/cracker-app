@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  cracker-cert:
+    container_name: cracker-cert
+    image: certbot/certbot
+    volumes:
+      - /home/ubuntu/certificates:/var/log/letsencrypt
+    entrypoint:
+      - /bin/sh
