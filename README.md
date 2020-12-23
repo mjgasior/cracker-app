@@ -150,7 +150,7 @@ If you are planning to generte them for your own domain, please change the direc
 
 1. Go to you [Lightsail instance](https://lightsail.aws.amazon.com/ls/webapp/home/instances?#).
 2. Run `docker run --entrypoint="/bin/sh" -it --name certbot -v /home/ubuntu/certbot/conf:/etc/letsencrypt -v /home/ubuntu/certbot/www:/var/www/certbot certbot/certbot:latest` to get the `certbot` Docker image and start it with the `shell` entry point instead of regular `certbot` process. If you remove the `--entrypoint` argument you will not have to run the next command. Changing the entry point to `shell` is just for control reason, because container would exit just when the `certbot` process ends.
-3. Run `certbor certonly` in the `certbot` container.
+3. Run `certbot certonly` in the `certbot` container.
 
 - Fill the `Domain name:` with your personal domain data (for example `your.domain`). You need a domain to have a proper certification.
 - Fill the `Input the webroot for your.domain:` with `/var/www/certbot` route. This directory is where `certbot` puts a verification token that is accessible through `nginx` for the Automatic Certificate Management Environment (ACME) challenge. The HTTP route for that is `/.well-known/acme-challenge/` (you can read more about this process in [HTTP-01 challenge section](https://letsencrypt.org/docs/challenge-types/)).
