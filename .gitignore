@@ -2,4 +2,3 @@ dump
 *.crt
 *.key
 *.pem
-!ssl-dhparams.pem

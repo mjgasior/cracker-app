@@ -141,9 +141,6 @@ This method is only for local development. To have a proper certificate for prod
 
 #### First certification:
 
-- `scp -r ./deploy/docker-compose.yml ubuntu@your.lightsail.instance.ip:/srv/docker/docker-compose.yml`
-- `sudo cp docker-compose.yml /srv/docker/docker-compose.yml`
-- `cd /srv/docker/`
 - `docker run --entrypoint="/bin/sh" -it --name certbot -v /home/ubuntu/certbot/conf:/etc/letsencrypt -v /home/ubuntu/certbot/www:/var/www/certbot certbot/certbot:latest`
 - run `certbor certonly`
 - `Domain name:` should be `your.domain`
@@ -294,8 +291,9 @@ npm install --arch=x64 --platform=linuxmusl --target=8.10.0 sharp
 - `docker system prune -a` - remove all stopped containers, all dangling images, and all unused networks
 - `docker rmi $(docker images -a -q)` - remove all images, [the -q flag is used to pass the Image ID](https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes)
 - `docker run -it -p 3000:3000 -e CHOKIDAR_USEPOLLING=true -v $(pwd):/var/www -w "/var/www" node:12.0-alpine yarn start`
-- `git branch | %{ $_.Trim() } | ?{ $_ -ne 'master' } | %{ git branch -D $_ }` - [delete all branches except master](https://dev.to/koscheyscrag/git-how-to-delete-all-branches-except-master-2pi0)
 - `exit` - to exit out of the docker container bash shell just run this
+- `git branch | %{ $_.Trim() } | ?{ $_ -ne 'master' } | %{ git branch -D $_ }` - [delete all branches except master](https://dev.to/koscheyscrag/git-how-to-delete-all-branches-except-master-2pi0)
+- `history` allows you to see the `sh` commands history - to run a certain command just write `!` and the number of the command you would want to rerun, for example `!123`
 - `stat --format '%a' <file>` - Get the chmod numerical value for a file
 
 ## Visual Studio Code extensions:
