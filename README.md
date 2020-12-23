@@ -151,6 +151,19 @@ Try again:
    - `/home/ubuntu/certbot/conf:/etc/letsencrypt`
    - `/home/ubuntu/certbot/www:/var/www/certbot`
 
+Copy the new docker compose:
+
+First certification:
+
+- `scp -r ./deploy/docker-compose.yml ubuntu@your.lightsail.instance.ip:/srv/docker/docker-compose.yml`
+- `sudo cp docker-compose.yml /srv/docker/docker-compose.yml`
+- `cd /srv/docker/`
+- `docker run --entrypoint="/bin/sh" -it --name certbot -v /home/ubuntu/certbot/conf:/etc/letsencrypt -v /home/ubuntu/certbot/www:/var/www/certbot certbot/certbot:latest`
+- run `certbor certonly`
+- `Domain name:` should be `your.domain`
+- `Input the webroot for your.domain:` should be `/var/www/certbot`
+- run `exit` after the process ends successfully
+
 ### Apollo GraphQL Playground:
 
 The development proxy listens on `/api` with HTTPS and proxies the traffic with HTTP to port `:4000` of Apollo API. The API and the Apollo GQL playground are still available also with a direct `:4000` call. For example, to try out the Apollo GraphQL Playground you would just use either `http://192.168.99.100:4000/graphql` or `https://192.168.99.100/api` (but here you would need to correct the address in the Playground UI to `https://192.168.99.100/api` instead of `https://192.168.99.100/graphql`).
