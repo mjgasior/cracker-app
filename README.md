@@ -191,7 +191,7 @@ To try out a call with authorization do this (instruction for Chrome):
 ```
 
 {
-"authorization": "Bearer your.access.token"
+  "authorization": "Bearer your.access.token"
 }
 
 ```
@@ -201,7 +201,7 @@ To try out a call with authorization do this (instruction for Chrome):
 ```
 
 {
-getVersion
+  getVersion
 }
 
 ```
@@ -211,9 +211,9 @@ getVersion
 ```
 
 {
-"data": {
-"getVersion": "0.0.1"
-}
+  "data": {
+    "getVersion": "0.0.1"
+  }
 }
 
 ```
@@ -223,32 +223,26 @@ getVersion
 1. Create a `.env` file in `cracker-server` directory:
 
 ```
-
 AUTH0_DOMAIN="Auth0 user domain"
 AUDIENCE="http://your.api.identifier"
 CORS_WHITELIST="Client origin address"
-
 ```
 
 Example of local development `.env` for `cracker-server`:
 
 ```
-
 AUTH0_DOMAIN=domain.region.auth0.com
 AUDIENCE=https://cracker.app
 CORS_WHITELIST="https://example.com https://192.168.99.100"
-
 ```
 
 2. Create a `.env` file in `cracker-client` directory:
 
 ```
-
 REACT_APP_API_URL="address of Apollo GQL backend"
 REACT_APP_AUTH0_DOMAIN="Auth0 user domain"
 REACT_APP_AUTH0_CLIENT_ID="Auth0 user client ID"
 REACT_APP_AUDIENCE="http://your.api.identifier"
-
 ```
 
 Remember that while setting `REACT_APP_API_URL` in local development, the client container does not have `nginx` - that means that `cracker-server` is available as `:4000` HTTP and not `/api` HTTPS. Apollo GQL Playground should be available after start at `:4000` (if you use `VirtualBox`, the address can be `http://192.168.99.100:4000/` and for regular `Docker` development either `http://127.0.0.1:4000/` or `http://localhost:4000/`).
@@ -258,12 +252,10 @@ On the other hand, the `:3000` port for Webpack React development is mapped in `
 Example of local development `.env` for `cracker-client`:
 
 ```
-
 REACT_APP_API_URL=http://127.0.0.1:4000
 REACT_APP_AUTH0_DOMAIN=domain.region.auth0.com
 REACT_APP_AUTH0_CLIENT_ID=i6mdgjdsjs45asdmfdg3453TADasdkaa
 REACT_APP_AUDIENCE=https://cracker.app
-
 ```
 
 3. Run `npm install` in `cracker-client`.
@@ -307,9 +299,7 @@ If you want to release from branch, you can use the `./scripts/release.sh` scrip
 It might be necessary to run a manual installation of `sharp` after a release to run a local development again:
 
 ```
-
 npm install --arch=x64 --platform=linuxmusl --target=8.10.0 sharp
-
 ```
 
 ## Snippets:
