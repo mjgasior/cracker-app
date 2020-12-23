@@ -135,29 +135,43 @@ openssl req -x509 -newkey rsa:4096 -nodes -keyout fullchain.pem -out privkey.pem
 - `-subj` - subject - this can have parameters like country (`C=PL`), location (`L=Poland`), organisation (`O=Cracker Ltd`), company name (`CN=www.cracker.red`)
 - `-days` - how long should the certificate be valid
 
-2. After you have generated the SSL certificate, you should have two files with `.pem` extensions. Copy them to `./certificates` directory for local development and `./cracker-client/nginx` for production builds.
+2. After you have generated the SSL certificate, you should have two files with `.pem` extensions. Copy them to `./certificates` directory for local development.
 
-This method is only for local development. To have a proper certificate for production you would need to refer to the section below.
+#### First production certification:
 
-#### First certification:
+The website will fail if the certificates are not present. The `nginx` production configuration file expects SSL certificates in a certain directory which is bound to the `cracker.red` domain:
 
-- `docker run --entrypoint="/bin/sh" -it --name certbot -v /home/ubuntu/certbot/conf:/etc/letsencrypt -v /home/ubuntu/certbot/www:/var/www/certbot certbot/certbot:latest`
-- run `certbor certonly`
-- `Domain name:` should be `your.domain`
-- `Input the webroot for your.domain:` should be `/var/www/certbot`
-- run `exit` after the process ends successfully like below:
+```
+ssl_certificate /etc/letsencrypt/live/cracker.red/fullchain.pem;
+ssl_certificate_key /etc/letsencrypt/live/cracker.red/privkey.pem;
+```
+
+If you are planning to generte them for your own domain, please change the directory in `./cracker-client/nginx/default.conf` file.
+
+1. Go to you [Lightsail instance](https://lightsail.aws.amazon.com/ls/webapp/home/instances?#).
+2. Run `docker run --entrypoint="/bin/sh" -it --name certbot -v /home/ubuntu/certbot/conf:/etc/letsencrypt -v /home/ubuntu/certbot/www:/var/www/certbot certbot/certbot:latest` to get the `certbot` Docker image and start it with the `shell` entry point instead of regular `certbot` process. If you remove the `--entrypoint` argument you will not have to run the next command. Changing the entry point to `shell` is just for control reason, because container would exit just when the `certbot` process ends.
+3. Run `certbor certonly` in the `certbot` container.
+
+- Fill the `Domain name:` with your personal domain data (for example `your.domain`). You need a domain to have a proper certification.
+- Fill the `Input the webroot for your.domain:` with `/var/www/certbot` route. This directory is where `certbot` puts a verification token that is accessible through `nginx` for the Automatic Certificate Management Environment (ACME) challenge. The HTTP route for that is `/.well-known/acme-challenge/` (you can read more about this process in [HTTP-01 challenge section](https://letsencrypt.org/docs/challenge-types/)).
+
+4. Run `exit` after the process ends successfully like below:
 
 ```
 IMPORTANT NOTES:
- - Congratulations! Your certificate and chain have been saved at:
-   /etc/letsencrypt/live/your.domain/fullchain.pem
-   Your key file has been saved at:
-   /etc/letsencrypt/live/your.domain/privkey.pem
-   Your cert will expire on 2021-03-23. To obtain a new or tweaked
-   version of this certificate in the future, simply run certbot
-   again. To non-interactively renew *all* of your certificates, run
-   "certbot renew"
+
+- Congratulations! Your certificate and chain have been saved at:
+  /etc/letsencrypt/live/your.domain/fullchain.pem
+  Your key file has been saved at:
+  /etc/letsencrypt/live/your.domain/privkey.pem
+  Your cert will expire on 2021-03-23. To obtain a new or tweaked
+  version of this certificate in the future, simply run certbot
+  again. To non-interactively renew _all_ of your certificates, run
+  "certbot renew"
+
 ```
+
+The Docker images are prepared in a way that volumes of `certbot` are mounted to the same location (`/etc/letsencrypt`) as the volumes of `cracker-client`, so the generated certificates are instantly available for the website.
 
 ### Apollo GraphQL Playground:
 
@@ -175,27 +189,33 @@ To try out a call with authorization do this (instruction for Chrome):
 8. Open `HTTP HEADERS` section in the Playground, write curly braces and paste the authorization header as in the example below (remember about the quotation marks):
 
 ```
+
 {
-  "authorization": "Bearer your.access.token"
+"authorization": "Bearer your.access.token"
 }
+
 ```
 
 9. Paste the GraphQL request:
 
 ```
+
 {
-  getVersion
+getVersion
 }
+
 ```
 
 10. Click the run button. You should get a response with API version like below:
 
 ```
+
 {
-  "data": {
-    "getVersion": "0.0.1"
-  }
+"data": {
+"getVersion": "0.0.1"
 }
+}
+
 ```
 
 ### Local development configuration setup:
@@ -203,26 +223,32 @@ To try out a call with authorization do this (instruction for Chrome):
 1. Create a `.env` file in `cracker-server` directory:
 
 ```
+
 AUTH0_DOMAIN="Auth0 user domain"
 AUDIENCE="http://your.api.identifier"
 CORS_WHITELIST="Client origin address"
+
 ```
 
 Example of local development `.env` for `cracker-server`:
 
 ```
+
 AUTH0_DOMAIN=domain.region.auth0.com
 AUDIENCE=https://cracker.app
 CORS_WHITELIST="https://example.com https://192.168.99.100"
+
 ```
 
 2. Create a `.env` file in `cracker-client` directory:
 
 ```
+
 REACT_APP_API_URL="address of Apollo GQL backend"
 REACT_APP_AUTH0_DOMAIN="Auth0 user domain"
 REACT_APP_AUTH0_CLIENT_ID="Auth0 user client ID"
 REACT_APP_AUDIENCE="http://your.api.identifier"
+
 ```
 
 Remember that while setting `REACT_APP_API_URL` in local development, the client container does not have `nginx` - that means that `cracker-server` is available as `:4000` HTTP and not `/api` HTTPS. Apollo GQL Playground should be available after start at `:4000` (if you use `VirtualBox`, the address can be `http://192.168.99.100:4000/` and for regular `Docker` development either `http://127.0.0.1:4000/` or `http://localhost:4000/`).
@@ -232,6 +258,7 @@ On the other hand, the `:3000` port for Webpack React development is mapped in `
 Example of local development `.env` for `cracker-client`:
 
 ```
+
 REACT_APP_API_URL=http://127.0.0.1:4000
 REACT_APP_AUTH0_DOMAIN=domain.region.auth0.com
 REACT_APP_AUTH0_CLIENT_ID=i6mdgjdsjs45asdmfdg3453TADasdkaa
@@ -280,7 +307,9 @@ If you want to release from branch, you can use the `./scripts/release.sh` scrip
 It might be necessary to run a manual installation of `sharp` after a release to run a local development again:
 
 ```
+
 npm install --arch=x64 --platform=linuxmusl --target=8.10.0 sharp
+
 ```
 
 ## Snippets:
@@ -313,3 +342,7 @@ npm install --arch=x64 --platform=linuxmusl --target=8.10.0 sharp
 - [Managing MongoDB on docker with docker-compose](https://medium.com/faun/managing-mongodb-on-docker-with-docker-compose-26bf8a0bbae3)
 - [Nginx and Let’s Encrypt with Docker in Less Than 5 Minutes](https://medium.com/@pentacent/nginx-and-lets-encrypt-with-docker-in-less-than-5-minutes-b4b8a60d3a71)
 - [Unable to start Docker MongoDB image on Windows with a volume](https://stackoverflow.com/questions/54911021/unable-to-start-docker-mongo-image-on-windows "Stack Overflow question")
+
+```
+
+```
