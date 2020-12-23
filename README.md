@@ -116,6 +116,8 @@ The `https://` namespaced convention is necessary in Auth0 to [avoid overriding 
 
 In production mode, Cracker app uses Nginx to serve the React static files and route traffic to the backend API. This way the HTTPS can be handled in a quite easy way by Nginx itself and that is the point of [SSL termination](https://avinetworks.com/glossary/ssl-termination/) (going from encrypted HTTPS to unecrypted HTTP).
 
+#### Local certification:
+
 A problem emerges in local development mode where we would want to utilize all the benefits of Webpack hosting React files and providing HTTPS. Because Apollo backend API doesn't have HTTPS defined, the direct calls from React client to Apollo backend would be blocked by the browser due to [mixed content](https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content/How_to_fix_website_with_mixed_content) (one can't call HTTP endpoint while being hosted with HTTPS). That is why we have an additional container - `cracker-proxy` which handles the HTTPS termination for communication with the backend.
 
 1. Use [this](https://medium.com/the-new-control-plane/generating-self-signed-certificates-on-windows-7812a600c2d8) instruction to generate SSL certificates (I have used Windows OpenSSL alternative which is available [here](https://slproweb.com/products/Win32OpenSSL.html) - everything is described in the instruction provided previously). Keep the name of the certificate `fullchain.pem` and `privkey.pem` for the private key, for example, using OpenSSL:
@@ -135,25 +137,9 @@ openssl req -x509 -newkey rsa:4096 -nodes -keyout fullchain.pem -out privkey.pem
 
 2. After you have generated the SSL certificate, you should have two files with `.pem` extensions. Copy them to `./certificates` directory for local development and `./cracker-client/nginx` for production builds.
 
-This method is only for local development. To have a proper cerificate for production you would need to refer to [this repository](https://github.com/mjgasior/nginx-certbot). Remember that invalid self signed certificates might be blocked by some browsers and page might not be reachable at all - there will be an information that the page is unsafe to connect with tho.
+This method is only for local development. To have a proper certificate for production you would need to refer to the section below.
 
-#### Renew certificate:
-
-1. Go to Lightsail instance and run `docker pull certbot/certbot`.
-2. Copy the certificate to the instance `scp -r ./certificates ubuntu@lightsail.instance.ip.number:./`
-3. Enter `certbot` with `docker run --entrypoint="/bin/sh" -it --name certbot certbot/certbot:latest`.
-   `docker run --entrypoint="/bin/sh" -it --name certbot -v /home/ubuntu/certificates:/etc/letsencrypt/live/cracker.red certbot/certbot:latest`
-
-Try again:
-
-1. Add `/home/ubuntu/certbot/conf` and `/home/ubuntu/certbot/www` directories on Lightsail instance.
-2. In `/deploy/docker-compose.yml` we need to add these to `cracker-client` in `volumes` section:
-   - `/home/ubuntu/certbot/conf:/etc/letsencrypt`
-   - `/home/ubuntu/certbot/www:/var/www/certbot`
-
-Copy the new docker compose:
-
-First certification:
+#### First certification:
 
 - `scp -r ./deploy/docker-compose.yml ubuntu@your.lightsail.instance.ip:/srv/docker/docker-compose.yml`
 - `sudo cp docker-compose.yml /srv/docker/docker-compose.yml`
@@ -162,7 +148,19 @@ First certification:
 - run `certbor certonly`
 - `Domain name:` should be `your.domain`
 - `Input the webroot for your.domain:` should be `/var/www/certbot`
-- run `exit` after the process ends successfully
+- run `exit` after the process ends successfully like below:
+
+```
+IMPORTANT NOTES:
+ - Congratulations! Your certificate and chain have been saved at:
+   /etc/letsencrypt/live/your.domain/fullchain.pem
+   Your key file has been saved at:
+   /etc/letsencrypt/live/your.domain/privkey.pem
+   Your cert will expire on 2021-03-23. To obtain a new or tweaked
+   version of this certificate in the future, simply run certbot
+   again. To non-interactively renew *all* of your certificates, run
+   "certbot renew"
+```
 
 ### Apollo GraphQL Playground:
 
