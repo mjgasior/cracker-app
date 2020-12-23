@@ -170,7 +170,7 @@ IMPORTANT NOTES:
   "certbot renew"
 ```
 
-The Docker images are prepared in a way that volumes of `certbot` are mounted to the same location (`/etc/letsencrypt`) as the volumes of `cracker-client`, so the generated certificates are instantly available for the website.
+The Docker images are prepared in a way that volumes of `certbot` are mounted to the same location (`/etc/letsencrypt`) as the volumes of `cracker-client`, so the generated certificates are instantly available for the website. Remember that `certbot` manages the `Let's Encrypt` certificates and stores their renewal information in the `/etc/letsencrypt` directory. It is not recommended to modify those directories because it might make the certificate renewal process impossible.
 
 ### Apollo GraphQL Playground:
 
