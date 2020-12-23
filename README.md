@@ -116,6 +116,8 @@ The `https://` namespaced convention is necessary in Auth0 to [avoid overriding 
 
 In production mode, Cracker app uses Nginx to serve the React static files and route traffic to the backend API. This way the HTTPS can be handled in a quite easy way by Nginx itself and that is the point of [SSL termination](https://avinetworks.com/glossary/ssl-termination/) (going from encrypted HTTPS to unecrypted HTTP).
 
+#### Local certification:
+
 A problem emerges in local development mode where we would want to utilize all the benefits of Webpack hosting React files and providing HTTPS. Because Apollo backend API doesn't have HTTPS defined, the direct calls from React client to Apollo backend would be blocked by the browser due to [mixed content](https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content/How_to_fix_website_with_mixed_content) (one can't call HTTP endpoint while being hosted with HTTPS). That is why we have an additional container - `cracker-proxy` which handles the HTTPS termination for communication with the backend.
 
 1. Use [this](https://medium.com/the-new-control-plane/generating-self-signed-certificates-on-windows-7812a600c2d8) instruction to generate SSL certificates (I have used Windows OpenSSL alternative which is available [here](https://slproweb.com/products/Win32OpenSSL.html) - everything is described in the instruction provided previously). Keep the name of the certificate `fullchain.pem` and `privkey.pem` for the private key, for example, using OpenSSL:
@@ -133,9 +135,42 @@ openssl req -x509 -newkey rsa:4096 -nodes -keyout fullchain.pem -out privkey.pem
 - `-subj` - subject - this can have parameters like country (`C=PL`), location (`L=Poland`), organisation (`O=Cracker Ltd`), company name (`CN=www.cracker.red`)
 - `-days` - how long should the certificate be valid
 
-2. After you have generated the SSL certificate, you should have two files with `.pem` extensions. Copy them to `./certificates` directory for local development and `./cracker-client/nginx` for production builds.
+2. After you have generated the SSL certificate, you should have two files with `.pem` extensions. Copy them to `./certificates` directory for local development.
 
-This method is only for local development. To have a proper cerificate for production you would need to refer to [this repository](https://github.com/mjgasior/nginx-certbot). Remember that invalid self signed certificates might be blocked by some browsers and page might not be reachable at all - there will be an information that the page is unsafe to connect with tho.
+#### First production certification:
+
+The website will fail if the certificates are not present. The `nginx` production configuration file expects SSL certificates in a certain directory which is bound to the `cracker.red` domain:
+
+```
+ssl_certificate /etc/letsencrypt/live/cracker.red/fullchain.pem;
+ssl_certificate_key /etc/letsencrypt/live/cracker.red/privkey.pem;
+```
+
+If you are planning to generte them for your own domain, please change the directory in `./cracker-client/nginx/default.conf` file.
+
+1. Go to you [Lightsail instance](https://lightsail.aws.amazon.com/ls/webapp/home/instances?#).
+2. Run `docker run --entrypoint="/bin/sh" -it --name certbot -v /home/ubuntu/certbot/conf:/etc/letsencrypt -v /home/ubuntu/certbot/www:/var/www/certbot certbot/certbot:latest` to get the `certbot` Docker image and start it with the `shell` entry point instead of regular `certbot` process. If you remove the `--entrypoint` argument you will not have to run the next command. Changing the entry point to `shell` is just for control reason, because container would exit just when the `certbot` process ends.
+3. Run `certbot certonly` in the `certbot` container.
+
+- Fill the `Domain name:` with your personal domain data (for example `your.domain`). You need a domain to have a proper certification.
+- Fill the `Input the webroot for your.domain:` with `/var/www/certbot` route. This directory is where `certbot` puts a verification token that is accessible through `nginx` for the Automatic Certificate Management Environment (ACME) challenge. The HTTP route for that is `/.well-known/acme-challenge/` (you can read more about this process in [HTTP-01 challenge section](https://letsencrypt.org/docs/challenge-types/)).
+
+4. Run `exit` after the process ends successfully like below:
+
+```
+IMPORTANT NOTES:
+
+- Congratulations! Your certificate and chain have been saved at:
+  /etc/letsencrypt/live/your.domain/fullchain.pem
+  Your key file has been saved at:
+  /etc/letsencrypt/live/your.domain/privkey.pem
+  Your cert will expire on 2021-03-23. To obtain a new or tweaked
+  version of this certificate in the future, simply run certbot
+  again. To non-interactively renew _all_ of your certificates, run
+  "certbot renew"
+```
+
+The Docker images are prepared in a way that volumes of `certbot` are mounted to the same location (`/etc/letsencrypt`) as the volumes of `cracker-client`, so the generated certificates are instantly available for the website.
 
 ### Apollo GraphQL Playground:
 
@@ -214,7 +249,6 @@ REACT_APP_API_URL=http://127.0.0.1:4000
 REACT_APP_AUTH0_DOMAIN=domain.region.auth0.com
 REACT_APP_AUTH0_CLIENT_ID=i6mdgjdsjs45asdmfdg3453TADasdkaa
 REACT_APP_AUDIENCE=https://cracker.app
-
 ```
 
 3. Run `npm install` in `cracker-client`.
@@ -269,8 +303,9 @@ npm install --arch=x64 --platform=linuxmusl --target=8.10.0 sharp
 - `docker system prune -a` - remove all stopped containers, all dangling images, and all unused networks
 - `docker rmi $(docker images -a -q)` - remove all images, [the -q flag is used to pass the Image ID](https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes)
 - `docker run -it -p 3000:3000 -e CHOKIDAR_USEPOLLING=true -v $(pwd):/var/www -w "/var/www" node:12.0-alpine yarn start`
-- `git branch | %{ $_.Trim() } | ?{ $_ -ne 'master' } | %{ git branch -D $_ }` - [delete all branches except master](https://dev.to/koscheyscrag/git-how-to-delete-all-branches-except-master-2pi0)
 - `exit` - to exit out of the docker container bash shell just run this
+- `git branch | %{ $_.Trim() } | ?{ $_ -ne 'master' } | %{ git branch -D $_ }` - [delete all branches except master](https://dev.to/koscheyscrag/git-how-to-delete-all-branches-except-master-2pi0)
+- `history` allows you to see the `sh` commands history - to run a certain command just write `!` and the number of the command you would want to rerun, for example `!123`
 - `stat --format '%a' <file>` - Get the chmod numerical value for a file
 
 ## Visual Studio Code extensions:
