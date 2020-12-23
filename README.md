@@ -168,7 +168,6 @@ IMPORTANT NOTES:
   version of this certificate in the future, simply run certbot
   again. To non-interactively renew _all_ of your certificates, run
   "certbot renew"
-
 ```
 
 The Docker images are prepared in a way that volumes of `certbot` are mounted to the same location (`/etc/letsencrypt`) as the volumes of `cracker-client`, so the generated certificates are instantly available for the website.
@@ -189,33 +188,27 @@ To try out a call with authorization do this (instruction for Chrome):
 8. Open `HTTP HEADERS` section in the Playground, write curly braces and paste the authorization header as in the example below (remember about the quotation marks):
 
 ```
-
 {
   "authorization": "Bearer your.access.token"
 }
-
 ```
 
 9. Paste the GraphQL request:
 
 ```
-
 {
   getVersion
 }
-
 ```
 
 10. Click the run button. You should get a response with API version like below:
 
 ```
-
 {
   "data": {
     "getVersion": "0.0.1"
   }
 }
-
 ```
 
 ### Local development configuration setup:
@@ -332,7 +325,3 @@ npm install --arch=x64 --platform=linuxmusl --target=8.10.0 sharp
 - [Managing MongoDB on docker with docker-compose](https://medium.com/faun/managing-mongodb-on-docker-with-docker-compose-26bf8a0bbae3)
 - [Nginx and Let’s Encrypt with Docker in Less Than 5 Minutes](https://medium.com/@pentacent/nginx-and-lets-encrypt-with-docker-in-less-than-5-minutes-b4b8a60d3a71)
 - [Unable to start Docker MongoDB image on Windows with a volume](https://stackoverflow.com/questions/54911021/unable-to-start-docker-mongo-image-on-windows "Stack Overflow question")
-
-```
-
-```
