@@ -10,8 +10,9 @@ RUN mkdir -p /src/app
 WORKDIR /src/app
 
 COPY package.json /src/app/package.json
+COPY package-lock.json /src/app/package-lock.json
 
-RUN npm install
+RUN npm ci
 
 # If you don't want to use the cache as part of the build then set the option --no-cache=true as part of the docker build command.
 
