@@ -1,7 +1,7 @@
 FROM node:lts-alpine AS build-dependencies
 WORKDIR /usr/src/app
 COPY package.json package-lock.json ./
-RUN npm install
+RUN npm ci
 COPY . ./
 
 RUN npm run build
