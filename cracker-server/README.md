@@ -69,13 +69,13 @@ You can also define `IMAGE_DIRECTORY` variable to select the directory where the
 
 ## Errors:
 
-```
+```bash
 cracker-server-dev | Error: 'linux-x64' binaries cannot be used on the 'linuxmusl-x64' platform. Please remove the 'node_modules/sharp' directory and run 'npm install' on the 'linuxmusl-x64' platform.
 ```
 
 There might be a [mismatch between environments](https://github.com/lovell/sharp/issues/1459#issuecomment-439352107) because of running `npm install` on Windows and then, running the app in Docker on Linux. If such error occurs, after `npm install` on Windows you need to run:
 
-```
+```bash
 npm install --arch=x64 --platform=linuxmusl --target=8.10.0 sharp
 ```
 
