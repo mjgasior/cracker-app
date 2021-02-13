@@ -295,6 +295,10 @@ It might be necessary to run a manual installation of `sharp` after a release to
 npm install --arch=x64 --platform=linuxmusl --target=8.10.0 sharp
 ```
 
+### Circle CI:
+
+[Tutorial.](https://circleci.com/docs/2.0/getting-started/)
+
 ## Snippets:
 
 - `cat filename` - [display the contents of a text file in the command line](https://unix.stackexchange.com/questions/86321/how-can-i-display-the-contents-of-a-text-file-on-the-command-line "StackExchange answer")
