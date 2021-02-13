@@ -29,6 +29,7 @@ Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barli
   - [Production build](#production-build)
   - [Push image to Docker Hub](#push-image-to-docker-hub)
   - [Release from branch](#release-from-branch)
+  - [Circle CI](#circle-ci)
 - [Snippets](#snippets)
 - [Visual Studio Code extensions](#visual-studio-code-extensions)
 - [Resources](#resources)
