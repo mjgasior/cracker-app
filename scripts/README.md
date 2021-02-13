@@ -1,10 +1,22 @@
 # Cracker scripts
 
+## Table of Contents
+
+- [Scripts list](#scripts-list)
+- [AWS CLI for Lightsail](#aws-cli-for-lightsail)
+- [Upload local MongoDB to Lightsail instance](#upload-local-mongodb-to-lightsail-instance)
+- [Manually clean up the database](#manually-clean-up-the-database)
+- [Resources](#resources)
+
+## Scripts list:
+
 Initial script for a new AWS Lightsail instance:
 
-    curl -o lightsail-compose.sh https://raw.githubusercontent.com/mjgasior/cracker-app/master/deploy/lightsail-compose.sh
-    chmod +x ./lightsail-compose.sh
-    ./lightsail-compose.sh
+```bash
+curl -o lightsail-compose.sh https://raw.githubusercontent.com/mjgasior/cracker-app/master/deploy/lightsail-compose.sh
+chmod +x ./lightsail-compose.sh
+./lightsail-compose.sh
+```
 
 - `db-drop.sh` - drops the MongoDB database that resides in the container
 - `db-dump.sh` - creates a database dump from a local Docker container MongoDB in current folder

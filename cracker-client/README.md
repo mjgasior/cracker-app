@@ -1,8 +1,16 @@
 # Cracker client
 
-`nginx` directory has the production `cracker.conf` Nginx configuration file which sets up the production entry point and should have SSL certificates for HTTPS. The files should be named `fullchain.pem` for the certificate and `privkey.pem` for the private key.
+## Table of Contents
 
-## Configuration
+- [Setup](#setup)
+- [Snippets](#snippets)
+- [Packages](#packages)
+- [Visual Studio Code extensions](#visual-studio-code-extensions)
+- [Resources](#resources)
+
+## Setup
+
+`nginx` directory has the production `cracker.conf` Nginx configuration file which sets up the production entry point and should have SSL certificates for HTTPS. The files should be named `fullchain.pem` for the certificate and `privkey.pem` for the private key.
 
 Before starting the app please pepare a `.env` file which will include these values:
 
