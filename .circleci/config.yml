@@ -6,15 +6,11 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Show files
-          working_directory: ./cracker-client
-          command: ls
-      - run:
           name: Install dependencies
           working_directory: ./cracker-client
           command: npm ci
       - run:
-          name: Install dependencies
+          name: Run tests
           working_directory: ./cracker-client
           command: npm run test
   crackerserver:
