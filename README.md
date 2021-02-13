@@ -12,6 +12,29 @@ Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barli
 
 ![Cracker demo gif made with LICEcap](/crackerdemo.gif)
 
+## Table of Contents
+
+**[Setup](#setup)**
+**[Authorization setup](#authorization-setup)**
+**[Auth0 account setup](#auth0-account-setup)**
+**[Auth0 API setup](#auth0-api-setup)**
+**[Roles setup for backend side](#roles-setup-for-backend-side)**
+**[Assign role to a user](#assign-role-to-a-user)**
+**[Roles setup for client side](#roles-setup-for-client-side)**
+
+**[SSL setup](#ssl-setup)**
+**[Local certification](#local-certification)**
+**[First production certification](#first-production-certification)**
+
+**[Apollo GraphQL Playground](#apollo-graphql-playground)**
+**[Local development configuration setup](#local-development-configuration-setup)**
+**[Production build](#production-build)**
+**[Push image to Docker Hub](#push-image-to-docker-hub)**
+**[Release from branch](#release-from-branch)**
+**[Snippets](#snippets)**
+**[Visual Studio Code extensions](#visual-studio-code-extensions)**
+**[Resources](#resources)**
+
 ## Setup:
 
 ### Authorization setup:
