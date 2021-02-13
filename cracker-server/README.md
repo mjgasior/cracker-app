@@ -1,5 +1,16 @@
 # Cracker server
 
+## Table of Contents
+
+- [Setup](#setup)
+- [Snippets](#snippets)
+- [Packages](#packages)
+- [Visual Studio Code extensions](#visual-studio-code-extensions)
+- [Errors](#errors)
+- [Resources](#resources)
+
+## Setup:
+
 Before starting the app:
 
 - run `docker run -p 27017:27017 -it mongo:4.2.6`
