@@ -14,26 +14,24 @@ Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barli
 
 ## Table of Contents
 
-**[Setup](#setup)**
-**[Authorization setup](#authorization-setup)**
-**[Auth0 account setup](#auth0-account-setup)**
-**[Auth0 API setup](#auth0-api-setup)**
-**[Roles setup for backend side](#roles-setup-for-backend-side)**
-**[Assign role to a user](#assign-role-to-a-user)**
-**[Roles setup for client side](#roles-setup-for-client-side)**
-
-**[SSL setup](#ssl-setup)**
-**[Local certification](#local-certification)**
-**[First production certification](#first-production-certification)**
-
-**[Apollo GraphQL Playground](#apollo-graphql-playground)**
-**[Local development configuration setup](#local-development-configuration-setup)**
-**[Production build](#production-build)**
-**[Push image to Docker Hub](#push-image-to-docker-hub)**
-**[Release from branch](#release-from-branch)**
-**[Snippets](#snippets)**
-**[Visual Studio Code extensions](#visual-studio-code-extensions)**
-**[Resources](#resources)**
+- [Setup](#setup)
+  - [Authorization setup](#authorization-setup)
+    - [Auth0 account setup](#auth0-account-setup)
+    - [Auth0 API setup](#auth0-api-setup)
+    - [Roles setup for backend side](#roles-setup-for-backend-side)
+    - [Assign role to a user](#assign-role-to-a-user)
+    - [Roles setup for client side](#roles-setup-for-client-side)
+  - [SSL setup](#ssl-setup)
+    - [Local certification](#local-certification)
+    - [First production certification](#first-production-certification)
+  - [Apollo GraphQL Playground](#apollo-graphql-playground)
+  - [Local development configuration setup](#local-development-configuration-setup)
+  - [Production build](#production-build)
+  - [Push image to Docker Hub](#push-image-to-docker-hub)
+  - [Release from branch](#release-from-branch)
+- [Snippets](#snippets)
+- [Visual Studio Code extensions](#visual-studio-code-extensions)
+- [Resources](#resources)
 
 ## Setup:
 
@@ -145,7 +143,7 @@ A problem emerges in local development mode where we would want to utilize all t
 
 1. Use [this](https://medium.com/the-new-control-plane/generating-self-signed-certificates-on-windows-7812a600c2d8) instruction to generate SSL certificates (I have used Windows OpenSSL alternative which is available [here](https://slproweb.com/products/Win32OpenSSL.html) - everything is described in the instruction provided previously). Keep the name of the certificate `fullchain.pem` and `privkey.pem` for the private key, for example, using OpenSSL:
 
-```
+```bash
 openssl req -x509 -newkey rsa:4096 -nodes -keyout fullchain.pem -out privkey.pem -subj “/C=PL/L=Kraków/CN=cracker.red” -days 600
 ```
 
@@ -314,7 +312,7 @@ If you want to release from branch, you can use the `./scripts/release.sh` scrip
 
 It might be necessary to run a manual installation of `sharp` after a release to run a local development again:
 
-```
+```bash
 npm install --arch=x64 --platform=linuxmusl --target=8.10.0 sharp
 ```
 
