@@ -1,30 +1,35 @@
 version: 2
-jobs: # we now have TWO jobs, so that a workflow can coordinate them!
-  crackerclient: # This is our first job.
-    docker: # it uses the docker executor
-      - image: node:lts # specifically, a docker image with ruby 2.4.1
+jobs:
+  crackerclient:
+    docker:
+      - image: node:lts
     steps:
-      - checkout # this pulls code down from GitHub
-      - run: echo "A first hello" # This prints "A first hello" to stdout.
+      - checkout
       - run:
           name: Show files
           working_directory: ./cracker-client
           command: ls
-  crackerserver: # This is our second job.
-    docker: # it runs inside a docker image, the same as above.
+      - run:
+          name: Install dependencies
+          working_directory: ./cracker-client
+          command: npm ci
+      - run:
+          name: Install dependencies
+          working_directory: ./cracker-client
+          command: npm run test
+  crackerserver:
+    docker:
       - image: node:lts
     steps:
       - checkout
-      - run: echo "A more familiar hi" # We run a similar echo command to above.
       - run:
           name: Show files
           working_directory: ./cracker-server
           command: ls
 
-# Under the workflows: map, we can coordinate our two jobs, defined above.
 workflows:
   version: 2
-  crackerapp: # this is the name of our workflow
-    jobs: # and here we list the jobs we are going to run.
+  crackerapp:
+    jobs:
       - crackerclient
       - crackerserver
