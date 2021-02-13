@@ -1,0 +1,31 @@
+version: 2
+jobs:
+  crackerclient:
+    docker:
+      - image: node:lts
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          working_directory: ./cracker-client
+          command: npm ci
+      - run:
+          name: Run tests
+          working_directory: ./cracker-client
+          command: npm run test
+  crackerserver:
+    docker:
+      - image: node:lts
+    steps:
+      - checkout
+      - run:
+          name: Show files
+          working_directory: ./cracker-server
+          command: ls
+
+workflows:
+  version: 2
+  crackerapp:
+    jobs:
+      - crackerclient
+      - crackerserver
