@@ -9,19 +9,19 @@
     "start": "nodemon --exec babel-node --presets=@babel/preset-env -- src/index.js"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.10",
-    "@babel/node": "^7.12.10",
-    "@babel/preset-env": "^7.12.11",
+    "@babel/core": "^7.12.16",
+    "@babel/node": "^7.12.16",
+    "@babel/preset-env": "^7.12.16",
     "nodemon": "^2.0.7"
   },
   "dependencies": {
-    "apollo-server-express": "^2.19.2",
+    "apollo-server-express": "^2.21.0",
     "dotenv": "^8.2.0",
-    "graphql": "^15.4.0",
+    "graphql": "^15.5.0",
     "graphql-auth": "^1.0.0",
     "jsonwebtoken": "^8.5.1",
     "jwks-rsa": "^1.12.2",
-    "mongoose": "^5.11.13",
-    "sharp": "^0.27.0"
+    "mongoose": "^5.11.16",
+    "sharp": "^0.27.1"
   }
 }
