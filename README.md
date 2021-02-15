@@ -29,6 +29,7 @@ Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barli
   - [Production build](#production-build)
   - [Push image to Docker Hub](#push-image-to-docker-hub)
   - [Release from branch](#release-from-branch)
+  - [Circle CI](#circle-ci)
 - [Snippets](#snippets)
 - [Visual Studio Code extensions](#visual-studio-code-extensions)
 - [Resources](#resources)
@@ -315,6 +316,10 @@ It might be necessary to run a manual installation of `sharp` after a release to
 ```bash
 npm install --arch=x64 --platform=linuxmusl --target=8.10.0 sharp
 ```
+
+### Circle CI:
+
+[Tutorial.](https://circleci.com/docs/2.0/getting-started/)
 
 ## Snippets:
 
