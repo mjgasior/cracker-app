@@ -9,12 +9,14 @@ export const MarkersListView = () => {
   const history = useHistory();
   const currentLanguage = useCurrentLanguage();
   const { data } = useMarkers(currentLanguage);
+  // https://www.apollographql.com/docs/react/v2/data/pagination/
   if (data) {
     return (
       <List
         itemLayout="horizontal"
         dataSource={data.getMarkers}
         pagination={{
+          total: 10,
           onChange: (page) => {
             console.log(page);
           },
