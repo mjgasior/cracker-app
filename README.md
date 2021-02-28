@@ -325,6 +325,7 @@ npm install --arch=x64 --platform=linuxmusl --target=8.10.0 sharp
 
 - `cat filename` - [display the contents of a text file in the command line](https://unix.stackexchange.com/questions/86321/how-can-i-display-the-contents-of-a-text-file-on-the-command-line "StackExchange answer")
 - `curl -X POST https://example.com/resource.cgi` - [cURL a POST request](https://superuser.com/questions/149329/what-is-the-curl-command-line-syntax-to-do-a-post-request "StackExchange answer")
+- `df -h` - [shows the amount of disk space used and available on Linux file systems](https://www.cyberciti.biz/faq/linux-check-disk-space-command/)
 - `docker exec -it container_id_or_name ash` - starting shell in the Docker Alpine container (Alpine doesn't have bash by default)
 - `docker system prune -a` - remove all stopped containers, all dangling images, and all unused networks
 - `docker rmi $(docker images -a -q)` - remove all images, [the -q flag is used to pass the Image ID](https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes)

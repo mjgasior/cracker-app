@@ -11,6 +11,19 @@ export const MarkerResolver = {
     getMarkers: async (_, { language }) => {
       return await markerConnector.getAllByLanguage(language);
     },
+    getMarkersPage: async (_, { language }) => {
+      /*
+      Testing:
+      http://192.168.99.100:4000/graphql
+      {
+        getVersion
+        getMarkersPage(language: "en") {
+          latitude
+        }
+      }
+      */
+      return await markerConnector.getAllByLanguage(language);
+    },
   },
   Mutation: {
     addMarker: withAuth(["create:markers"], async (_, { marker }) => {

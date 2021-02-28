@@ -20,6 +20,7 @@ export const Marker = gql`
   extend type Query {
     markers: [Marker]
     getMarkers(language: String): [Marker]
+    getMarkersPage(language: String): [Marker]
   }
 
   input MarkerInput {
