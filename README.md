@@ -208,10 +208,9 @@ Congratulations, all renewals succeeded. The following certs have been renewed
 ```
 
 4. After that, we need to restart the `nginx` service. You can achieve this by using one of those methods:
-
-- Rebooting the Lightsail instance with `aws lightsail reboot-instance --instance-name Cracker-app`
-- Rebooting the container with `docker restart cracker-client`.
-- Rebooting the `nginx` service inside the Docker container
+   1. Rebooting the Lightsail instance with `aws lightsail reboot-instance --instance-name Cracker-app` (this will also install updates for your instance, so it's worth executing from time to time ;) ).
+   2. Rebooting the container with `docker restart cracker-client`.
+   3. Rebooting the `nginx` service inside the Docker container `docker exec cracker-client nginx -s reload`.
 
 ### Apollo GraphQL Playground:
 
@@ -351,7 +350,8 @@ npm install --arch=x64 --platform=linuxmusl --target=8.10.0 sharp
 - `exit` - to exit out of the docker container bash shell just run this
 - `git branch | %{ $_.Trim() } | ?{ $_ -ne 'master' } | %{ git branch -D $_ }` - [delete all branches except master](https://dev.to/koscheyscrag/git-how-to-delete-all-branches-except-master-2pi0)
 - `history` allows you to see the `sh` commands history - to run a certain command just write `!` and the number of the command you would want to rerun, for example `!123`
-- `stat --format '%a' <file>` - Get the chmod numerical value for a file
+- `rc-service --list | grep -i nginx` - list all the services and [filter searching for `nginx`](https://www.cyberciti.biz/faq/how-to-enable-and-start-services-on-alpine-linux/)
+- `stat --format '%a' <file>` - get the chmod numerical value for a file
 
 ## Visual Studio Code extensions:
 
