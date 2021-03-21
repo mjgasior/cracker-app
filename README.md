@@ -24,7 +24,7 @@ Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barli
   - [SSL setup](#ssl-setup)
     - [Local certification](#local-certification)
     - [First production certification](#first-production-certification)
-    - [Recertification of production](#recertification-of-production)
+    - [Renewal of the production certificate](#renewal-of-the-production-certificate)
   - [Apollo GraphQL Playground](#apollo-graphql-playground)
   - [Local development configuration setup](#local-development-configuration-setup)
   - [Production build](#production-build)
@@ -195,18 +195,23 @@ IMPORTANT NOTES:
 
 The Docker images are prepared in a way that volumes of `certbot` are mounted to the same location (`/etc/letsencrypt`) as the volumes of `cracker-client`, so the generated certificates are instantly available for the website. Remember that `certbot` manages the `Let's Encrypt` certificates and stores their renewal information in the `/etc/letsencrypt` directory. It is not recommended to modify those directories because it might make the certificate renewal process impossible.
 
-#### Recertification of production:
+#### Renewal of the production certificate:
 
 After less than 30 days you need to perform the recertification of the domain HTTPS SSL certificate.
 
 1. Go to you [Lightsail instance](https://lightsail.aws.amazon.com/ls/webapp/home/instances?#).
 2. Run `docker start -ai certbot`. There is already a container named `certbot` after the first certification.
-3. Run `certbot renew`.
-4. If the output message is as written below, the recertification went OK:
+3. Run `certbot renew`. If the output message is as written below, the recertification went OK:
 
 ```
 Congratulations, all renewals succeeded. The following certs have been renewed
 ```
+
+4. After that, we need to restart the `nginx` service. You can achieve this by using one of those methods:
+
+- Rebooting the Lightsail instance with `aws lightsail reboot-instance --instance-name Cracker-app`
+- Rebooting the container with `docker restart cracker-client`.
+- Rebooting the `nginx` service inside the Docker container
 
 ### Apollo GraphQL Playground:
 
