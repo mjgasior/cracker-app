@@ -24,6 +24,7 @@ Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barli
   - [SSL setup](#ssl-setup)
     - [Local certification](#local-certification)
     - [First production certification](#first-production-certification)
+    - [Recertification of production](#recertification-of-production)
   - [Apollo GraphQL Playground](#apollo-graphql-playground)
   - [Local development configuration setup](#local-development-configuration-setup)
   - [Production build](#production-build)
@@ -193,6 +194,10 @@ IMPORTANT NOTES:
 ```
 
 The Docker images are prepared in a way that volumes of `certbot` are mounted to the same location (`/etc/letsencrypt`) as the volumes of `cracker-client`, so the generated certificates are instantly available for the website. Remember that `certbot` manages the `Let's Encrypt` certificates and stores their renewal information in the `/etc/letsencrypt` directory. It is not recommended to modify those directories because it might make the certificate renewal process impossible.
+
+#### Recertification of production:
+
+After less than 30 days you need to perform the recertification of the domain HTTPS SSL certificate.
 
 ### Apollo GraphQL Playground:
 
