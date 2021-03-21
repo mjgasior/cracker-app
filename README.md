@@ -199,6 +199,15 @@ The Docker images are prepared in a way that volumes of `certbot` are mounted to
 
 After less than 30 days you need to perform the recertification of the domain HTTPS SSL certificate.
 
+1. Go to you [Lightsail instance](https://lightsail.aws.amazon.com/ls/webapp/home/instances?#).
+2. Run `docker start -ai certbot`. There is already a container named `certbot` after the first certification.
+3. Run `certbot renew`.
+4. If the output message is as written below, the recertification went OK:
+
+```
+Congratulations, all renewals succeeded. The following certs have been renewed
+```
+
 ### Apollo GraphQL Playground:
 
 The development proxy listens on `/api` with HTTPS and proxies the traffic with HTTP to port `:4000` of Apollo API. The API and the Apollo GQL playground are still available also with a direct `:4000` call. For example, to try out the Apollo GraphQL Playground you would just use either `http://192.168.99.100:4000/graphql` or `https://192.168.99.100/api` (but here you would need to correct the address in the Playground UI to `https://192.168.99.100/api` instead of `https://192.168.99.100/graphql`).
