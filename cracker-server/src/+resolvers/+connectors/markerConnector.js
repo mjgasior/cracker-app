@@ -45,6 +45,9 @@ export const markerConnector = {
     const sortObject = {};
     sortObject[`${language}.name`] = 1;
 
+    // total count the new way:
+    // https://stackoverflow.com/questions/21803290/get-a-count-of-total-documents-with-mongodb-when-using-limit
+
     const markers = await Marker.find({})
       .collation({ locale: "en" })
       .sort(sortObject)

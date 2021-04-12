@@ -22,7 +22,13 @@ export const MarkerResolver = {
         }
       }
       */
-      return await markerConnector.getPageByLanguage(language, offset, limit);
+      const result = await markerConnector.getPageByLanguage(
+        language,
+        offset,
+        limit
+      );
+      console.log(result);
+      return result;
     },
   },
   Mutation: {
