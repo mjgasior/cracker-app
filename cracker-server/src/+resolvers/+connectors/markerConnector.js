@@ -41,4 +41,17 @@ export const markerConnector = {
 
     return markers;
   },
+  getPageByLanguage: async (language, offset, limit) => {
+    const sortObject = {};
+    sortObject[`${language}.name`] = 1;
+
+    const markers = await Marker.find({})
+      .collation({ locale: "en" })
+      .sort(sortObject)
+      .skip(offset)
+      .limit(limit)
+      .exec();
+
+    return markers;
+  },
 };
