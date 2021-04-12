@@ -1,9 +1,11 @@
 FROM node:lts-alpine
 
-# bash and curl are not present in Alpine by default
-# these two are installed only for development and debugging purposes
+# bash, curl and openrc are not present in Alpine by default
+# bash and curl are installed only for development and debugging purposes
+# openrc allows to see the status of services and start, stop and restart them 
 RUN apk add --no-cache bash
 RUN apk add --no-cache curl
+RUN apk add --no-cache openrc
 
 RUN mkdir -p /src/app
 

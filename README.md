@@ -24,6 +24,7 @@ Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barli
   - [SSL setup](#ssl-setup)
     - [Local certification](#local-certification)
     - [First production certification](#first-production-certification)
+    - [Renewal of the production certificate](#renewal-of-the-production-certificate)
   - [Apollo GraphQL Playground](#apollo-graphql-playground)
   - [Local development configuration setup](#local-development-configuration-setup)
   - [Production build](#production-build)
@@ -194,6 +195,23 @@ IMPORTANT NOTES:
 
 The Docker images are prepared in a way that volumes of `certbot` are mounted to the same location (`/etc/letsencrypt`) as the volumes of `cracker-client`, so the generated certificates are instantly available for the website. Remember that `certbot` manages the `Let's Encrypt` certificates and stores their renewal information in the `/etc/letsencrypt` directory. It is not recommended to modify those directories because it might make the certificate renewal process impossible.
 
+#### Renewal of the production certificate:
+
+After less than 30 days you need to perform the recertification of the domain HTTPS SSL certificate.
+
+1. Go to you [Lightsail instance](https://lightsail.aws.amazon.com/ls/webapp/home/instances?#).
+2. Run `docker start -ai certbot`. There is already a container named `certbot` after the first certification.
+3. Run `certbot renew`. If the output message is as written below, the recertification went OK:
+
+```
+Congratulations, all renewals succeeded. The following certs have been renewed
+```
+
+4. After that, we need to restart the `nginx` service. You can achieve this by using one of those methods:
+   1. Rebooting the Lightsail instance with `aws lightsail reboot-instance --instance-name Cracker-app` (this will also install updates for your instance, so it's worth executing from time to time ;) ).
+   2. Rebooting the container with `docker restart cracker-client`.
+   3. Rebooting the `nginx` service inside the Docker container `docker exec cracker-client nginx -s reload`.
+
 ### Apollo GraphQL Playground:
 
 The development proxy listens on `/api` with HTTPS and proxies the traffic with HTTP to port `:4000` of Apollo API. The API and the Apollo GQL playground are still available also with a direct `:4000` call. For example, to try out the Apollo GraphQL Playground you would just use either `http://192.168.99.100:4000/graphql` or `https://192.168.99.100/api` (but here you would need to correct the address in the Playground UI to `https://192.168.99.100/api` instead of `https://192.168.99.100/graphql`).
@@ -333,7 +351,8 @@ npm install --arch=x64 --platform=linuxmusl --target=8.10.0 sharp
 - `exit` - to exit out of the docker container bash shell just run this
 - `git branch | %{ $_.Trim() } | ?{ $_ -ne 'master' } | %{ git branch -D $_ }` - [delete all branches except master](https://dev.to/koscheyscrag/git-how-to-delete-all-branches-except-master-2pi0)
 - `history` allows you to see the `sh` commands history - to run a certain command just write `!` and the number of the command you would want to rerun, for example `!123`
-- `stat --format '%a' <file>` - Get the chmod numerical value for a file
+- `rc-service --list | grep -i nginx` - list all the services and [filter searching for `nginx`](https://www.cyberciti.biz/faq/how-to-enable-and-start-services-on-alpine-linux/)
+- `stat --format '%a' <file>` - get the chmod numerical value for a file
 
 ## Visual Studio Code extensions:
 
