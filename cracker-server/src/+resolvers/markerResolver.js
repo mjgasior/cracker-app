@@ -27,7 +27,6 @@ export const MarkerResolver = {
         offset,
         limit
       );
-      console.log(result);
       return result;
     },
   },
