@@ -41,4 +41,35 @@ export const markerConnector = {
 
     return markers;
   },
+  getPageByLanguage: async (language, offset, limit) => {
+    const sortObject = {};
+    sortObject[`${language}.name`] = 1;
+
+    // total count the new way:
+    // https://stackoverflow.com/questions/21803290/get-a-count-of-total-documents-with-mongodb-when-using-limit
+    // might be worth checking out
+    // https://github.com/aravindnc/mongoose-paginate-v2#readme
+
+    const facetedPipeline = [
+      {
+        $facet: {
+          data: [{ $skip: offset }, { $limit: limit }],
+          pagination: [{ $count: "total" }],
+        },
+      },
+    ];
+
+    const results = await Marker.aggregate(facetedPipeline);
+    console.log(results);
+    console.log(results[0].pagination);
+
+    const markers = await Marker.find({})
+      .collation({ locale: "en" })
+      .sort(sortObject)
+      .skip(offset)
+      .limit(limit)
+      .exec();
+
+    return markers;
+  },
 };
