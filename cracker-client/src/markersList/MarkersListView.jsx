@@ -10,8 +10,9 @@ const PAGE_SIZE_LIMIT = 2;
 export const MarkersListView = () => {
   const history = useHistory();
   const currentLanguage = useCurrentLanguage();
-  const { data } = useMarkerPages(currentLanguage, 0, PAGE_SIZE_LIMIT);
+  const { data, fetchMore  } = useMarkerPages(currentLanguage, 0, PAGE_SIZE_LIMIT);
   // https://www.apollographql.com/docs/react/v2/data/pagination/
+  // https://www.youtube.com/watch?v=lNtQbn7qN-8
   if (data) {
     return (
       <List
@@ -20,7 +21,17 @@ export const MarkersListView = () => {
         pagination={{
           total: 10,
           onChange: (page) => {
-            console.log(page);
+            fetchMore({
+              variables: {
+                offset: data.feed.length
+              },
+              updateQuery: (prev, { fetchMoreResult }) => {
+                if (!fetchMoreResult) return prev;
+                return Object.assign({}, prev, {
+                  feed: [...prev.feed, ...fetchMoreResult.feed]
+                });
+              }
+            }
           },
           pageSize: PAGE_SIZE_LIMIT,
         }}
