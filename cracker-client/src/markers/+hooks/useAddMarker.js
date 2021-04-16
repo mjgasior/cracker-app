@@ -1,8 +1,8 @@
 import { useMutation } from "@apollo/client";
 import { loader } from "graphql.macro";
 
-const markersQuery = loader("./markers.gql");
-const addMarkerQuery = loader("./addMarker.gql");
+const markersQuery = loader("./queries/markers.gql");
+const addMarkerQuery = loader("./queries/addMarker.gql");
 
 export const useAddMarker = () => {
   return useMutation(addMarkerQuery, {
