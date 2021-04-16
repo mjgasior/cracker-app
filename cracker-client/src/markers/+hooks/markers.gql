@@ -1,4 +1,4 @@
-{
+query {
   markers {
     _id
     latitude
