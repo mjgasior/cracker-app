@@ -1,7 +1,9 @@
 import { useQuery } from "@apollo/client";
-import { MARKERS } from "./queries";
+import { loader } from "graphql.macro";
+
+const markersQuery = loader("./getMarkers.gql");
 
 export const useMarkers = (language) =>
-  useQuery(MARKERS, {
+  useQuery(markersQuery, {
     variables: { language },
   });

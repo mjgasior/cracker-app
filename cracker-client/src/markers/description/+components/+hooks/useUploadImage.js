@@ -15,7 +15,6 @@ export const useUploadImage = () => {
 
   return useCallback(
     async (id, file) => {
-      console.log(file);
       const isDone = await uploadFile({ variables: { id, file } });
       if (isDone) {
         history.go(0);
