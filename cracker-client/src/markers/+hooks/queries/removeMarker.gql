@@ -1,0 +1,5 @@
+mutation removeMarker($id: ID) {
+  removeMarker(id: $id) {
+    _id
+  }
+}
