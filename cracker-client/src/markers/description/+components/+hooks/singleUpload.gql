@@ -1,0 +1,3 @@
+mutation singleUpload($id: ID, $file: Upload!) {
+  singleUpload(id: $id, file: $file)
+}
