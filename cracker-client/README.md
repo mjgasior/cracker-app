@@ -48,6 +48,7 @@ The `HTTPS=true` setting forces [Create React App](https://create-react-app.dev/
 - `antd` - Ant Design is a UI design language and React UI components library (I usually used [Material UI](https://material-ui.com/) but this time I wanted to try out something new)
 - `apollo-upload-client` - terminating Apollo Link for Apollo Client that allows FileList, File, Blob or ReactNativeFile instances within query or mutation variables and sends GraphQL multipart requests.
 - `graphql` - the JavaScript reference implementation for GraphQL, a query language for APIs created by Facebook (provides logic for parsing GraphQL queries)
+- `graphql.macro` - allows to compile GraphQL AST (`Abstract Syntax Tree`) at build-time with `babel-plugin-macros` without having to eject `create-react-app` scripts
 - `leaflet` - open-source JavaScript library for mobile-friendly interactive maps based on OpenStreetMap
 - `leaflet-contextmenu` - just a context menu for Leaflet
 - `react-leaflet` - this package provides an abstraction of 🍃 [Leaflet](https://leafletjs.com/reference-1.6.0.html) as ⚛️ React components.
