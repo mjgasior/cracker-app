@@ -33,22 +33,3 @@ export const UPDATE_MARKER = gql`
     }
   }
 `;
-
-export const MARKERS = gql`
-  {
-    markers {
-      _id
-      latitude
-      longitude
-      imageFilename
-      polish {
-        name
-        description
-      }
-      english {
-        name
-        description
-      }
-    }
-  }
-`;
