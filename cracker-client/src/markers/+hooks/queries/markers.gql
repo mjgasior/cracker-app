@@ -1,0 +1,16 @@
+query {
+  markers {
+    _id
+    latitude
+    longitude
+    imageFilename
+    polish {
+      name
+      description
+    }
+    english {
+      name
+      description
+    }
+  }
+}

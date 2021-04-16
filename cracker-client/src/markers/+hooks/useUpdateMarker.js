@@ -1,6 +1,8 @@
 import { useMutation } from "@apollo/client";
-import { UPDATE_MARKER } from "./queries";
+import { loader } from "graphql.macro";
+
+const updateMarkerQuery = loader("./queries/updateMarker.gql");
 
 export const useUpdateMarker = () => {
-  return useMutation(UPDATE_MARKER);
+  return useMutation(updateMarkerQuery);
 };

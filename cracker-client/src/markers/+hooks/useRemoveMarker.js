@@ -1,13 +1,16 @@
 import { useMutation } from "@apollo/client";
-import { REMOVE_MARKER, MARKERS } from "./queries";
+import { loader } from "graphql.macro";
+
+const markersQuery = loader("./queries/markers.gql");
+const removeMarkerQuery = loader("./queries/removeMarker.gql");
 
 export const useRemoveMarker = () => {
-  return useMutation(REMOVE_MARKER, {
+  return useMutation(removeMarkerQuery, {
     update(cache, { data: { removeMarker } }) {
       const markerId = removeMarker._id;
-      const { markers } = cache.readQuery({ query: MARKERS });
+      const { markers } = cache.readQuery({ query: markersQuery });
       cache.writeQuery({
-        query: MARKERS,
+        query: markersQuery,
         data: { markers: markers.filter((x) => x._id !== markerId) },
       });
     },

@@ -1,0 +1,15 @@
+mutation addMarker($marker: MarkerInput) {
+  addMarker(marker: $marker) {
+    _id
+    latitude
+    longitude
+    polish {
+      name
+      description
+    }
+    english {
+      name
+      description
+    }
+  }
+}

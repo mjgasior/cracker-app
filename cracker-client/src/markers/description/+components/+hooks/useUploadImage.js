@@ -1,21 +1,16 @@
 import { useCallback } from "react";
 import { useMutation } from "@apollo/client";
-import gql from "graphql-tag";
 import { useHistory } from "react-router-dom";
+import { loader } from "graphql.macro";
 
-const SINGLE_UPLOAD_MUTATION = gql`
-  mutation singleUpload($id: ID, $file: Upload!) {
-    singleUpload(id: $id, file: $file)
-  }
-`;
+const singleUploadQuery = loader("./singleUpload.gql");
 
 export const useUploadImage = () => {
-  const [uploadFile] = useMutation(SINGLE_UPLOAD_MUTATION);
+  const [uploadFile] = useMutation(singleUploadQuery);
   const history = useHistory();
 
   return useCallback(
     async (id, file) => {
-      console.log(file);
       const isDone = await uploadFile({ variables: { id, file } });
       if (isDone) {
         history.go(0);
