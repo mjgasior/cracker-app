@@ -37,7 +37,7 @@ Big thanks to :octocat: [thomsa](https://github.com/thomsa) and :octocat: [barli
 
 ## Setup:
 
-This manual is prepared for **Docker Desktop** on **Windows** with [WSL2](https://docs.docker.com/desktop/windows/wsl/#develop-with-docker-and-wsl-2).
+This manual is prepared for **Docker Desktop** on **Windows** with [WSL2](https://docs.docker.com/desktop/windows/wsl/#develop-with-docker-and-wsl-2). To configure Visual Studio Code to work with WSL2, go [here](https://code.visualstudio.com/docs/remote/wsl-tutorial).
 
 ### Authorization setup:
 
